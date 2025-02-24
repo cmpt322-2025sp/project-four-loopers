@@ -245,9 +245,9 @@ function App() {
         </svg>
         </div>
         <div style={{width: 23, height: 23, left: 19, top: 159, position: 'absolute', background: '#822C0C', borderRadius: 9999, border: '4px #D9731B solid'}} />
-        <div style={{width: 20, height: 0, left: 29, top: 160, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: 'top left', border: '3px #D9731B solid'}}></div>
+        <div style={{width: 20, height: 0, left: 37, top: 160, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: 'top left', border: '3px #D9731B solid'}}></div>
         <div style={{width: 18, height: 0, left: 22, top: 172, position: 'absolute', border: '3px #D9731B solid'}}></div>
-        <div data-svg-wrapper style={{left: 0, top: 206, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 10, top: 216, position: 'absolute'}}>
         <svg width="73" height="24" viewBox="0 0 73 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M73 24H0C0 24 1.02098 12.5122 3.57343 11.5133C6.12587 10.5144 9.18881 8.01702 11.7413 10.0149C14.2937 12.0128 12.7622 6.51862 21.951 6.51862C31.1399 6.51862 24.5035 0.525012 31.1399 0.0255382C37.7762 -0.473936 42.3706 6.51862 45.9441 6.51862C49.5175 6.51862 49.007 5.51968 58.1958 4.02128C67.3846 2.52289 73 6.51862 73 6.51862V24Z" fill="url(#paint0_linear_51_30)"/>
         <defs>
@@ -289,20 +289,20 @@ function App() {
         <path d="M122.089 20.458H3V200H122.089M122.089 20.458V200M122.089 20.458L226 4V167.084L122.089 200" stroke="#E37806" stroke-width="6"/>
         </svg>
         </div>
-        <div style={{width: 110, height: 0, left: 76, top: 118.50, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: 'top left', border: '6px #E37806 solid'}}></div>
-        <div data-svg-wrapper style={{left: 51, top: 120, position: 'absolute'}}>
+        <div style={{width: 90, height: 0, left: 72, top: 120.50, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: 'top left', border: '4px #E37806 solid'}}></div>
+        <div data-svg-wrapper style={{left: 40, top: 87, position: 'absolute'}}>
         <svg width="19" height="43" viewBox="0 0 19 43" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 42.5C14.2457 22.2692 13.3451 5.96586 0.999999 4.5" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 87.91, top: 112.97, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 95.91, top: 85.97, position: 'absolute'}}>
         <svg width="21" height="41" viewBox="0 0 21 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.99973 40.0001C6.46368 18.1524 3.68871 6.98149 20 4.5" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
-        <div style={{width: 50.93, height: 0, left: 96, top: 120.50, position: 'absolute', transform: 'rotate(43deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
-        <div style={{width: 43.19, height: 0, left: 19, top: 151.50, position: 'absolute', transform: 'rotate(-42deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
-        <div style={{width: 47.20, height: 0, left: 137, top: 155.50, position: 'absolute', transform: 'rotate(-54deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
+        <div style={{width: 47.93, height: 0, left: 99, top: 119.50, position: 'absolute', transform: 'rotate(43deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
+        <div style={{width: 43.19, height: 0, left: 15.80, top: 153.50, position: 'absolute', transform: 'rotate(-42deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
+        <div style={{width: 47.20, height: 0, left: 135, top: 155.50, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
         <div data-svg-wrapper style={{left: 135.50, top: 263, position: 'absolute'}}>
         <svg width="53" height="40" viewBox="0 0 53 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0.5 10L53 0.5V23.5L0.5 40V10Z" fill="#E09799"/>
@@ -314,11 +314,11 @@ function App() {
         </svg>
         </div>
         <div data-svg-wrapper style={{left: 71, top: 0.50, position: 'absolute'}}>
-        <svg width="182" height="117" viewBox="0 0 182 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="190" height="117" viewBox="0 0 182 117" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0H127.5L182 98L65.5 117C35.6537 74.2104 21.4814 48.4811 0 0Z" fill="#D04F20"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 70.50, top: 0.50, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 72.50, top: 0.50, position: 'absolute'}}>
         <svg width="68" height="127" viewBox="0 0 68 127" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1.5 15L0.5 0C24.9502 45.6106 33.8106 68.1175 67.6525 117L66 126.5C36.1271 81.1351 24.852 66.2561 1.5 15Z" fill="#FD9159"/>
         </svg>
@@ -339,7 +339,7 @@ function App() {
         <path d="M52 0V31L0 49.5L52 0Z" fill="#BC4900"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 8.09, top: 0, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 13.5, top: 0, position: 'absolute'}}>
         <svg width="64" height="127" viewBox="0 0 64 127" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M62.4997 0.5L63.4997 15.5C48.7509 59.4195 33.2273 87.2431 5.49991 126.5C5.49991 126.5 -2.57648 120.628 1 120.5C4.57648 120.372 48.6824 50.5404 62.4997 0.5Z" fill="#FD9159"/>
         </svg>
@@ -347,15 +347,15 @@ function App() {
     </div>
     <div style={{width: 296, height: 599, left: 1122, top: 258, position: 'absolute'}}>
         <div style={{width: 273, height: 250.36, left: 12, top: 348.64, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
-        <div style={{width: 257, height: 67.84, left: 20, top: 524.47, position: 'absolute', background: '#C94722'}} />
-        <div style={{width: 233, height: 129.96, left: 32, top: 218.69, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
+        <div style={{width: 275.5, height: 84.84, left: 20, top: 524.47, position: 'absolute', background: '#C94722'}} />
+        <div style={{width: 233, height: 120, left: 32, top: 218.69, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
         <div data-svg-wrapper style={{left: 17, top: 84, position: 'absolute'}}>
-        <svg width="264" height="135" viewBox="0 0 264 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="284" height="135" viewBox="0 0 264 135" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19.4733 129.472L5.58875 5H257.891L243.543 129.472H19.4733Z" fill="#FECCBC" stroke="#E37806" stroke-width="10"/>
         </svg>
         </div>
-        <div style={{width: 296, height: 15.29, left: 0, top: 341.96, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div data-svg-wrapper style={{left: 176, top: 418.40, position: 'absolute'}}>
+        <div style={{width: 310, height: 15.29, left: 5, top: 343.96, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div data-svg-wrapper style={{left: 144, top: 418.40, position: 'absolute'}}>
         <svg width="40" height="86" viewBox="0 0 40 86" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_37_42)">
         <path d="M4.00004 0.400024L4 77.8H36C35.0155 19.5892 27.7267 3.31989 4.00004 0.400024Z" fill="#E37806"/>
@@ -413,22 +413,22 @@ function App() {
         </defs>
         </svg>
         </div>
-        <div style={{width: 253, height: 17, left: 23, top: 209, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div style={{width: 265, height: 14, left: 20, top: 524, position: 'absolute', background: '#D05919', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.40)'}} />
-        <div style={{width: 13, height: 249.40, left: 117, top: 345.78, position: 'absolute', background: '#E37806'}} />
-        <div data-svg-wrapper style={{left: 30, top: 406, position: 'absolute'}}>
-        <svg width="77" height="192" viewBox="0 0 77 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div style={{width: 270, height: 17, left: 23, top: 209, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div style={{width: 276, height: 14, left: 20, top: 524, position: 'absolute', background: '#D05919', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.40)'}} />
+        <div style={{width: 13, height: 270, left: 117, top: 345.78, position: 'absolute', background: '#E37806'}} />
+        <div data-svg-wrapper style={{left: 30, top: 410, position: 'absolute'}}>
+        <svg width="80" height="215" viewBox="0 0 77 192" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 188V20.5033C18.1467 9.09768 28.5757 4.01999 38.5056 4.00005C48.4282 3.98013 58.8556 9.01031 73 20.4946V188H4Z" fill="#8D320B" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
         <div style={{width: 141, height: 76, left: 77, top: 244, position: 'absolute', background: '#8D320B', border: '7px #E37806 solid'}} />
-        <div style={{width: 7, height: 64, left: 144, top: 250, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 7, height: 78, left: 153, top: 250, position: 'absolute', background: '#E37806'}} />
         <div data-svg-wrapper style={{left: 42, top: 5, position: 'absolute'}}>
         <svg width="219" height="80" viewBox="0 0 219 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M110 0L218.5 80H0L110 0Z" fill="#FECCBC"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: -15, top: -35, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: -10, top: -35, position: 'absolute'}}>
         <svg width="335" height="169" viewBox="0 0 335 169" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_37_52)">
         <path d="M308 131C249.606 102.204 219.096 81.324 169 35C126.464 72.8821 97.814 93.6108 52 119.081C45.0923 122.921 37.7945 126.869 30 131" stroke="#FDC33F" stroke-width="20"/>
@@ -448,22 +448,22 @@ function App() {
         </svg>
         </div>
         <div style={{width: 69, height: 79, left: 114, top: 112, position: 'absolute', background: '#8D320B', border: '7px #E37806 solid'}} />
-        <div data-svg-wrapper style={{left: 150.92, top: 113.40, position: 'absolute'}}>
-        <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div data-svg-wrapper style={{left: 159.92, top: 114.40, position: 'absolute'}}>
+        <svg width="35" height="43" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.92053 1.39954C11.3993 17.4779 18.0602 25.3007 32.9205 37.3995" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 116.08, top: 150.39, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 118.08, top: 115, position: 'absolute'}}>
         <svg width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.08374 38.3944C17.417 25.9718 24.2397 17.8927 33.0837 1.39444" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 180.87, top: 152.65, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 160.87, top: 162.65, position: 'absolute'}}>
         <svg width="35" height="38" viewBox="0 0 35 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.8746 2.65405C18.6991 13.9195 12.1718 21.3993 2.87463 36.6541" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 149.13, top: 187.65, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 117.13, top: 162.65, position: 'absolute'}}>
         <svg width="35" height="38" viewBox="0 0 35 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.1254 36.6541C23.2339 20.789 16.6119 13.3973 2.12537 2.65405" stroke="#E37806" stroke-width="5"/>
         </svg>
