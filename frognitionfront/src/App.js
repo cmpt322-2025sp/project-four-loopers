@@ -2,7 +2,7 @@ import './addlevel.css';
 import React from 'react';
 import axios from 'axios';
 
-function App() {
+function background() {
   return (
     <div className="App">
       <div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
@@ -608,5 +608,5 @@ function App() {
   );
 }
 
-export default App;
+export default background;
 
