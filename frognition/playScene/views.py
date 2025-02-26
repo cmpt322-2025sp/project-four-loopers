@@ -5,8 +5,12 @@ from .models import *
 from .serializers import *
 
 # Create your views here
-class ProbelmListView(APIView):
+class ProblemListView(APIView):
     def get(self, request):
         problems = Problem.objects.all()
         serializer = ProblemSerializer(problems, many=True)
         return Response(serializer.data)
+
+
+
+
