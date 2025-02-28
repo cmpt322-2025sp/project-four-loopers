@@ -2,14 +2,22 @@ from rest_framework import serializers
 from .models import Problem, Fly
 
 class ProblemSerializer(serializers.ModelSerializer):
+    correct_answer = FlySerializer()
+    flies = FlySerializer(many=True)
+
     class Meta:
         model = Problem
-        fields = '__all__'
-
+        fields = ['id','num1','num2','correct_answer','flies']
+    
+     def create(self, validated_data):
+        flies_data = validated_data.pop('flies')  
+        problem = Problem.objects.create(**validated_data)  
+        problem.flies.set(flies_data) 
+        return problem
 class FlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Fly
-        fields = '__all__'
+        fields = ['id','number']
 
 # class PlayerSerializer(serializers.ModelSerializer):
 #     class Meta:
