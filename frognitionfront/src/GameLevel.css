@@ -1,0 +1,34 @@
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-banner {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.frog {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.flies-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.fly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fly-number {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #fff;  /* Change text color for visibility */
+}
