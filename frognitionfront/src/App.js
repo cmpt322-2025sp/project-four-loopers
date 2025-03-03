@@ -6,8 +6,7 @@ import AdditionLevel from './AdditionLevel';
 function App() {
   return (
     <div className="app">
-    <h1>Math Game</h1>
-    <AdditionLevel />
+    <GameLevel />
 </div>
     
   );

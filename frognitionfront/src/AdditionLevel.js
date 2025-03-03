@@ -38,6 +38,11 @@ function AdditionLevel() {
       setFeedback('❌ Incorrect. Try again!');
     }
   };
+
+  if (!problem) {
+    return <div>Loading...</div>;
+  }
+  
   return (
 <div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
     <div style={{width: 1508, height: 1026.50, left: -23, top: -4, position: 'absolute'}}>
@@ -641,7 +646,7 @@ function AdditionLevel() {
     <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>{problem.num1} + {problem.num2} = ?</div>
     {/* frog first line below */}
     <img style={{width: 156, height: 140, left: 739, top: 850, position: 'absolute'}} img src={frogImage} alt="Frog"/>  
-    <div className="flies-container" style={{ display: 'flex', gap: '20px' }}>
+    <div className="flies-container">
         {flies.length > 0 ? (
           flies.map((flyNumber, index) => (
             <div 
