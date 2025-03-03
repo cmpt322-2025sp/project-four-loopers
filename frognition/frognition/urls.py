@@ -15,10 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, include
 from playScene.views import *
+from rest_framework.routers import DefaultRouter
+from playScene.views import ProblemViewSet, FlyViewSet, get_random_problem
+
+router = DefaultRouter()
+router.register(r'problems', ProblemViewSet)
+router.register(r'flies', FlyViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/problems/', ProblemListView.as_view(), name='problems-list'),
+    path('get_random_problem/', get_random_problem),
+    path('api/', include(router.urls)),
 ]

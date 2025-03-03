@@ -1,17 +1,24 @@
 from django.db import models
 
 # Create your models here.
+
+class Fly(models.Model):
+    number = models.IntegerField()
+
+    def __str__(self):
+        return f"Fly with number {self.number}"
+
 class Problem(models.Model):
     num1 = models.IntegerField()
     num2 = models.IntegerField()
-    correct_answer = models.ForeignKey('Fly', on_delete=models.CASCADE)
+    correct_answer = models.ForeignKey(
+        Fly, on_delete=models.CASCADE, related_name='correct_answer_for_problem')
+    flies = models.ManyToManyField(
+        Fly, related_name='flies_for_problem')
 
     def __str__(self):
         return f"{self.num1} + {self.num2} = ?"
 
-class Fly(models.Model):
-    flyForProblem = models.ManyToManyField(Problem) # This is a many-to-many relationship with problem and fly
-    number = models.IntegerField()
 
 # class Player(models.Model):
 #     name = models.CharField(max_length=100)
