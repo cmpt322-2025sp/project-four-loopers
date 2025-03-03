@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ytg8krar(copd7sr$ck1k-6z829s^y)n*!!)hioavj4a!rwu_+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django.stargazer-vega.ts.net']
 
 
 # Application definition
@@ -86,8 +86,12 @@ WSGI_APPLICATION = 'frognition.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MathApp_dev',
+        'USER': 'frog-dev',
+        'PASSWORD': 'dev-passwd',
+        'HOST': '192.168.1.11',
+        'PORT': '3306',
     }
 }
 
