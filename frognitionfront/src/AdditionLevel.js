@@ -1,3 +1,44 @@
+import React, { useState, useEffect } from 'react';
+import flyImage from './Moth.png'; 
+import frogImage from './Euler.png';
+
+
+function AdditionLevel() {
+  const [problem, setProblem] = useState(null);  // Stores problem data
+  const [flies, setFlies] = useState([]);  // Stores flies
+  const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
+  const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
+  const [feedback, setFeedback] = useState('');  // Stores feedback message
+
+  useEffect(() => {
+    fetchProblem(); // Fetch the first problem when the page loads
+  }, []);
+
+  const fetchProblem = () => {
+    fetch('http://127.0.0.1:8000/get_random_problem/') // Fetch from Django backend
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Fetched new problem:', data);
+
+        // Update state with the fetched problem data
+        setProblem({ num1: data.num1, num2: data.num2 });  // Store problem
+        setFlies(data.flies);  // Store flies
+        setCorrectAnswer(data.correct_answer);  // Store correct answer
+        setSelectedAnswer(null);  // Reset selection
+        setFeedback('');  // Reset feedback message
+      })
+      .catch((error) => console.error('Error fetching new problem:', error));
+  };
+
+  const handleFlyClick = (flyNumber) => {
+    setSelectedAnswer(flyNumber);
+    if (flyNumber === correctAnswer) {
+      setFeedback('✅ Correct! Great job!');
+    } else {
+      setFeedback('❌ Incorrect. Try again!');
+    }
+  };
+  return (
 <div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
     <div style={{width: 1508, height: 1026.50, left: -23, top: -4, position: 'absolute'}}>
         <div style={{width: 1492, height: 748, left: 16, top: 0, position: 'absolute', background: 'linear-gradient(180deg, #4FC5E5 0%, #D2FFFB 64%, #D2FFFB 99%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
@@ -597,11 +638,44 @@
     </defs>
     </svg>
     </div>
-    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>4+6</div>
-    <img style={{width: 156, height: 140, left: 739, top: 850, position: 'absolute'}} src="https://placehold.co/156x140" />
-    <img style={{width: 183, height: 183, left: 254, top: 401, position: 'absolute'}} src="https://placehold.co/183x183" />
+    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>{problem.num1} + {problem.num2} = ?</div>
+    {/* frog first line below */}
+    <img style={{width: 156, height: 140, left: 739, top: 850, position: 'absolute'}} img src={frogImage} alt="Frog"/>  
+    <div className="flies-container" style={{ display: 'flex', gap: '20px' }}>
+        {flies.length > 0 ? (
+          flies.map((flyNumber, index) => (
+            <div 
+              key={index} 
+              className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+              onClick={() => handleFlyClick(flyNumber)}
+              style={{
+                cursor: 'pointer', 
+                textAlign: 'center',
+                padding: '10px', 
+                margin: '5px', 
+                border: '2px solid black', 
+                display: 'inline-block', 
+                backgroundColor: selectedAnswer === flyNumber ? '#ffcccb' : 'white' // Highlight selection
+              }}
+            >
+              <img 
+                src={flyImage} 
+                alt={`Fly with number ${flyNumber}`} 
+                style={{ width: '80px', height: '80px' }}
+              />
+              <p style={{ margin: '5px 0', fontSize: '20px', fontWeight: 'bold' }}>{flyNumber}</p>
+            </div>
+          ))
+        ) : (
+          <p>No flies available</p>
+        )}
+      </div>
+    {/* <img style={{width: 183, height: 183, left: 254, top: 401, position: 'absolute'}} src="https://placehold.co/183x183" />
     <img style={{width: 183, height: 183, left: 1096, top: 323, position: 'absolute'}} src="https://placehold.co/183x183" />
     <img style={{width: 183, height: 183, left: 843, top: 464, position: 'absolute'}} src="https://placehold.co/183x183" />
-    <img style={{width: 183, height: 183, left: 556, top: 342, position: 'absolute'}} src="https://placehold.co/183x183" />
+    <img style={{width: 183, height: 183, left: 556, top: 342, position: 'absolute'}} src="https://placehold.co/183x183" /> */}
     <div style={{width: 428, height: 56, left: 541, top: 43, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>ADDITION QUESTIONS </div>
 </div>
+  );
+}
+export default AdditionLevel;

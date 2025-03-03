@@ -1,4 +1,7 @@
 /* Example styles */
+.GameLevel {
+  text-align: center;
+}
 .game-container {
     text-align: center;
     padding: 20px;

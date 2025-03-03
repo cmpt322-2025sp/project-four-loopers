@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png'; 
+import frogImage from './Euler.png';
+import './GameLevel.css';
 
 function GameLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
@@ -66,9 +68,9 @@ function GameLevel() {
           }}
         >
           <img 
-            src={flyImage}  // Use imported fly image
+            src={flyImage} 
             alt={`Fly with number ${flyNumber}`} 
-            style={{ width: '80px', height: '80px' }} // Adjust size as needed
+            style={{ width: '80px', height: '80px' }}
           />
           <p style={{ margin: '5px 0', fontSize: '20px', fontWeight: 'bold' }}>{flyNumber}</p>
         </div>
@@ -77,6 +79,14 @@ function GameLevel() {
       <p>No flies available</p>
     )}
   </div>
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',  // Centers horizontally
+    alignItems: 'center',  // Centers vertically
+    height: '100vh'  // Full viewport height (adjust if needed)
+}}>
+    <img src={frogImage} alt="Frog" style={{ width: '80px', height: '80px' }} />
+</div>
 
   {/* Feedback for user's answer */}
   <h3>{feedback}</h3>
