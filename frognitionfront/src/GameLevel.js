@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import flyImage from './Moth.png'; 
 
 function GameLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
@@ -40,46 +41,49 @@ function GameLevel() {
   if (!problem) {
     return <div>Loading...</div>;
   }
-
   return (
-    <div>
-      <h1>Math Game</h1>
+  <div>
 
-      {/* Display the math problem */}
-      <h2>{problem.num1} + {problem.num2} = ?</h2>
+  {/* Display the math problem */}
+  <h2>{problem.num1} + {problem.num2} = ?</h2>
 
-      {/* Display the flies */}
-      <div className="flies-container">
-        {flies.length > 0 ? (
-          flies.map((flyNumber, index) => (
-            <div 
-              key={index} 
-              className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-              onClick={() => handleFlyClick(flyNumber)}
-              style={{
-                cursor: 'pointer', 
-                padding: '10px', 
-                margin: '5px', 
-                border: '2px solid black', 
-                display: 'inline-block', 
-                backgroundColor: selectedAnswer === flyNumber ? '#ffcccb' : 'white' // Highlight selection
-              }}
-            >
-              🪰 {flyNumber} {/* Fly emoji with number */}
-            </div>
-          ))
-        ) : (
-          <p>No flies available</p>
-        )}
-      </div>
+  {/* Display the flies */}
+  <div className="flies-container" style={{ display: 'flex', gap: '20px' }}>
+    {flies.length > 0 ? (
+      flies.map((flyNumber, index) => (
+        <div 
+          key={index} 
+          className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+          onClick={() => handleFlyClick(flyNumber)}
+          style={{
+            cursor: 'pointer', 
+            textAlign: 'center',
+            padding: '10px', 
+            margin: '5px', 
+            border: '2px solid black', 
+            display: 'inline-block', 
+            backgroundColor: selectedAnswer === flyNumber ? '#ffcccb' : 'white' // Highlight selection
+          }}
+        >
+          <img 
+            src={flyImage}  // Use imported fly image
+            alt={`Fly with number ${flyNumber}`} 
+            style={{ width: '80px', height: '80px' }} // Adjust size as needed
+          />
+          <p style={{ margin: '5px 0', fontSize: '20px', fontWeight: 'bold' }}>{flyNumber}</p>
+        </div>
+      ))
+    ) : (
+      <p>No flies available</p>
+    )}
+  </div>
 
-      {/* Feedback for user's answer */}
-      <h3>{feedback}</h3>
+  {/* Feedback for user's answer */}
+  <h3>{feedback}</h3>
 
-      {/* Button to fetch new problem */}
-      <button onClick={fetchProblem} style={{ marginTop: '10px' }}>Get New Problem</button>
-    </div>
-  );
+  {/* Button to fetch new problem */}
+  <button onClick={fetchProblem} style={{ marginTop: '10px' }}>Get New Problem</button>
+</div>
+);
 }
-
 export default GameLevel;
