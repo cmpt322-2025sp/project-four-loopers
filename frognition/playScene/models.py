@@ -4,7 +4,7 @@ from django.db import models
 
 class Fly(models.Model):
     number = models.IntegerField()
-    
+
     def __str__(self):
         return f"Fly with number {self.number}"
 
@@ -14,10 +14,11 @@ class Problem(models.Model):
     correct_answer = models.ForeignKey(
         Fly, on_delete=models.CASCADE, related_name='correct_answer_for_problem')
     flies = models.ManyToManyField(
-        Fly,related_name='flies_for_problem')
+        Fly, related_name='flies_for_problem')
 
     def __str__(self):
         return f"{self.num1} + {self.num2} = ?"
+
 
 # class Player(models.Model):
 #     name = models.CharField(max_length=100)

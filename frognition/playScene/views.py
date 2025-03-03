@@ -5,6 +5,7 @@ from .models import *
 from .serializers import *
 import random
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
 # Create your views here
 class ProblemViewSet(viewsets.ModelViewSet):
@@ -15,29 +16,20 @@ class FlyViewSet(viewsets.ModelViewSet):
     queryset = Fly.objects.all()
     serializer_class = FlySerializer
 
-def get_problem(request):
-    # Generate a random problem (e.g., addition)
-    num1 = random.randint(1, 10)
-    num2 = random.randint(1, 10)
+def get_random_problem(request):
+    problem = Problem.objects.order_by('?').first()  # Get a random problem
 
-    # Fetch flies from the database
-    flies = list(Fly.objects.values_list('number', flat=True))
+    if not problem:
+        return JsonResponse({'error': 'No problems available'}, status=404)
 
-    # Pick a random set of flies (for simplicity, we'll just take the first 2 flies for now)
-    selected_flies = random.sample(flies, 2) if len(flies) >= 2 else flies
-
-    # Select a random correct answer from the flies
-    correct_answer = random.choice(selected_flies)
-
-    # Prepare the problem data
-    problem_data = {
-        "id": random.randint(1, 1000),
-        "flies": selected_flies,
-        "num1": num1,
-        "num2": num2,
-        "correct_answer": correct_answer
+    data = {
+        'num1': problem.num1,
+        'num2': problem.num2,
+        'correct_answer': problem.correct_answer.number,  # Ensure correct_answer is a number
+        'flies': list(problem.flies.values_list('number', flat=True))  # Convert queryset to list
     }
+    
+    return JsonResponse(data)
 
-    return JsonResponse(problem_data)
 
 
