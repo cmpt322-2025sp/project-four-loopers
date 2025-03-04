@@ -44,7 +44,7 @@ function AdditionLevel() {
   }
   
   return (
-<div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
+    <div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
     <div style={{width: 1508, height: 1026.50, left: -23, top: -4, position: 'absolute'}}>
         <div style={{width: 1492, height: 748, left: 16, top: 0, position: 'absolute', background: 'linear-gradient(180deg, #4FC5E5 0%, #D2FFFB 64%, #D2FFFB 99%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
         <div data-svg-wrapper style={{left: 741, top: 183, position: 'absolute'}}>
@@ -93,7 +93,7 @@ function AdditionLevel() {
         <path d="M210.008 54.6086C210.008 54.6086 -1.49206 58.1086 0.00794117 50.6086C1.50794 43.1086 39.5079 39.1086 39.5079 39.1086C39.5079 39.1086 45.0079 -2.39142 95.0079 0.10858C145.008 2.60858 124.008 42.6086 140.508 39.1086C157.008 35.6086 151.008 25.1086 182.008 30.1086C213.008 35.1086 210.008 54.6086 210.008 54.6086Z" fill="#ECFBFC"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 825, top: 613, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 820, top: 617, position: 'absolute'}}>
         <svg width="103" height="135" viewBox="0 0 103 135" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_52_42)">
         <path d="M59.6354 24.5668H4V131H99V4H63.8343L49.1381 18.9109H59.6354V24.5668Z" fill="#95DDE2"/>
@@ -263,14 +263,14 @@ function AdditionLevel() {
         <div style={{width: 63, height: 57, left: 48.50, top: 37, position: 'absolute', color: 'black', fontSize: 60, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>59 </div>
         <div style={{width: 86, height: 12, left: 45.50, top: 112, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>SECONDS</div>
     </div>
-    <div style={{width: 109, height: 247, left: 697, top: 487, position: 'absolute'}}>
-        <div style={{width: 109, height: 166, left: 0, top: 81, position: 'absolute', background: '#F9E0B5', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', border: '6px #E37806 solid'}} />
+    <div style={{width: 109, height: 247, left: 690, top: 475, position: 'absolute'}}>
+        <div style={{width: 109, height: 166, left: -10, top: 81, position: 'absolute', background: '#F9E0B5', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', border: '6px #E37806 solid'}} />
         <div data-svg-wrapper style={{left: 3, top: 0, position: 'absolute'}}>
-        <svg width="114" height="91" viewBox="0 0 114 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="110" height="85" viewBox="0 0 114 91" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3 7V88H105L3 7Z" fill="#F9E0B5" stroke="#E37806" stroke-width="6"/>
         </svg>
         </div>
-        <div style={{width: 5.94, height: 185.22, left: 1, top: 87.84, position: 'absolute', transform: 'rotate(-33deg)', transformOrigin: 'top left', background: '#E37806'}} />
+        <div style={{width: 5.94, height: 195, left: 1, top: 93.84, position: 'absolute', transform: 'rotate(-32deg)', transformOrigin: 'top left', background: '#E37806'}} />
     </div>
     <div style={{width: 191, height: 230, left: 887, top: 506, position: 'absolute'}}>
         <div style={{width: 130, height: 104.37, left: 9, top: 125.63, position: 'absolute', background: '#FFD3C6', border: '5px #E57613 solid'}} />
@@ -286,9 +286,9 @@ function AdditionLevel() {
         </svg>
         </div>
         <div style={{width: 23, height: 23, left: 19, top: 159, position: 'absolute', background: '#822C0C', borderRadius: 9999, border: '4px #D9731B solid'}} />
-        <div style={{width: 20, height: 0, left: 29, top: 160, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: 'top left', border: '3px #D9731B solid'}}></div>
+        <div style={{width: 20, height: 0, left: 37, top: 160, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: 'top left', border: '3px #D9731B solid'}}></div>
         <div style={{width: 18, height: 0, left: 22, top: 172, position: 'absolute', border: '3px #D9731B solid'}}></div>
-        <div data-svg-wrapper style={{left: 0, top: 206, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 10, top: 216, position: 'absolute'}}>
         <svg width="73" height="24" viewBox="0 0 73 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M73 24H0C0 24 1.02098 12.5122 3.57343 11.5133C6.12587 10.5144 9.18881 8.01702 11.7413 10.0149C14.2937 12.0128 12.7622 6.51862 21.951 6.51862C31.1399 6.51862 24.5035 0.525012 31.1399 0.0255382C37.7762 -0.473936 42.3706 6.51862 45.9441 6.51862C49.5175 6.51862 49.007 5.51968 58.1958 4.02128C67.3846 2.52289 73 6.51862 73 6.51862V24Z" fill="url(#paint0_linear_51_30)"/>
         <defs>
@@ -330,20 +330,20 @@ function AdditionLevel() {
         <path d="M122.089 20.458H3V200H122.089M122.089 20.458V200M122.089 20.458L226 4V167.084L122.089 200" stroke="#E37806" stroke-width="6"/>
         </svg>
         </div>
-        <div style={{width: 110, height: 0, left: 76, top: 118.50, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: 'top left', border: '6px #E37806 solid'}}></div>
-        <div data-svg-wrapper style={{left: 51, top: 120, position: 'absolute'}}>
+        <div style={{width: 90, height: 0, left: 72, top: 120.50, position: 'absolute', transform: 'rotate(-90deg)', transformOrigin: 'top left', border: '4px #E37806 solid'}}></div>
+        <div data-svg-wrapper style={{left: 40, top: 87, position: 'absolute'}}>
         <svg width="19" height="43" viewBox="0 0 19 43" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 42.5C14.2457 22.2692 13.3451 5.96586 0.999999 4.5" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 87.91, top: 112.97, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 95.91, top: 85.97, position: 'absolute'}}>
         <svg width="21" height="41" viewBox="0 0 21 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.99973 40.0001C6.46368 18.1524 3.68871 6.98149 20 4.5" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
-        <div style={{width: 50.93, height: 0, left: 96, top: 120.50, position: 'absolute', transform: 'rotate(43deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
-        <div style={{width: 43.19, height: 0, left: 19, top: 151.50, position: 'absolute', transform: 'rotate(-42deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
-        <div style={{width: 47.20, height: 0, left: 137, top: 155.50, position: 'absolute', transform: 'rotate(-54deg)', transformOrigin: 'top left', border: '8px #E37806 solid'}}></div>
+        <div style={{width: 47.93, height: 0, left: 99, top: 119.50, position: 'absolute', transform: 'rotate(43deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
+        <div style={{width: 43.19, height: 0, left: 15.80, top: 153.50, position: 'absolute', transform: 'rotate(-42deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
+        <div style={{width: 47.20, height: 0, left: 135, top: 155.50, position: 'absolute', transform: 'rotate(-45deg)', transformOrigin: 'top left', border: '5px #E37806 solid'}}></div>
         <div data-svg-wrapper style={{left: 135.50, top: 263, position: 'absolute'}}>
         <svg width="53" height="40" viewBox="0 0 53 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0.5 10L53 0.5V23.5L0.5 40V10Z" fill="#E09799"/>
@@ -355,11 +355,11 @@ function AdditionLevel() {
         </svg>
         </div>
         <div data-svg-wrapper style={{left: 71, top: 0.50, position: 'absolute'}}>
-        <svg width="182" height="117" viewBox="0 0 182 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="190" height="117" viewBox="0 0 182 117" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0H127.5L182 98L65.5 117C35.6537 74.2104 21.4814 48.4811 0 0Z" fill="#D04F20"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 70.50, top: 0.50, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 72.50, top: 0.50, position: 'absolute'}}>
         <svg width="68" height="127" viewBox="0 0 68 127" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1.5 15L0.5 0C24.9502 45.6106 33.8106 68.1175 67.6525 117L66 126.5C36.1271 81.1351 24.852 66.2561 1.5 15Z" fill="#FD9159"/>
         </svg>
@@ -380,7 +380,7 @@ function AdditionLevel() {
         <path d="M52 0V31L0 49.5L52 0Z" fill="#BC4900"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 8.09, top: 0, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 13.5, top: 0, position: 'absolute'}}>
         <svg width="64" height="127" viewBox="0 0 64 127" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M62.4997 0.5L63.4997 15.5C48.7509 59.4195 33.2273 87.2431 5.49991 126.5C5.49991 126.5 -2.57648 120.628 1 120.5C4.57648 120.372 48.6824 50.5404 62.4997 0.5Z" fill="#FD9159"/>
         </svg>
@@ -388,15 +388,15 @@ function AdditionLevel() {
     </div>
     <div style={{width: 296, height: 599, left: 1122, top: 258, position: 'absolute'}}>
         <div style={{width: 273, height: 250.36, left: 12, top: 348.64, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
-        <div style={{width: 257, height: 67.84, left: 20, top: 524.47, position: 'absolute', background: '#C94722'}} />
-        <div style={{width: 233, height: 129.96, left: 32, top: 218.69, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
+        <div style={{width: 275.5, height: 84.84, left: 20, top: 524.47, position: 'absolute', background: '#C94722'}} />
+        <div style={{width: 233, height: 120, left: 32, top: 218.69, position: 'absolute', background: '#FECCBC', border: '10px #E37806 solid'}} />
         <div data-svg-wrapper style={{left: 17, top: 84, position: 'absolute'}}>
-        <svg width="264" height="135" viewBox="0 0 264 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="284" height="135" viewBox="0 0 264 135" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19.4733 129.472L5.58875 5H257.891L243.543 129.472H19.4733Z" fill="#FECCBC" stroke="#E37806" stroke-width="10"/>
         </svg>
         </div>
-        <div style={{width: 296, height: 15.29, left: 0, top: 341.96, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div data-svg-wrapper style={{left: 176, top: 418.40, position: 'absolute'}}>
+        <div style={{width: 310, height: 15.29, left: 5, top: 343.96, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div data-svg-wrapper style={{left: 144, top: 418.40, position: 'absolute'}}>
         <svg width="40" height="86" viewBox="0 0 40 86" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_37_42)">
         <path d="M4.00004 0.400024L4 77.8H36C35.0155 19.5892 27.7267 3.31989 4.00004 0.400024Z" fill="#E37806"/>
@@ -454,22 +454,22 @@ function AdditionLevel() {
         </defs>
         </svg>
         </div>
-        <div style={{width: 253, height: 17, left: 23, top: 209, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div style={{width: 265, height: 14, left: 20, top: 524, position: 'absolute', background: '#D05919', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.40)'}} />
-        <div style={{width: 13, height: 249.40, left: 117, top: 345.78, position: 'absolute', background: '#E37806'}} />
-        <div data-svg-wrapper style={{left: 30, top: 406, position: 'absolute'}}>
-        <svg width="77" height="192" viewBox="0 0 77 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div style={{width: 270, height: 17, left: 23, top: 209, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div style={{width: 276, height: 14, left: 20, top: 524, position: 'absolute', background: '#D05919', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.40)'}} />
+        <div style={{width: 13, height: 270, left: 117, top: 345.78, position: 'absolute', background: '#E37806'}} />
+        <div data-svg-wrapper style={{left: 30, top: 410, position: 'absolute'}}>
+        <svg width="80" height="215" viewBox="0 0 77 192" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 188V20.5033C18.1467 9.09768 28.5757 4.01999 38.5056 4.00005C48.4282 3.98013 58.8556 9.01031 73 20.4946V188H4Z" fill="#8D320B" stroke="#E37806" stroke-width="8"/>
         </svg>
         </div>
         <div style={{width: 141, height: 76, left: 77, top: 244, position: 'absolute', background: '#8D320B', border: '7px #E37806 solid'}} />
-        <div style={{width: 7, height: 64, left: 144, top: 250, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 7, height: 78, left: 153, top: 250, position: 'absolute', background: '#E37806'}} />
         <div data-svg-wrapper style={{left: 42, top: 5, position: 'absolute'}}>
         <svg width="219" height="80" viewBox="0 0 219 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M110 0L218.5 80H0L110 0Z" fill="#FECCBC"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 13, top: 0, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: -10, top: -35, position: 'absolute'}}>
         <svg width="335" height="169" viewBox="0 0 335 169" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_37_52)">
         <path d="M308 131C249.606 102.204 219.096 81.324 169 35C126.464 72.8821 97.814 93.6108 52 119.081C45.0923 122.921 37.7945 126.869 30 131" stroke="#FDC33F" stroke-width="20"/>
@@ -489,122 +489,24 @@ function AdditionLevel() {
         </svg>
         </div>
         <div style={{width: 69, height: 79, left: 114, top: 112, position: 'absolute', background: '#8D320B', border: '7px #E37806 solid'}} />
-        <div data-svg-wrapper style={{left: 150.92, top: 113.40, position: 'absolute'}}>
-        <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div data-svg-wrapper style={{left: 159.92, top: 114.40, position: 'absolute'}}>
+        <svg width="35" height="43" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.92053 1.39954C11.3993 17.4779 18.0602 25.3007 32.9205 37.3995" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 116.08, top: 150.39, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 118.08, top: 115, position: 'absolute'}}>
         <svg width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.08374 38.3944C17.417 25.9718 24.2397 17.8927 33.0837 1.39444" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 180.87, top: 152.65, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 160.87, top: 162.65, position: 'absolute'}}>
         <svg width="35" height="38" viewBox="0 0 35 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.8746 2.65405C18.6991 13.9195 12.1718 21.3993 2.87463 36.6541" stroke="#E37806" stroke-width="5"/>
         </svg>
         </div>
-        <div data-svg-wrapper style={{left: 149.13, top: 187.65, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 117.13, top: 162.65, position: 'absolute'}}>
         <svg width="35" height="38" viewBox="0 0 35 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.1254 36.6541C23.2339 20.789 16.6119 13.3973 2.12537 2.65405" stroke="#E37806" stroke-width="5"/>
-        </svg>
-        </div>
-    </div>
-    <div style={{width: 673, height: 684, left: 38, top: 157, position: 'absolute'}}>
-        <div data-svg-wrapper style={{left: 0, top: 0, position: 'absolute'}}>
-        <svg width="659" height="225" viewBox="0 0 659 225" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M659 225L596.118 0H65.3969L0 225H659Z" fill="#F4AD38"/>
-        </svg>
-        </div>
-        <div style={{width: 415.49, height: 229.30, left: 0, top: 454.31, position: 'absolute', background: '#DF9695', border: '10px #E37806 solid'}} />
-        <div data-svg-wrapper style={{left: 30, top: 531, position: 'absolute'}}>
-        <svg width="81" height="67" viewBox="0 0 81 67" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4.00003 27.5022C-9.49997 14.0022 15.5 0.002167 15.5 0.002167C15.5 0.002167 16.719 -0.00270875 17.5 0.002167C36.8887 0.123204 45.5 7.50217 66.5 8.00217C87.5 8.50217 80.5 32.5022 77 41.0022C73.5 49.5022 60 49.5022 45.5 63.5022C31 77.5021 17.5 41.0022 4.00003 27.5022Z" fill="#DB7F7C"/>
-        </svg>
-        </div>
-        <div style={{width: 415.49, height: 229.30, left: 0, top: 225.01, position: 'absolute', background: '#F9E0B5', border: '11px #E37806 solid'}} />
-        <div style={{width: 243.06, height: 229.30, left: 415.49, top: 454.31, position: 'absolute', background: '#F9E0B5'}} />
-        <div style={{width: 243.06, height: 229.30, left: 415.49, top: 225.01, position: 'absolute', background: '#F9E0B5'}} />
-        <div data-svg-wrapper style={{left: 410.02, top: 87.97, position: 'absolute'}}>
-        <svg width="250" height="140" viewBox="0 0 250 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M126.504 0.000267654L249.981 139.034L0.980919 138.966L126.504 0.000267654Z" fill="#FBE9C5"/>
-        </svg>
-        </div>
-        <div style={{width: 13, height: 459, left: 411, top: 225, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 18.34, height: 458.60, left: 640.21, top: 225.01, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 225, height: 13, left: 415, top: 452, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 225, height: 14, left: 415, top: 670, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 225, height: 15, left: 415, top: 225, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 16.51, height: 136.66, left: 528.31, top: 88.35, position: 'absolute', background: '#E37806'}} />
-        <div data-svg-wrapper style={{left: 542.07, top: 158.06, position: 'absolute'}}>
-        <svg width="69" height="71" viewBox="0 0 69 71" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0.0651855 46.6145L55.5662 0.0575867L68.8552 16.2341L0.0651855 70.682V46.6145Z" fill="#E37806"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 528.31, top: 160.81, position: 'absolute'}}>
-        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M71.3073 47.366L14.3262 0.809174L0.682846 16.9857L71.3073 71.4336V47.366Z" fill="#E37806"/>
-        </svg>
-        </div>
-        <div style={{width: 17, height: 435, left: 468, top: 235, position: 'absolute', background: '#E37806'}} />
-        <div data-svg-wrapper style={{left: 107, top: 357.74, position: 'absolute'}}>
-        <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 11.737L11.3284 0.408573L109.051 98.1307L97.7221 109.459L0 11.737Z" fill="#E37806"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 149, top: 486, position: 'absolute'}}>
-        <svg width="109" height="75" viewBox="0 0 109 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.125 25.9701C11.125 11.9701 9.125 9.97014 23.125 2.97014C47.3741 -2.51471 58.1989 -0.893051 71.625 11.9701C85.0512 24.8333 114.125 20.4701 107.125 38.9701C100.125 57.4701 97.125 56.4701 88.625 56.9701C80.125 57.4701 82.625 67.4701 60.125 73.4701C37.625 79.4701 15.625 53.9701 15.625 53.9701C15.625 53.9701 -6.875 39.9701 2.125 25.9701Z" fill="#DB7F7C"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 277, top: 472, position: 'absolute'}}>
-        <svg width="114" height="174" viewBox="0 0 114 174" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M24.5433 52.3114C13.5433 34.8114 6.54331 25.3114 20.0433 14.3114C33.5433 3.31143 26.5434 -2.18857 43.5433 0.811426C60.5432 3.81143 105.543 16.3114 110.043 25.8114C114.543 35.3114 118.543 86.3114 90.0433 70.3114C61.5433 54.3114 35.5433 69.8114 24.5433 52.3114Z" fill="#DB7F7C"/>
-        <path d="M10.0432 135.811C-4.45685 128.811 5.04321 115.811 6.54321 108.311C8.04321 100.811 -6.45678 99.3115 3.54322 86.3115C13.5432 73.3115 49.5432 76.3115 60.5432 86.3115C71.5432 96.3115 66.0433 100.311 66.0433 110.811C66.0433 121.311 96.5432 117.811 97.5432 131.311C98.5432 144.811 83.0432 160.311 74.0432 170.311C65.0432 180.311 48.5434 160.811 43.5433 152.311C38.5432 143.811 24.5433 142.811 10.0432 135.811Z" fill="#DB7F7C"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 535.50, top: 63, position: 'absolute'}}>
-        <svg width="138" height="178" viewBox="0 0 138 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0.5 28V0L138 155V178L0.5 28Z" fill="#FDC33F"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 536, top: 62, position: 'absolute'}}>
-        <svg width="140" height="182" viewBox="0 0 140 182" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M140 28.6292V0L0 158.483V182L140 28.6292Z" fill="#FDC33F"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 479.03, top: 485.94, position: 'absolute'}}>
-        <svg width="120" height="188" viewBox="0 0 120 188" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5.98952 183.229L4.54598 31.577C25.2872 14.2344 41.0498 5.74432 56.8553 5.44609C72.689 5.14732 89.731 13.0549 113.04 31.6718L114.483 183.229H5.98952Z" fill="#8D320B" stroke="#E37806" stroke-width="9"/>
-        </svg>
-        </div>
-        <div style={{width: 17, height: 435, left: 583, top: 235, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 401, height: 10, left: 9, top: 350, position: 'absolute', background: '#E37806'}} />
-        <div style={{width: 98, height: 61, left: 485, top: 327, position: 'absolute', background: '#8D320B', border: '5px #E37806 solid'}} />
-        <div style={{width: 13.49, height: 136.33, left: 253.54, top: 453.94, position: 'absolute', transform: 'rotate(-135deg)', transformOrigin: 'top left', background: '#E37806'}} />
-        <div style={{width: 14.69, height: 146.43, left: 340.16, top: 359.48, position: 'absolute', transform: 'rotate(-32deg)', transformOrigin: 'top left', background: '#E37806'}} />
-        <div style={{width: 17.12, height: 143.55, left: 111, top: 350.32, position: 'absolute', transform: 'rotate(30deg)', transformOrigin: 'top left', background: '#E37806'}} />
-        <div style={{width: 105, height: 115, left: 179, top: 284, position: 'absolute', background: '#8D320B', border: '8px #E37806 solid'}} />
-        <div style={{width: 104, height: 11, left: 482, top: 393, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div data-svg-wrapper style={{left: 483, top: 375, position: 'absolute'}}>
-        <svg width="102" height="18" viewBox="0 0 102 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 18C0 18 5.95847 0.179747 14.3996 0.179747C22.8408 0.179747 28.7993 9.77527 35.7508 7.71909C42.7024 5.6629 42.2058 -1.19104 59.0882 0.179747C75.9705 1.55054 72.9913 11.8315 80.4393 9.77527C87.8874 7.71909 93.3494 4.29217 98.3148 3.60672C103.28 2.92127 101.791 18 101.791 18H0Z" fill="#9E9627"/>
-        </svg>
-        </div>
-        <div style={{width: 121, height: 12, left: 475, top: 515, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
-        <div data-svg-wrapper style={{left: 107, top: 585, position: 'absolute'}}>
-        <svg width="84" height="69" viewBox="0 0 84 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M82.117 32.5C70.117 56.5 75.6169 71.5 39.6169 68.5C3.61697 65.5 5.6169 52.3823 5.6169 32.5C5.6169 12.6177 -10.8552 0 12.6169 0C36.089 0 94.1169 8.5 82.117 32.5Z" fill="#DB7F7C"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 13, top: 467, position: 'absolute'}}>
-        <svg width="66" height="46" viewBox="0 0 66 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M58.5 35.6109C37 54.6106 48 30.1109 36.5 39.611C25 49.1111 0 44.9998 0 35.611C0 26.2221 19 -8.8889 33 2.11098C47 13.1109 80 16.6111 58.5 35.6109Z" fill="#DB7F7C"/>
-        </svg>
-        </div>
-        <div data-svg-wrapper style={{left: 214.33, top: 590.50, position: 'absolute'}}>
-        <svg width="49" height="56" viewBox="0 0 49 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.50002 24.5C2.06033 6.79204 5.73716 1.76194 22 0.5C29.3065 2.91493 32.0838 5.35476 30 15.5C37.3658 18.4995 40.5741 21.7241 43 33C52.7202 45.509 48.2546 50.3629 22 55C-1.36523 51.7628 -2.40293 43.9046 6.50002 24.5Z" fill="#DB7F7C" stroke="#DB7F7C"/>
         </svg>
         </div>
     </div>
@@ -643,10 +545,108 @@ function AdditionLevel() {
     </defs>
     </svg>
     </div>
-    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>{problem.num1} + {problem.num2} = ?</div>
+    <div style={{width: 428, height: 56, left: 541, top: 43, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>ADDITION QUESTIONS </div>
+    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>4+6</div>
+    <div style={{width: 673, height: 684, left: 38, top: 157, position: 'absolute'}}>
+        <div data-svg-wrapper style={{left: 0, top: 0, position: 'absolute'}}>
+        <svg width="659" height="225" viewBox="0 0 659 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M659 225L596.118 0H65.3969L0 225H659Z" fill="#F4AD38"/>
+        </svg>
+        </div>
+        <div style={{width: 415.49, height: 229.30, left: 0, top: 454.31, position: 'absolute', background: '#DF9695', border: '10px #E37806 solid'}} />
+        <div data-svg-wrapper style={{left: 30, top: 555, position: 'absolute'}}>
+        <svg width="81" height="67" viewBox="0 0 81 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.00003 27.5022C-9.49997 14.0022 15.5 0.002167 15.5 0.002167C15.5 0.002167 16.719 -0.00270875 17.5 0.002167C36.8887 0.123204 45.5 7.50217 66.5 8.00217C87.5 8.50217 80.5 32.5022 77 41.0022C73.5 49.5022 60 49.5022 45.5 63.5022C31 77.5021 17.5 41.0022 4.00003 27.5022Z" fill="#DB7F7C"/>
+        </svg>
+        </div>
+        <div style={{width: 415.49, height: 229.30, left: 0, top: 225.01, position: 'absolute', background: '#F9E0B5', border: '11px #E37806 solid'}} />
+        <div style={{width: 243.06, height: 250.30, left: 415.49, top: 454.31, position: 'absolute', background: '#F9E0B5'}} />
+        <div style={{width: 243.06, height: 229.30, left: 415.49, top: 225.01, position: 'absolute', background: '#F9E0B5'}} />
+        <div data-svg-wrapper style={{left: 410.02, top: 87.97, position: 'absolute'}}>
+        <svg width="250" height="140" viewBox="0 0 250 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M126.504 0.000267654L249.981 139.034L0.980919 138.966L126.504 0.000267654Z" fill="#FBE9C5"/>
+        </svg>
+        </div>
+        <div style={{width: 13, height: 470, left: 411, top: 225, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 18.34, height: 478.45, left: 640.21, top: 225.01, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 225, height: 13, left: 415, top: 452, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 225, height: 14, left: 415, top: 690, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 225, height: 15, left: 415, top: 225, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 16.51, height: 136.66, left: 528.31, top: 88.35, position: 'absolute', background: '#E37806'}} />
+        <div data-svg-wrapper style={{left: 544.07, top: 158.06, position: 'absolute'}}>
+        <svg width="69" height="71" viewBox="0 0 69 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.0651855 46.6145L55.5662 0.0575867L68.8552 16.2341L0.0651855 70.682V46.6145Z" fill="#E37806"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 459.50, top: 160.81, position: 'absolute'}}>
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M71.3073 47.366L14.3262 0.809174L0.682846 16.9857L71.3073 71.4336V47.366Z" fill="#E37806"/>
+        </svg>
+        </div>
+        <div style={{width: 17, height: 460, left: 468, top: 235, position: 'absolute', background: '#E37806'}} />
+        
+        <div data-svg-wrapper style={{left: 149, top: 500, position: 'absolute'}}>
+        <svg width="109" height="75" viewBox="0 0 109 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.125 25.9701C11.125 11.9701 9.125 9.97014 23.125 2.97014C47.3741 -2.51471 58.1989 -0.893051 71.625 11.9701C85.0512 24.8333 114.125 20.4701 107.125 38.9701C100.125 57.4701 97.125 56.4701 88.625 56.9701C80.125 57.4701 82.625 67.4701 60.125 73.4701C37.625 79.4701 15.625 53.9701 15.625 53.9701C15.625 53.9701 -6.875 39.9701 2.125 25.9701Z" fill="#DB7F7C"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 277, top: 490, position: 'absolute'}}>
+        <svg width="114" height="174" viewBox="0 0 114 174" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.5433 52.3114C13.5433 34.8114 6.54331 25.3114 20.0433 14.3114C33.5433 3.31143 26.5434 -2.18857 43.5433 0.811426C60.5432 3.81143 105.543 16.3114 110.043 25.8114C114.543 35.3114 118.543 86.3114 90.0433 70.3114C61.5433 54.3114 35.5433 69.8114 24.5433 52.3114Z" fill="#DB7F7C"/>
+        <path d="M10.0432 135.811C-4.45685 128.811 5.04321 115.811 6.54321 108.311C8.04321 100.811 -6.45678 99.3115 3.54322 86.3115C13.5432 73.3115 49.5432 76.3115 60.5432 86.3115C71.5432 96.3115 66.0433 100.311 66.0433 110.811C66.0433 121.311 96.5432 117.811 97.5432 131.311C98.5432 144.811 83.0432 160.311 74.0432 170.311C65.0432 180.311 48.5434 160.811 43.5433 152.311C38.5432 143.811 24.5433 142.811 10.0432 135.811Z" fill="#DB7F7C"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 534.50, top: 62, position: 'absolute'}}>
+        <svg width="140" height="178" viewBox="0 0 138 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 28V0L138 155V178L0.5 28Z" fill="#FDC33F"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 400, top: 62, position: 'absolute'}}>
+        <svg width="140" height="182" viewBox="0 0 140 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M140 28.6292V0L0 158.483V182L140 28.6292Z" fill="#FDC33F"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 479.03, top: 492.94, position: 'absolute'}}>
+        <svg width="120" height="210" viewBox="0 0 120 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.98952 183.229L4.54598 31.577C25.2872 14.2344 41.0498 5.74432 56.8553 5.44609C72.689 5.14732 89.731 13.0549 113.04 31.6718L114.483 183.229H5.98952Z" fill="#8D320B" stroke="#E37806" stroke-width="9"/>
+        </svg>
+        </div>
+        <div style={{width: 17, height: 455, left: 583, top: 235, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 402, height: 10, left: 9, top: 350, position: 'absolute', background: '#E37806'}} />
+        <div style={{width: 98, height: 61, left: 485, top: 327, position: 'absolute', background: '#8D320B', border: '5px #E37806 solid'}} />
+        <div style={{width: 14.69, height: 150.43, left: 276, top: 475.94, position: 'absolute', transform: 'rotate(-140deg)', transformOrigin: 'top left', background: '#E37806'}} />
+        <div style={{width: 14.69, height: 146.43, left: 280.16, top: 235.48, position: 'absolute', transform: 'rotate(-32deg)', transformOrigin: 'top left', background: '#E37806'}} />
+        <div style={{width: 14.69, height: 146.43, left: 180.16, top: 228, position: 'absolute', transform: 'rotate(32deg)', transformOrigin: 'top left', background: '#E37806'}} />
+        <div style={{width: 14.69, height: 146.43, left: 200.16, top: 465.94, position: 'absolute', transform: 'rotate(142deg)', transformOrigin: 'top left', background: '#E37806'}} />
+        <div style={{width: 105, height: 115, left: 179, top: 284, position: 'absolute', background: '#8D320B', border: '8px #E37806 solid'}} />
+        <div style={{width: 104, height: 11, left: 482, top: 393, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div data-svg-wrapper style={{left: 483, top: 375, position: 'absolute'}}>
+        <svg width="102" height="18" viewBox="0 0 102 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 18C0 18 5.95847 0.179747 14.3996 0.179747C22.8408 0.179747 28.7993 9.77527 35.7508 7.71909C42.7024 5.6629 42.2058 -1.19104 59.0882 0.179747C75.9705 1.55054 72.9913 11.8315 80.4393 9.77527C87.8874 7.71909 93.3494 4.29217 98.3148 3.60672C103.28 2.92127 101.791 18 101.791 18H0Z" fill="#9E9627"/>
+        </svg>
+        </div>
+        <div style={{width: 121, height: 12, left: 475, top: 535, position: 'absolute', background: '#E37806', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
+        <div data-svg-wrapper style={{left: 107, top: 610, position: 'absolute'}}>
+        <svg width="84" height="69" viewBox="0 0 84 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M82.117 32.5C70.117 56.5 75.6169 71.5 39.6169 68.5C3.61697 65.5 5.6169 52.3823 5.6169 32.5C5.6169 12.6177 -10.8552 0 12.6169 0C36.089 0 94.1169 8.5 82.117 32.5Z" fill="#DB7F7C"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 13, top: 500, position: 'absolute'}}>
+        <svg width="66" height="46" viewBox="0 0 66 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M58.5 35.6109C37 54.6106 48 30.1109 36.5 39.611C25 49.1111 0 44.9998 0 35.611C0 26.2221 19 -8.8889 33 2.11098C47 13.1109 80 16.6111 58.5 35.6109Z" fill="#DB7F7C"/>
+        </svg>
+        </div>
+        <div data-svg-wrapper style={{left: 214.33, top: 590.50, position: 'absolute'}}>
+        <svg width="49" height="56" viewBox="0 0 49 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.50002 24.5C2.06033 6.79204 5.73716 1.76194 22 0.5C29.3065 2.91493 32.0838 5.35476 30 15.5C37.3658 18.4995 40.5741 21.7241 43 33C52.7202 45.509 48.2546 50.3629 22 55C-1.36523 51.7628 -2.40293 43.9046 6.50002 24.5Z" fill="#DB7F7C" stroke="#DB7F7C"/>
+        </svg>
+        </div>
+    </div>
     {/* frog first line below */}
     <img style={{width: 156, height: 140, left: 739, top: 850, position: 'absolute'}} img src={frogImage} alt="Frog"/>  
-    <div className="flies-container">
+    console.log("Flies array:", flies);
+   {/* Display the flies */}
+   <div className="flies-container" style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '20px' }}>
         {flies.length > 0 ? (
           flies.map((flyNumber, index) => (
             <div 
@@ -675,7 +675,7 @@ function AdditionLevel() {
           <p>No flies available</p>
         )}
       </div>
-    {/* <img style={{width: 183, height: 183, left: 254, top: 401, position: 'absolute'}} src="https://placehold.co/183x183" />
+    {/* <img style={{width: 183, height: 183, left: 254, top: 401, position: 'absolute'}} src="flies" />
     <img style={{width: 183, height: 183, left: 1096, top: 323, position: 'absolute'}} src="https://placehold.co/183x183" />
     <img style={{width: 183, height: 183, left: 843, top: 464, position: 'absolute'}} src="https://placehold.co/183x183" />
     <img style={{width: 183, height: 183, left: 556, top: 342, position: 'absolute'}} src="https://placehold.co/183x183" /> */}
