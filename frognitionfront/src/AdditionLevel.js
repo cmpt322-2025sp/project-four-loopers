@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png'; 
 import frogImage from './Euler.png';
+import './addlevel.css'
 
 
 function AdditionLevel() {
@@ -33,9 +34,14 @@ function AdditionLevel() {
   const handleFlyClick = (flyNumber) => {
     setSelectedAnswer(flyNumber);
     if (flyNumber === correctAnswer) {
-      setFeedback('✅ Correct! Great job!');
+      setFeedback('✅ Correct!');
+      setTimeout(() => {
+        setFeedback('');
+        setSelectedAnswer(null);
+        fetchProblem();
+      }, 1500);
     } else {
-      setFeedback('❌ Incorrect. Try again!');
+      setFeedback('❌ Try again!');
     }
   };
 
@@ -44,6 +50,7 @@ function AdditionLevel() {
   }
   
   return (
+    <div className="container flex w-full">
     <div style={{width: 1440, height: 1024, position: 'relative', background: '#BA826B'}}>
     <div style={{width: 1508, height: 1026.50, left: -23, top: -4, position: 'absolute'}}>
         <div style={{width: 1492, height: 748, left: 16, top: 0, position: 'absolute', background: 'linear-gradient(180deg, #4FC5E5 0%, #D2FFFB 64%, #D2FFFB 99%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} />
@@ -510,43 +517,8 @@ function AdditionLevel() {
         </svg>
         </div>
     </div>
-    <div data-svg-wrapper style={{left: 215, top: 36, position: 'absolute'}}>
-    <svg width="989" height="200" viewBox="0 0 989 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g filter="url(#filter0_d_20_36)">
-    <path d="M748.973 115.383L863.048 138.06L740.994 184.08L748.973 115.383Z" fill="#9C8369"/>
-    <path d="M740.994 184.08L984.435 191.417L916.405 136.726L984.435 98.0424L836.369 82.7023V143.396L740.994 184.08Z" fill="#C4A484"/>
-    </g>
-    <path d="M241.267 115.522L124.38 138.758L249.443 185.913L241.267 115.522Z" fill="#9C8369"/>
-    <path d="M249.443 185.913L3.05176e-05 193.431L69.7075 137.391L3.05176e-05 97.7537L151.716 82.0353V144.225L249.443 185.913Z" fill="#C4A484"/>
-    <g filter="url(#filter1_d_20_36)">
-    <path d="M145.398 35.0498C414.142 -11.2163 565.972 -12.1479 839.037 35.0498V136.06C583.156 79.8688 431.522 78.9716 145.398 136.06V35.0498Z" fill="#C4A484"/>
-    </g>
-    <defs>
-    <filter id="filter0_d_20_36" x="736.994" y="82.7023" width="251.441" height="116.715" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-    <feOffset dy="4"/>
-    <feGaussianBlur stdDeviation="2"/>
-    <feComposite in2="hardAlpha" operator="out"/>
-    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_36"/>
-    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_36" result="shape"/>
-    </filter>
-    <filter id="filter1_d_20_36" x="141.398" y="0" width="701.64" height="144.06" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-    <feOffset dy="4"/>
-    <feGaussianBlur stdDeviation="2"/>
-    <feComposite in2="hardAlpha" operator="out"/>
-    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_36"/>
-    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_36" result="shape"/>
-    </filter>
-    </defs>
-    </svg>
-    </div>
-    <div style={{width: 428, height: 56, left: 541, top: 43, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>ADDITION QUESTIONS </div>
-    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>4+6</div>
+    
+    
     <div style={{width: 673, height: 684, left: 38, top: 157, position: 'absolute'}}>
         <div data-svg-wrapper style={{left: 0, top: 0, position: 'absolute'}}>
         <svg width="659" height="225" viewBox="0 0 659 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -642,44 +614,76 @@ function AdditionLevel() {
         </svg>
         </div>
     </div>
+    <div data-svg-wrapper style={{left: 215, top: 36, position: 'absolute'}}>
+    <svg width="989" height="200" viewBox="0 0 989 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_d_20_36)">
+    <path d="M748.973 115.383L863.048 138.06L740.994 184.08L748.973 115.383Z" fill="#9C8369"/>
+    <path d="M740.994 184.08L984.435 191.417L916.405 136.726L984.435 98.0424L836.369 82.7023V143.396L740.994 184.08Z" fill="#C4A484"/>
+    </g>
+    <path d="M241.267 115.522L124.38 138.758L249.443 185.913L241.267 115.522Z" fill="#9C8369"/>
+    <path d="M249.443 185.913L3.05176e-05 193.431L69.7075 137.391L3.05176e-05 97.7537L151.716 82.0353V144.225L249.443 185.913Z" fill="#C4A484"/>
+    <g filter="url(#filter1_d_20_36)">
+    <path d="M145.398 35.0498C414.142 -11.2163 565.972 -12.1479 839.037 35.0498V136.06C583.156 79.8688 431.522 78.9716 145.398 136.06V35.0498Z" fill="#C4A484"/>
+    </g>
+    <defs>
+    <filter id="filter0_d_20_36" x="736.994" y="82.7023" width="251.441" height="116.715" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+    <feOffset dy="4"/>
+    <feGaussianBlur stdDeviation="2"/>
+    <feComposite in2="hardAlpha" operator="out"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_36"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_36" result="shape"/>
+    </filter>
+    <filter id="filter1_d_20_36" x="141.398" y="0" width="701.64" height="144.06" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+    <feOffset dy="4"/>
+    <feGaussianBlur stdDeviation="2"/>
+    <feComposite in2="hardAlpha" operator="out"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_36"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_36" result="shape"/>
+    </filter>
+    </defs>
+    </svg>
+    </div>
+    <div style={{width: 428, height: 56, left: 541, top: 43, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>ADDITION QUESTIONS </div>
+    <div style={{width: 218, height: 27, left: 683, top: 77, position: 'absolute', color: 'black', fontSize: 40, fontFamily: 'Inika', fontWeight: '400', wordWrap: 'break-word'}}>{problem.num1} + {problem.num2} = ?</div>
     {/* frog first line below */}
     <img style={{width: 156, height: 140, left: 739, top: 850, position: 'absolute'}} img src={frogImage} alt="Frog"/>  
     console.log("Flies array:", flies);
    {/* Display the flies */}
-   <div className="flies-container" style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '20px' }}>
+   <div className="flies-container" style={{ position: 'absolute', top: 450, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '20px' }}>
         {flies.length > 0 ? (
           flies.map((flyNumber, index) => (
             <div 
               key={index} 
               className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-              onClick={() => handleFlyClick(flyNumber)}
+              onClick={() => handleFlyClick(flyNumber) }
               style={{
                 cursor: 'pointer', 
                 textAlign: 'center',
                 padding: '10px', 
                 margin: '5px', 
-                border: '2px solid black', 
                 display: 'inline-block', 
-                backgroundColor: selectedAnswer === flyNumber ? '#ffcccb' : 'white' // Highlight selection
               }}
             >
               <img 
                 src={flyImage} 
                 alt={`Fly with number ${flyNumber}`} 
-                style={{ width: '80px', height: '80px' }}
+                style={{ width: 150, height: 150 }}
               />
-              <p style={{ margin: '5px 0', fontSize: '20px', fontWeight: 'bold' }}>{flyNumber}</p>
+              <p style={{ margin: -110, fontSize: 30, fontWeight: 'bold' }}>{flyNumber}</p>
             </div>
           ))
         ) : (
           <p>No flies available</p>
         )}
       </div>
-    {/* <img style={{width: 183, height: 183, left: 254, top: 401, position: 'absolute'}} src="flies" />
-    <img style={{width: 183, height: 183, left: 1096, top: 323, position: 'absolute'}} src="https://placehold.co/183x183" />
-    <img style={{width: 183, height: 183, left: 843, top: 464, position: 'absolute'}} src="https://placehold.co/183x183" />
-    <img style={{width: 183, height: 183, left: 556, top: 342, position: 'absolute'}} src="https://placehold.co/183x183" /> */}
-    <div style={{width: 428, height: 56, left: 541, top: 43, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>ADDITION QUESTIONS </div>
+    <div style={{width: 428, height: 56, left: 541, top: 150, position: 'absolute', color: 'black', fontSize: 35, fontFamily: 'Indie Flower', fontWeight: '400', wordWrap: 'break-word'}}>{feedback} </div>
+  </div>
 </div>
   );
 }

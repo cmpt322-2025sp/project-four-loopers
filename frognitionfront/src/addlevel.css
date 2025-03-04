@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .item {
+    flex: 1 1 auto;
+    min-width: 300px; /* Prevents elements from being too small */
+  }
