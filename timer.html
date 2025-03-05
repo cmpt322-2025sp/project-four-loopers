@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer with Restart Option When Paused</title>
+</head>
+<body>
+  <!-- Set the starting time (in seconds) via the start-time attribute -->
+  <countdown-timer start-time="15"></countdown-timer>
+
+  <script>
+    class CountdownTimer extends HTMLElement {
+      constructor() {
+        super();
+        // Attach a shadow DOM for encapsulation.
+        this.attachShadow({ mode: 'open' });
+        
+        // Retrieve starting time in seconds (default to 60) and convert to milliseconds.
+        this.startTimeSeconds = parseInt(this.getAttribute('start-time')) || 60;
+        this.startTimeMs = this.startTimeSeconds * 1000;
+        this.remainingTimeMs = this.startTimeMs;
+        this.expired = false; // becomes true when time runs out
+        this.paused = false;
+        this.pauseTimestamp = null;
+        this.interval = null;
+        
+        // Define the component's HTML and styles.
+        this.shadowRoot.innerHTML = `
+          <style>
+            .timer-container {
+              position: fixed;
+              top: 10px;
+              right: 10px;
+              font-family: Arial, sans-serif;
+              background: #f0f0f0;
+              padding: 5px 10px;
+              border-radius: 5px;
+              box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+              display: inline-flex;
+              align-items: center;
+            }
+            #time-display {
+              font-size: 20px;
+              display: inline-block;
+            }
+            #ms-display {
+              font-size: 14px;
+              margin-left: 2px;
+            }
+            button {
+              font-size: 16px;
+              padding: 3px 8px;
+              margin-left: 10px;
+            }
+          </style>
+          <div class="timer-container">
+            <span id="time-display"></span>
+            <span id="ms-display"></span>
+            <button id="toggle-button">Pause</button>
+            <button id="restart-button" style="display:none;">Restart</button>
+          </div>
+        `;
+      }
+      
+      connectedCallback() {
+        // Set up event listeners for both buttons.
+        this.shadowRoot.getElementById('toggle-button')
+            .addEventListener('click', () => this.handleToggleButton());
+        this.shadowRoot.getElementById('restart-button')
+            .addEventListener('click', () => this.restartTimer());
+        // Set the end timestamp.
+        this.endTimestamp = Date.now() + this.startTimeMs;
+        this.updateDisplay();
+        
+        // Fix the width of the seconds display (based on initial seconds-only view).
+        if (this.remainingTimeMs >= 10000) {
+          const timeDisplay = this.shadowRoot.getElementById('time-display');
+          const width = timeDisplay.offsetWidth;
+          timeDisplay.style.width = width + 'px';
+        }
+        
+        // Start updating every millisecond.
+        this.interval = setInterval(() => this.tick(), 1);
+      }
+      
+      disconnectedCallback() {
+        clearInterval(this.interval);
+      }
+      
+      tick() {
+        if (!this.paused && !this.expired) {
+          this.remainingTimeMs = this.endTimestamp - Date.now();
+          if (this.remainingTimeMs <= 0) {
+            this.remainingTimeMs = 0;
+            this.expired = true;
+            clearInterval(this.interval);
+            // When expired, change toggle button to "Restart" and hide the restart button.
+            this.shadowRoot.getElementById('toggle-button').textContent = 'Restart';
+            this.shadowRoot.getElementById('restart-button').style.display = 'none';
+          }
+          this.updateDisplay();
+        }
+      }
+      
+      handleToggleButton() {
+        // If expired, the toggle button functions as restart.
+        if (this.expired) {
+          this.restartTimer();
+        } else {
+          this.togglePause();
+        }
+      }
+      
+      togglePause() {
+        this.paused = !this.paused;
+        const toggleBtn = this.shadowRoot.getElementById('toggle-button');
+        toggleBtn.textContent = this.paused ? 'Resume' : 'Pause';
+        
+        // When paused (and not expired), show the restart button.
+        const restartBtn = this.shadowRoot.getElementById('restart-button');
+        if (this.paused) {
+          restartBtn.style.display = 'inline-block';
+          this.pauseTimestamp = Date.now();
+        } else {
+          restartBtn.style.display = 'none';
+          let pausedDuration = Date.now() - this.pauseTimestamp;
+          this.endTimestamp += pausedDuration;
+        }
+      }
+      
+      restartTimer() {
+        // Reset state.
+        this.expired = false;
+        this.paused = false;
+        this.remainingTimeMs = this.startTimeMs;
+        this.endTimestamp = Date.now() + this.startTimeMs;
+        // Reset button texts.
+        this.shadowRoot.getElementById('toggle-button').textContent = 'Pause';
+        this.shadowRoot.getElementById('restart-button').style.display = 'none';
+        // Restart the interval.
+        clearInterval(this.interval);
+        this.interval = setInterval(() => this.tick(), 1);
+        this.updateDisplay();
+      }
+      
+      updateDisplay() {
+        const timeDisplay = this.shadowRoot.getElementById('time-display');
+        const msDisplay = this.shadowRoot.getElementById('ms-display');
+        
+        if (this.remainingTimeMs >= 10000) {
+          // For 10 seconds or more, display minutes:seconds.
+          let totalSec = Math.floor((this.remainingTimeMs + 999) / 1000);
+          let minutes = Math.floor(totalSec / 60);
+          let seconds = totalSec % 60;
+          timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+          msDisplay.textContent = '';
+        } else {
+          // For less than 10 seconds, show seconds and milliseconds.
+          let totalSec = Math.floor(this.remainingTimeMs / 1000);
+          let minutes = Math.floor(totalSec / 60);
+          let seconds = totalSec % 60;
+          let ms = this.remainingTimeMs % 1000;
+          timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+          msDisplay.textContent = `.${ms.toString().padStart(3, '0')}`;
+        }
+      }
+    }
+    
+    customElements.define('countdown-timer', CountdownTimer);
+  </script>
+</body>
+</html>
