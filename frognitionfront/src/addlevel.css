@@ -39,6 +39,7 @@
 }
 
 .fly p {
+  max-height: -50px;
   margin-top: -15vh; /* Moves number slightly up */
   font-size: 2vw; /* Makes text size scale */
   font-weight: bold;
@@ -67,4 +68,12 @@ h3{
   margin-bottom: 0; /* Space between h1 and p */
   text-align: center;
   font-family: Inika;
+}
+.tongue-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
 }

@@ -11,6 +11,10 @@ function AdditionLevel() {
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
   const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
   const [feedback, setFeedback] = useState('');  // Stores feedback message
+  const [tongueStart, setTongueStart] = useState({ x: 0, y: 0 });
+  const [tongueEnd, setTongueEnd] = useState(null);
+  const [showTongue, setShowTongue] = useState(false);
+
 
   useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
@@ -32,19 +36,30 @@ function AdditionLevel() {
       .catch((error) => console.error('Error fetching new problem:', error));
   };
 
-  const handleFlyClick = (flyNumber) => {
-    setSelectedAnswer(flyNumber);
-    if (flyNumber === correctAnswer) {
-      setFeedback('✅ Correct!');
-      setTimeout(() => {
-        setFeedback('');
-        setSelectedAnswer(null);
-        fetchProblem();
-      }, 1000);
-    } else {
-      setFeedback('❌ Try again!');
-    }
+  const handleFlyClick = (flyNumber, event) => {
+    const flyRect = event.target.getBoundingClientRect();
+    const frogRect = document.getElementById("frog").getBoundingClientRect();
+  
+    setTongueStart({ x: frogRect.left + frogRect.width / 2, y: frogRect.top + frogRect.height / 3 });
+    setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
+    setShowTongue(true);
+  
+    setTimeout(() => {
+      setShowTongue(false);
+      setSelectedAnswer(flyNumber);
+      if (flyNumber === correctAnswer) {
+        setFeedback('✅ Correct!');
+        setTimeout(() => {
+          setFeedback('');
+          setSelectedAnswer(null);
+          fetchProblem();
+        }, 1000);
+      } else {
+        setFeedback('❌ Try again!');
+      }
+    }, 500); // Tongue disappears after 0.5s
   };
+  
 
   if (!problem) {
     return <div>Loading...</div>;
@@ -55,15 +70,16 @@ function AdditionLevel() {
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
     <img 
+  id="frog"
   src={frogImage} 
-  alt="Frog"  
+  alt="Frog"
   style={{
-    width: '10vw',  /* Responsive width based on screen size */
-    height: 'auto', /* Maintain aspect ratio */
+    width: '10vw',
+    height: 'auto',
     position: 'absolute',
-    left: '50%',  /* Center horizontally */
-    bottom: '0vh', /* Position relative to screen height */
-    transform: 'translateX(-50%)' /* Proper centering */
+    left: '50%',
+    bottom: '0vh',
+    transform: 'translateX(-50%)'
   }} 
 />
    {/* Display the flies */}
@@ -71,23 +87,12 @@ function AdditionLevel() {
         {flies.length > 0 ? (
           flies.map((flyNumber, index) => (
             <div 
-              key={index} 
-              className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-              onClick={() => handleFlyClick(flyNumber) }
-              style={{
-                cursor: 'pointer', 
-                textAlign: 'center',
-                padding: '10px', 
-                margin: '5px', 
-                display: 'inline-block', 
-              }}
+            key={index} 
+            className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+            onClick={(event) => handleFlyClick(flyNumber, event)}
             >
-              <img 
-                src={flyImage} 
-                alt={`Fly with number ${flyNumber}`} 
-                style={{ width: 150, height: 150 }}
-              />
-              <p>{flyNumber}</p>
+            <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
+            <p>{flyNumber}</p>
             </div>
           ))
         ) : (
@@ -127,6 +132,18 @@ function AdditionLevel() {
   <div><p>{problem.num1} + {problem.num2} = ?</p></div>
 </div>
     <h3>{feedback}</h3>
+    <svg className="tongue-svg">
+  {showTongue && tongueEnd && (
+    <line 
+      x1={tongueStart.x} 
+      y1={tongueStart.y} 
+      x2={tongueEnd.x} 
+      y2={tongueEnd.y} 
+      stroke="pink" 
+      strokeWidth="7" 
+    />
+  )}
+</svg>
   </div>
 
   );
