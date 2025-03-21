@@ -21,7 +21,9 @@ function AdditionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/') // Fetch from Django backend
+    fetch('http://127.0.0.1:8000/get_random_problem/',
+      {headers: {'Bearer': 'Token 1234567890'}} // TODO: Replace with user's token
+    ) // Fetch from Django backend
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched new problem:', data);
