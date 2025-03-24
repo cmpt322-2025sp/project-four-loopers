@@ -6,16 +6,20 @@ from .serializers import *
 import random
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here
 class ProblemViewSet(viewsets.ModelViewSet):
     queryset = Problem.objects.all()
     serializer_class = ProblemSerializer
+    permission_classes = [IsAuthenticated]
 
 class FlyViewSet(viewsets.ModelViewSet):
     queryset = Fly.objects.all()
     serializer_class = FlySerializer
 
+@login_required
+@api_view(['GET'])
 def get_random_problem(request):
     problem = Problem.objects.order_by('?').first()  # Get a random problem
 
