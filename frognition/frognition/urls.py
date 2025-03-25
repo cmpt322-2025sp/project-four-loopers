@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from playScene.views import *
 from rest_framework.routers import DefaultRouter
-from playScene.views import ProblemViewSet, FlyViewSet, get_random_problem
+from playScene.views import ProblemViewSet, FlyViewSet, get_random_problem, register_user
 from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
@@ -27,8 +27,9 @@ router.register(r'flies', FlyViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('get_random_problem/', get_random_problem),
+    path('get_random_problem/addition/', get_random_problem),
     path('api/', include(router.urls)),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('auth/login/', auth_views.LoginView.as_view(), name='login'),
+    path('auth/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('auth/register/', register_user, name='register'),
 ]

@@ -60,7 +60,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',  # Enable session authentication
-        'rest_framework.authentication.BasicAuthentication',  # Optional: for testing
     ],
 }
 
