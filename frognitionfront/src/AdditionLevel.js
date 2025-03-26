@@ -8,6 +8,8 @@ import './addlevel.css'
 function AdditionLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
   const [flies, setFlies] = useState([]);  // Stores flies
+  const [audio] = useState(new Audio("/addition.wav"));
+  const [isPlaying, setIsPlaying] = useState(false)
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
   const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
   const [feedback, setFeedback] = useState('');  // Stores feedback message
@@ -19,6 +21,25 @@ function AdditionLevel() {
   useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
   }, []);
+
+  // This autoplays the music on a loop
+  useEffect(() => {
+    audio.loop = true;
+  
+    audio.play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch((err) => {
+        console.log("Autoplay failed:", err);
+      });
+  
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+  
 
   const fetchProblem = () => {
     fetch('http://127.0.0.1:8000/get_random_problem/') // Fetch from Django backend
