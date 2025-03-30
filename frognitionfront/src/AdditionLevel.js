@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png'; 
 import frogImage from './Euler.png';
-import backgroundImage from './additionLevel.svg';
 import './addlevel.css'
+import backgroundImage from './additionLevel.svg';
 
 
 function AdditionLevel() {
@@ -67,6 +67,7 @@ function AdditionLevel() {
   
   return (
     <div className="background-container">
+      
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
     <img 
