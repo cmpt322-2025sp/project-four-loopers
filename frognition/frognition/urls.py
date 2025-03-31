@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from playScene.views import *
 from rest_framework.routers import DefaultRouter
-from playScene.views import ProblemViewSet, FlyViewSet, get_random_addition_problem, register_user
+from playScene.views import AddProblemViewSet, SubProblemViewSet, FlyViewSet, get_random_addition_problem, register_user
 from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
