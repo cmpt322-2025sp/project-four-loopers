@@ -82,8 +82,8 @@ body {
   /* Message */
   .message {
     margin-top: 20px;
-    color: #A2DD21;
-    font-size: 1rem;
+    color: red;
+    font-size: 1.5rem;
   }
   
   
