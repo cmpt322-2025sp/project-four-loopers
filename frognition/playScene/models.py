@@ -8,7 +8,7 @@ class Fly(models.Model):
     def __str__(self):
         return f"Fly with number {self.number}"
 
-class Problem(models.Model):
+class AdditionProblem(models.Model):
     num1 = models.IntegerField()
     num2 = models.IntegerField()
     correct_answer = models.ForeignKey(
@@ -19,6 +19,16 @@ class Problem(models.Model):
     def __str__(self):
         return f"{self.num1} + {self.num2} = ?"
 
+class SubtractionProblem(models.Model):
+    num1 = models.IntegerField()
+    num2 = models.IntegerField()
+    correct_answer = models.ForeignKey(
+        Fly, on_delete=models.CASCADE, related_name='correct_answer_for_problem')
+    flies = models.ManyToManyField(
+        Fly, related_name='flies_for_problem')
+
+    def __str__(self):
+        return f"{self.num1} - {self.num2} = ?"
 
 # class Player(models.Model):
 #     name = models.CharField(max_length=100)

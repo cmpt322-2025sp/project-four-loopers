@@ -23,8 +23,24 @@ class FlyViewSet(viewsets.ModelViewSet):
     serializer_class = FlySerializer
 
 @login_required
-def get_random_problem(request):
-    problem = Problem.objects.order_by('?').first()  # Get a random problem
+def get_random_addition_problem(request):
+    problem = AdditionProblem.objects.order_by('?').first()  # Get a random problem
+
+    if not problem:
+        return JsonResponse({'error': 'No problems available'}, status=404)
+
+    data = {
+        'num1': problem.num1,
+        'num2': problem.num2,
+        'correct_answer': problem.correct_answer.number,  # Ensure correct_answer is a number
+        'flies': list(problem.flies.values_list('number', flat=True))  # Convert queryset to list
+    }
+    
+    return JsonResponse(data)
+
+@login_required
+def get_random_subtraction_problem(request):
+    problem = SubtractionProblem.objects.order_by('?').first()  # Get a random problem
 
     if not problem:
         return JsonResponse({'error': 'No problems available'}, status=404)
