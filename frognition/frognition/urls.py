@@ -22,7 +22,8 @@ from playScene.views import ProblemViewSet, FlyViewSet, get_random_addition_prob
 from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
-router.register(r'problems', ProblemViewSet)
+router.register(r'addition_problems', AddProblemViewSet)
+router.register(r'subtraction_problems', SubProblemViewSet)
 router.register(r'flies', FlyViewSet)
 
 urlpatterns = [

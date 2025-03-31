@@ -13,8 +13,13 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 # Create your views here
-class ProblemViewSet(viewsets.ModelViewSet):
-    queryset = Problem.objects.all()
+class AddProblemViewSet(viewsets.ModelViewSet):
+    queryset = AdditionProblem.objects.all()
+    serializer_class = ProblemSerializer
+    permission_classes = [IsAuthenticated]
+
+class SubProblemViewSet(viewsets.ModelViewSet):
+    queryset = SubtractionProblem.objects.all()
     serializer_class = ProblemSerializer
     permission_classes = [IsAuthenticated]
 
