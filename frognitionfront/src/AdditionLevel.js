@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import flyImage from './Moth.png'; 
+import flyImage from './Moth.png';
 import frogImage from './Euler.png';
-import backgroundImage from './additionLevel.svg';
+import backgroundImage from './background.png';
+import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
 
 
@@ -39,11 +40,11 @@ function AdditionLevel() {
   const handleFlyClick = (flyNumber, event) => {
     const flyRect = event.target.getBoundingClientRect();
     const frogRect = document.getElementById("frog").getBoundingClientRect();
-  
+
     setTongueStart({ x: frogRect.left + frogRect.width / 2, y: frogRect.top + frogRect.height / 3 });
     setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
     setShowTongue(true);
-  
+
     setTimeout(() => {
       setShowTongue(false);
       setSelectedAnswer(flyNumber);
@@ -59,19 +60,26 @@ function AdditionLevel() {
       }
     }, 500); // Tongue disappears after 0.5s
   };
-  
 
-  if (!problem) {
-    return <div>Loading...</div>;
-  }
-  
+
+  // if (!problem) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
-    <div className="background-container">
+      <div className="background-container" style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          width: '100%',
+          height: '100vh'
+      }}>
+          <CountdownTimer startTime={15} problemsSolved={30} />
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
-    <img 
+    <img
   id="frog"
-  src={frogImage} 
+  src={frogImage}
   alt="Frog"
   style={{
     width: '10vw',
@@ -80,40 +88,41 @@ function AdditionLevel() {
     left: '50%',
     bottom: '0vh',
     transform: 'translateX(-50%)'
-  }} 
+  }}
 />
    {/* Display the flies */}
-   <div className="flies-container" >
-        {flies.length > 0 ? (
-          flies.map((flyNumber, index) => (
-            <div 
-            key={index} 
-            className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-            onClick={(event) => handleFlyClick(flyNumber, event)}
-            >
-            <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
-            <p>{flyNumber}</p>
-            </div>
-          ))
-        ) : (
-          <p>No flies available</p>
-        )}
-      </div>
+
+   {/*<div className="flies-container" >*/}
+   {/*     {flies.length > 0 ? (*/}
+   {/*       flies.map((flyNumber, index) => (*/}
+   {/*         <div*/}
+   {/*         key={index}*/}
+   {/*         className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}*/}
+   {/*         onClick={(event) => handleFlyClick(flyNumber, event)}*/}
+   {/*         >*/}
+   {/*         <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />*/}
+   {/*         <p>{flyNumber}</p>*/}
+   {/*         </div>*/}
+   {/*       ))*/}
+   {/*     ) : (*/}
+   {/*       <p>No flies available</p>*/}
+   {/*     )}*/}
+   {/*   </div>*/}
       {/* banner */}
 <div className="banner">
-      <div data-svg-wrapper style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    width: '100%', 
-    height: '20vh', 
-    padding: '20px' 
+      <div data-svg-wrapper style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '20vh',
+    padding: '20px'
 }}>
-  <svg 
+  <svg
     width="80%"  // Adjust width percentage as needed
-    height="auto" 
-    viewBox="0 0 1008 200" 
-    fill="none" 
+    height="auto"
+    viewBox="0 0 1008 200"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ maxWidth: '900px' }}  // Prevents it from getting too large on big screens
   >
@@ -129,18 +138,18 @@ function AdditionLevel() {
   </svg>
   </div>
   <div><h1>Addition Problems</h1></div>
-  <div><p>{problem.num1} + {problem.num2} = ?</p></div>
+  <div><p>4 + 5 = ?</p></div>
 </div>
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
   {showTongue && tongueEnd && (
-    <line 
-      x1={tongueStart.x} 
-      y1={tongueStart.y} 
-      x2={tongueEnd.x} 
-      y2={tongueEnd.y} 
-      stroke="pink" 
-      strokeWidth="7" 
+    <line
+      x1={tongueStart.x}
+      y1={tongueStart.y}
+      x2={tongueEnd.x}
+      y2={tongueEnd.y}
+      stroke="pink"
+      strokeWidth="7"
     />
   )}
 </svg>
