@@ -7,7 +7,6 @@
     <list default="true" id="01aaaafd-1371-4af0-b7a2-d289264cbfc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/CountdownTimer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/CountdownTimer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <workItem from="1743571915462" duration="1513000" />
       <workItem from="1743573488436" duration="458000" />
       <workItem from="1743609955069" duration="917000" />
-      <workItem from="1743611209288" duration="1528000" />
+      <workItem from="1743611209288" duration="2126000" />
     </task>
     <servers />
   </component>

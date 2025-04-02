@@ -16,8 +16,9 @@ function AdditionLevel() {
   const [tongueEnd, setTongueEnd] = useState(null);
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showStartScreen, setShowStartScreen] = useState(true);
 
-  const handlePause = () => {
+    const handlePause = () => {
     setIsPaused(true);
   };
 
@@ -88,8 +89,47 @@ function AdditionLevel() {
   // if (!problem) {
   //   return <div>Loading...</div>;
   // }
+    if (showStartScreen) {
+        return (
+            <div style={{
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: '#111',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+                fontFamily: 'Arial, sans-serif',
+            }}>
+                <h1 style={{
+                    fontSize: '64px',
+                    marginBottom: '40px',
+                    textShadow: '2px 2px 10px black',
+                }}>🐸 Frognition</h1>
+                <button
+                    onClick={() => setShowStartScreen(false)}
+                    style={{
+                        fontSize: '32px',
+                        padding: '20px 60px',
+                        backgroundColor: '#00b894',
+                        border: 'none',
+                        borderRadius: '12px',
+                        color: '#fff',
+                        cursor: 'pointer',
+                        boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                        transition: 'all 0.2s ease-in-out',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.backgroundColor = '#019875'}
+                    onMouseOut={e => e.currentTarget.style.backgroundColor = '#00b894'}
+                >
+                    ▶️ Play
+                </button>
+            </div>
+        );
+    }
 
-  return (
+    return (
       <div className="background-container" style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
