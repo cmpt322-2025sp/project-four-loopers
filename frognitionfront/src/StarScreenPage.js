@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import starScreen from './starscreen.png';
 import leftLocked from './left_locked_star.png';
 import leftUnlocked from './left_unlocked_star.png';
@@ -10,14 +10,19 @@ import rightUnlocked from './right_unlocked_star.png';
 
 function StarScreenPage() {
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const problemsSolved = parseInt(searchParams.get("problemsSolved")) || 0;
-    const score = 2934; // You can dynamically get this from props or query later if needed
+    const score = 2934;
 
     const stars = {
         left: problemsSolved >= 10 ? leftUnlocked : leftLocked,
         middle: problemsSolved >= 20 ? middleUnlocked : middleLocked,
         right: problemsSolved >= 30 ? rightUnlocked : rightLocked,
+    };
+
+    const handleReplay = () => {
+        navigate(-1);
     };
 
     return (
@@ -46,52 +51,27 @@ function StarScreenPage() {
                 }}
             />
 
-            {/* Left Star */}
+            {/* Stars */}
             <img
                 src={stars.left}
                 alt="Left Star"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
             />
-
-            {/* Middle Star */}
             <img
                 src={stars.middle}
                 alt="Middle Star"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
             />
-
-            {/* Right Star */}
             <img
                 src={stars.right}
                 alt="Right Star"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
             />
 
-            {/* Text block (Score + Star Message) */}
+            {/* TEXT BLOCK */}
             <div style={{
                 position: 'absolute',
-                top: '75%',
+                top: '60%', // <--- moved up
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 textAlign: 'center',
@@ -121,6 +101,32 @@ function StarScreenPage() {
                                 : 'Keep going! You’ll get those stars next time!'}
                 </div>
             </div>
+
+            {/* BUTTON */}
+            <button
+                onClick={handleReplay}
+                style={{
+                    position: 'absolute',
+                    top: '73%', // ⬅️ bumped lower from 68%
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    padding: '16px 40px',
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                    backgroundColor: '#ff7675',
+                    border: 'none',
+                    borderRadius: '12px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                    zIndex: 6,
+                    transition: 'background-color 0.2s ease-in-out',
+                }}
+                onMouseOver={e => e.currentTarget.style.backgroundColor = '#d63031'}
+                onMouseOut={e => e.currentTarget.style.backgroundColor = '#ff7675'}
+            >
+                🔁 Play Again
+            </button>
         </div>
     );
 }
