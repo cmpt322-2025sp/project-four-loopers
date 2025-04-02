@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "playScene",
     "stats",
-    "auth",
+    "user_management",
     "rest_framework",
     "corsheaders",
 
