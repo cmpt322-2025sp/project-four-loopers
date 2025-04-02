@@ -74,7 +74,7 @@ function AdditionLevel() {
           width: '100%',
           height: '100vh'
       }}>
-          <CountdownTimer startTime={15} problemsSolved={30} />
+          <CountdownTimer startTime={15} problemsSolved={10} />
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
     <img
