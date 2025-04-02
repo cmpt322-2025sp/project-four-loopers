@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from playScene.views import *
 from stats.views import *
+from auth.views import *
 from rest_framework.routers import DefaultRouter
 from playScene.views import AddProblemViewSet, SubProblemViewSet, FlyViewSet, get_random_addition_problem, register_user
 from django.contrib.auth import views as auth_views
@@ -25,6 +26,7 @@ from django.contrib.auth import views as auth_views
 router = DefaultRouter()
 router.register(r'addition_problems', AddProblemViewSet)
 router.register(r'subtraction_problems', SubProblemViewSet)
+router.register(r'place_value_problems', PlaceValueProblemViewSet)
 router.register(r'flies', FlyViewSet)
 
 urlpatterns = [

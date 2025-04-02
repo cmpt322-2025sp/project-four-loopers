@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.response import Response
 from .models import *
 from .serializers import *
 import random
@@ -9,8 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import User
-from rest_framework import status
+
 
 # Create your views here
 class AddProblemViewSet(viewsets.ModelViewSet):
@@ -20,6 +18,11 @@ class AddProblemViewSet(viewsets.ModelViewSet):
 
 class SubProblemViewSet(viewsets.ModelViewSet):
     queryset = SubtractionProblem.objects.all()
+    serializer_class = ProblemSerializer
+    permission_classes = [IsAuthenticated]
+
+class PlaceValueProblemViewSet(viewsets.ModelViewSet):
+    queryset = PlaceValueProblem.objects.all()
     serializer_class = ProblemSerializer
     permission_classes = [IsAuthenticated]
 
@@ -74,22 +77,6 @@ def get_random_place_value_problem(request):
     }
     
     return JsonResponse(data)
-
-@api_view(['POST'])
-def register_user(request):
-    permission_classes = [AllowAny]  # Allow unauthenticated access
-    username = request.data.get('username')
-    password = request.data.get('password')
-    email = request.data.get('email')
-
-    if not username or not password:
-        return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
-
-    if User.objects.filter(username=username).exists():
-        return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
-
-    user = User.objects.create_user(username=username, password=password, email=email)
-    return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 
 
 
