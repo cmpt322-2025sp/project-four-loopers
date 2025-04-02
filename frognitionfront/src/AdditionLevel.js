@@ -15,9 +15,32 @@ function AdditionLevel() {
   const [tongueStart, setTongueStart] = useState({ x: 0, y: 0 });
   const [tongueEnd, setTongueEnd] = useState(null);
   const [showTongue, setShowTongue] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const handlePause = () => {
+    setIsPaused(true);
+  };
+
+  const handleUnpause = () => {
+    setIsPaused(false);
+  };
 
 
-  useEffect(() => {
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key.toLowerCase() === 'p') {
+                setIsPaused(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+    useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
   }, []);
 
@@ -74,7 +97,27 @@ function AdditionLevel() {
           width: '100%',
           height: '100vh'
       }}>
-          <CountdownTimer startTime={15} problemsSolved={10} />
+          <button
+              onClick={handlePause}
+              style={{
+                  position: 'absolute',
+                  top: '20px',
+                  left: '20px',
+                  zIndex: 10,
+                  fontSize: '24px',
+                  padding: '10px 20px',
+                  backgroundColor: '#333',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+              }}
+          >
+              ⏸ Pause
+          </button>
+
+          <CountdownTimer startTime={11} problemsSolved={10} isPaused={isPaused}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
@@ -154,7 +197,43 @@ function AdditionLevel() {
     />
   )}
 </svg>
-  </div>
+          {/* Pause Overlay */}
+          {isPaused && (
+              <div style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  backgroundColor: 'rgba(0,0,0,0.8)',
+                  zIndex: 9999,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  color: '#fff',
+                  fontFamily: 'Arial, sans-serif',
+              }}>
+                  <h1 style={{ fontSize: '80px', marginBottom: '40px' }}>⏸ Paused</h1>
+                  <button
+                      onClick={handleUnpause}
+                      style={{
+                          fontSize: '28px',
+                          padding: '16px 40px',
+                          backgroundColor: '#6c5ce7',
+                          border: 'none',
+                          borderRadius: '10px',
+                          color: '#fff',
+                          cursor: 'pointer',
+                          boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+                      }}
+                  >
+                      🔄 Resume
+                  </button>
+              </div>
+          )}
+
+      </div>
 
   );
 }

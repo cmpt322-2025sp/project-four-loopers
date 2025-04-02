@@ -1,25 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CountdownTimer({ startTime, problemsSolved }) {
+function CountdownTimer({ startTime, problemsSolved, isPaused }) {
     const [remainingTime, setRemainingTime] = useState(startTime * 1000);
+    const [isFinished, setIsFinished] = useState(false);
     const navigate = useNavigate();
+    const endTimestampRef = useRef(null);
+    const intervalRef = useRef(null);
+    useEffect(() => {
+        if (isFinished) {
+            navigate(`/star-screen?problemsSolved=${problemsSolved}`);
+        }
+    }, [isFinished, navigate, problemsSolved]);
 
     useEffect(() => {
-        const endTimestamp = Date.now() + startTime * 1000;
-        const interval = setInterval(() => {
-            const newRemaining = endTimestamp - Date.now();
-            if (newRemaining <= 0) {
+        if (!isPaused && !isFinished) {
+            endTimestampRef.current = Date.now() + remainingTime;
+        }
+    }, [isPaused]);
+    useEffect(() => {
+        const initialRemaining = startTime * 1000;
+        setRemainingTime(initialRemaining);
+        setIsFinished(false);
+        endTimestampRef.current = Date.now() + initialRemaining;
+    }, [startTime]);
+    useEffect(() => {
+        if (isPaused || isFinished) {
+            clearInterval(intervalRef.current);
+            return;
+        }
+
+        intervalRef.current = setInterval(() => {
+            const now = Date.now();
+            const remaining = endTimestampRef.current - now;
+
+            if (remaining <= 0) {
                 setRemainingTime(0);
-                clearInterval(interval);
-                // Redirect to star screen with problemsSolved
-                navigate(`/star-screen?problemsSolved=${problemsSolved}`);
+                setIsFinished(true);
+                clearInterval(intervalRef.current);
             } else {
-                setRemainingTime(newRemaining);
+                setRemainingTime(remaining);
             }
         }, 10);
-        return () => clearInterval(interval);
-    }, [startTime, navigate, problemsSolved]);
+
+        return () => clearInterval(intervalRef.current);
+    }, [isPaused, isFinished]);
 
     let display;
     if (remainingTime >= 10000) {
