@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01aaaafd-1371-4af0-b7a2-d289264cbfc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frognitionfront/src/StarScreenPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/CountdownTimer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/CountdownTimer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +76,7 @@
       <workItem from="1743005788608" duration="528000" />
       <workItem from="1743006399138" duration="3779000" />
       <workItem from="1743437737471" duration="5743000" />
-      <workItem from="1743571915462" duration="999000" />
+      <workItem from="1743571915462" duration="1453000" />
     </task>
     <servers />
   </component>
