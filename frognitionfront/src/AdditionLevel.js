@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import {gsap} from 'gsap';
 import flyImage from './Moth.png'; 
 import frogImage from './Euler.png';
 import backgroundImage from './additionLevel.svg';
+import additionMusic from './addition_level.mp3';
 import './addlevel.css'
+
 
 
 function AdditionLevel() {
@@ -16,30 +19,60 @@ function AdditionLevel() {
   const [tongueStart, setTongueStart] = useState({ x: 0, y: 0 });
   const [tongueEnd, setTongueEnd] = useState(null);
   const [showTongue, setShowTongue] = useState(false);
-
+  const [backgroundAudio] = useState(new Audio(additionMusic));
+  const starRefs = useRef([]);
+  const flyRefs = useRef([]);
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [gameOver, setGameOver] = useState(false);
+  const popupRef = useRef(null);
 
   useEffect(() => {
-    fetchProblem(); // Fetch the first problem when the page loads
-  }, []);
+    // Fetch initial problem
+    fetchProblem();
 
-  // This autoplays the music on a loop
-  useEffect(() => {
-    audio.loop = true;
-  
-    audio.play()
-      .then(() => {
-        setIsPlaying(true);
-      })
-      .catch((err) => {
-        console.log("Autoplay failed:", err);
+    // Setup background music
+    backgroundAudio.loop = true;
+    
+    // Setup audio interaction handler
+    const handleUserInteraction = () => {
+      backgroundAudio.loop = true;
+      backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+      window.removeEventListener('click', handleUserInteraction);
+    };
+
+    window.addEventListener('click', handleUserInteraction);
+
+    // Setup fly animations
+    flyRefs.current.forEach((fly) => {
+      gsap.to(fly, {
+        scaleY: 0.9,
+        duration: 0.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut"
       });
-  
+    });
+
+    // Cleanup function
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
+      window.removeEventListener('click', handleUserInteraction);
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
     };
   }, []);
-  
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    } else if (timeLeft === 0) {
+      setGameOver(true);
+      showGameOverAnimation();
+    }
+  }, [timeLeft]);
 
   const fetchProblem = () => {
     fetch('http://127.0.0.1:8000/get_random_problem/') // Fetch from Django backend
@@ -74,13 +107,30 @@ function AdditionLevel() {
           setFeedback('');
           setSelectedAnswer(null);
           fetchProblem();
+          setTimeLeft(15);
         }, 1000);
       } else {
         setFeedback('❌ Try again!');
       }
     }, 500); // Tongue disappears after 0.5s
   };
-  
+
+  const showGameOverAnimation = () => {
+    gsap.fromTo(popupRef.current, 
+      {
+        scale: 0,
+        opacity: 0,
+        y: -100
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "back.out(1.7)"
+      }
+    );
+  };
 
   if (!problem) {
     return <div>Loading...</div>;
@@ -112,7 +162,13 @@ function AdditionLevel() {
             className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
             onClick={(event) => handleFlyClick(flyNumber, event)}
             >
-            <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
+            <img
+              ref={(el) => (flyRefs.current[index] = el)}
+              src={flyImage}
+              alt={`Fly ${flyNumber}`}
+              style={{ width: 150, height: 150 }}
+            />
+
             <p>{flyNumber}</p>
             </div>
           ))
@@ -165,6 +221,52 @@ function AdditionLevel() {
     />
   )}
 </svg>
+    <div style={{ 
+      position: 'absolute', 
+      top: '20px', 
+      right: '20px', 
+      fontSize: '24px', 
+      fontWeight: 'bold',
+      color: timeLeft <= 5 ? 'red' : 'black'
+    }}>
+      Time: {timeLeft}s
+    </div>
+    {gameOver && (
+      <div 
+        ref={popupRef}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#C4A484',
+          padding: '2rem',
+          borderRadius: '15px',
+          boxShadow: '0 0 20px rgba(0,0,0,0.3)',
+          textAlign: 'center',
+          zIndex: 1000
+        }}
+      >
+        <h2 style={{ color: 'white', marginBottom: '1rem' }}>Good Job!</h2>
+        <button 
+          onClick={() => {
+            setGameOver(false);
+            setTimeLeft(15);
+            fetchProblem();
+          }}
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1.1rem',
+            borderRadius: '5px',
+            border: 'none',
+            backgroundColor: 'white',
+            cursor: 'pointer'
+          }}
+        >
+          Play Again
+        </button>
+      </div>
+    )}
   </div>
 
   );
