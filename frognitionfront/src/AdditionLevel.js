@@ -11,7 +11,7 @@ import './addlevel.css'
 function AdditionLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
   const [flies, setFlies] = useState([]);  // Stores flies
-  const [audio] = useState(new Audio("/addition.wav"));
+  const [audio] = useState(new Audio("/addition_level.mp3"));
   const [isPlaying, setIsPlaying] = useState(false)
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
   const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
@@ -29,19 +29,12 @@ function AdditionLevel() {
   useEffect(() => {
     // Fetch initial problem
     fetchProblem();
-
-    // Setup background music
-    backgroundAudio.loop = true;
     
-    // Setup audio interaction handler
-    const handleUserInteraction = () => {
-      backgroundAudio.loop = true;
-      backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
-      window.removeEventListener('click', handleUserInteraction);
-    };
-
-    window.addEventListener('click', handleUserInteraction);
-
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Remove the user interaction handler since we want immediate playback
     // Setup fly animations
     flyRefs.current.forEach((fly) => {
       gsap.to(fly, {
@@ -55,7 +48,6 @@ function AdditionLevel() {
 
     // Cleanup function
     return () => {
-      window.removeEventListener('click', handleUserInteraction);
       backgroundAudio.pause();
       backgroundAudio.currentTime = 0;
     };
@@ -107,7 +99,6 @@ function AdditionLevel() {
           setFeedback('');
           setSelectedAnswer(null);
           fetchProblem();
-          setTimeLeft(15);
         }, 1000);
       } else {
         setFeedback('❌ Try again!');
