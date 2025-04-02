@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -33,3 +34,19 @@ class SubtractionProblem(Problem):
     def __str__(self):
         return f"{self.num1} - {self.num2} = ?"
 
+class PlaceValueProblem(Problem):
+    class PlaceValueChoices(models.TextChoices):
+        ONES = 'O', _('Ones')
+        TENS = 'T', _('Tens')
+        HUNDREDS = 'H', _('Hundreds')
+    
+    num = models.IntegerField()
+    place_to_check = models.CharField(
+        max_length=1, choices=PlaceValueChoices.choices, default=PlaceValueChoices.ONES)
+    correct_answer = models.ForeignKey(
+        Fly, on_delete=models.CASCADE, related_name='correct_answer_for_place_value_problem')
+    flies = models.ManyToManyField(
+        Fly, related_name='flies_for_place_value_problem')
+
+    def __str__(self):
+        return f"What is in the {self.place_to_check} place of {self.num}?"

@@ -59,6 +59,22 @@ def get_random_subtraction_problem(request):
     
     return JsonResponse(data)
 
+@login_required
+def get_random_place_value_problem(request):
+    problem = PlaceValueProblem.objects.order_by('?').first()  # Get a random problem
+
+    if not problem:
+        return JsonResponse({'error': 'No problems available'}, status=404)
+
+    data = {
+        'num': problem.num,
+        'place_to_check': problem.place_to_check,
+        'correct_answer': problem.correct_answer.number,  # Ensure correct_answer is a number
+        'flies': list(problem.flies.values_list('number', flat=True))  # Convert queryset to list
+    }
+    
+    return JsonResponse(data)
+
 @api_view(['POST'])
 def register_user(request):
     permission_classes = [AllowAny]  # Allow unauthenticated access
