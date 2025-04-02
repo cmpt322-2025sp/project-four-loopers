@@ -20,7 +20,6 @@ from playScene.views import *
 from stats.views import *
 from user_management.views import *
 from rest_framework.routers import DefaultRouter
-from playScene.views import AddProblemViewSet, SubProblemViewSet, FlyViewSet, get_random_addition_problem, register_user
 from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
