@@ -107,7 +107,7 @@ function StarScreenPage() {
                 onClick={handleReplay}
                 style={{
                     position: 'absolute',
-                    top: '73%', // ⬅️ bumped lower from 68%
+                    top: '78%', // ⬅️ NOW EVEN LOWER — clean and comfy
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     padding: '16px 40px',
