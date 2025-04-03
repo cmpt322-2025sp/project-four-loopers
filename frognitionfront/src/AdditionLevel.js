@@ -21,17 +21,20 @@ function AdditionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/addition/') // Fetch from Django backend
+    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+      method: 'GET',
+      credentials: 'include', // Ensures cookies are sent with the request
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched new problem:', data);
 
         // Update state with the fetched problem data
-        setProblem({ num1: data.num1, num2: data.num2 });  // Store problem
-        setFlies(data.flies);  // Store flies
-        setCorrectAnswer(data.correct_answer);  // Store correct answer
-        setSelectedAnswer(null);  // Reset selection
-        setFeedback('');  // Reset feedback message
+        setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
+        setFlies(data.flies); // Store flies
+        setCorrectAnswer(data.correct_answer); // Store correct answer
+        setSelectedAnswer(null); // Reset selection
+        setFeedback(''); // Reset feedback message
       })
       .catch((error) => console.error('Error fetching new problem:', error));
   };

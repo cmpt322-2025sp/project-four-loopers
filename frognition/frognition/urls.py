@@ -35,7 +35,7 @@ urlpatterns = [
     path('get_random_problem/place_value/', get_random_place_value_problem),
     path('submit_results/', record_results),
     path('api/', include(router.urls)),
-    path('auth/login/', auth_views.LoginView.as_view(), name='login'),
-    path('auth/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('auth/login/', FrognitionLoginView.as_view(), name='login'),
+    path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),
     path('auth/register/', register_user, name='register'),
 ]
