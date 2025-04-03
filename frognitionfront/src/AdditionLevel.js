@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png'; 
 import frogImage from './Euler.png';
 import './addlevel.css'
-import backgroundImage from './additionLevel.svg';
+
 
 
 function AdditionLevel() {
