@@ -34,6 +34,8 @@ urlpatterns = [
     path('get_random_problem/subtraction/', get_random_subtraction_problem),
     path('get_random_problem/place_value/', get_random_place_value_problem),
     path('submit_results/', record_results),
+    path('get_user_stats/', get_user_stats),  # For teacher to get all students' stats
+    path('get_student_stats/<int:user_id>/', get_user_stats),  # For teacher to get specific student's stats
     path('api/', include(router.urls)),
     path('auth/login/', FrognitionLoginView.as_view(), name='login'),
     path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),

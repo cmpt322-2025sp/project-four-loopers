@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -30,6 +30,9 @@ def register_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
     email = request.data.get('email')
+    first_name = request.data.get('first_name')
+    last_name = request.data.get('last_name')
+    is_teacher = request.data.get('is_teacher', False)
 
     if not username or not password:
         return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -37,6 +40,13 @@ def register_user(request):
     if User.objects.filter(username=username).exists():
         return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
-    user = User.objects.create_user(username=username, password=password, email=email)
+    user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+    if is_teacher:
+        user.is_teacher = True
+    else:
+        user.is_student = True
+    
+    # Group assignment happens here (TODO for iteration 3)
+    user.save()
     return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 
