@@ -1,7 +1,7 @@
 // TeacherDashboard.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './TeacherDashboard.css';
+import './Dashboard.css';
 
 const TeacherDashboard = () => {
   const [students, setStudents] = useState([]);
