@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdditionLevel from './AdditionLevel';
 import Register from './RegisterUser';
 import Dashboard from './Dashboard';
+import LoginPage from './LoginPage';
 
 function App() {
   return (  
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/addition" element={<AdditionLevel />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
     
