@@ -54,5 +54,5 @@ def register_user(request):
 
 
 def get_csrf_token(request):
-    get_token(request) # This line will automatically set the csrftoken cookie
-    return HttpResponse("CSRF cookie set")
+    csrf_token = get_token(request) # This line will automatically set the csrftoken cookie
+    return JsonResponse({'csrfToken': csrf_token}, status=200)

@@ -12,7 +12,7 @@ let csrfToken = ''; // Variable to store the CSRF token
 const getCSRFToken = async () => {
   try {
     const response = await api.get('/auth/csrf-cookie/'); // Sends a request to a specific endpoint to get a cookie
-    csrfToken = response.headers['x-csrftoken'] || ''; // Extract CSRF token from response headers or cookies
+    csrfToken = response.data['csrfToken'] || ''; // Extract CSRF token from response headers or cookies
     console.log('CSRF token fetched:', csrfToken); // Debugging log
   } catch (error) {
     console.error('Error getting CSRF token:', error);
