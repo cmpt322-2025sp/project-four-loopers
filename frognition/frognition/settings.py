@@ -66,10 +66,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  # React app
-# ]
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React app
+]
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
 
 ROOT_URLCONF = 'frognition.urls'
 
@@ -105,6 +106,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'user_management.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

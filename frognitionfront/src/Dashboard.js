@@ -1,30 +1,44 @@
-import { useEffect } from 'react';
-import gsap from 'gsap';
-import teacher from './teacher.png';
-import './Dashboard.css'
+// TeacherDashboard.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './TeacherDashboard.css';
 
-const MyComponent = () => {
+const TeacherDashboard = () => {
+  const [students, setStudents] = useState([]);
+
   useEffect(() => {
-    gsap.to('form-container', { rotation: 360, duration: 2 });
+    // Fetch student data from your backend
+    axios.get('http://localhost:8000/api/students/')
+      .then(res => setStudents(res.data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
-    <header> 
-        <h1>WELCOME BACK PLACEHOLDER</h1>
+    <div className="dashboard-container">
+      <h2 className="dashboard-title">Teacher Dashboard</h2>
 
-    </header>
-//    <div className="register-container">
-//        <div className="student-container">
-//        <img src={teacher} alt="Teacher Icon" style={{ width: 150, height: 150 }} />
-//          <h2 className="student-name">Caleb</h2>
-//         </div>
-//     < div className="student-container">
-//     <img src={teacher} alt="Teacher Icon" style={{ width: 150, height: 150 }} />
-//       <h2 className="student-name">Ellie</h2>
-//      </div>
-
-//  </div>
+      <table className="students-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Current Level</th>
+            <th>Score</th>
+            <th>Last Played</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map(student => (
+            <tr key={student.id}>
+              <td>{student.username}</td>
+              <td>{student.current_level}</td>
+              <td>{student.score}</td>
+              <td>{student.last_played}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-export default MyComponent;
+export default TeacherDashboard;
