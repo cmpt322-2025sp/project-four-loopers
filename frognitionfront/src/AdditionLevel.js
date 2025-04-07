@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png';
 import frogImage from './Euler.png';
-import backgroundImage from './background.png';
 import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
 
@@ -86,9 +85,9 @@ function AdditionLevel() {
   };
 
 
-  // if (!problem) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!problem) {
+    return <div>Loading...</div>;
+  }
     if (showStartScreen) {
         return (
             <div style={{
@@ -131,7 +130,7 @@ function AdditionLevel() {
 
     return (
       <div className="background-container" style={{
-          backgroundImage: `url(${backgroundImage})`,
+          // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           width: '100%',
@@ -176,22 +175,21 @@ function AdditionLevel() {
 />
    {/* Display the flies */}
 
-   {/*<div className="flies-container" >*/}
-   {/*     {flies.length > 0 ? (*/}
-   {/*       flies.map((flyNumber, index) => (*/}
-   {/*         <div*/}
-   {/*         key={index}*/}
-   {/*         className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}*/}
-   {/*         onClick={(event) => handleFlyClick(flyNumber, event)}*/}
-   {/*         >*/}
-   {/*         <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />*/}
-   {/*         <p>{flyNumber}</p>*/}
-   {/*         </div>*/}
-   {/*       ))*/}
-   {/*     ) : (*/}
-   {/*       <p>No flies available</p>*/}
-   {/*     )}*/}
-   {/*   </div>*/}
+   <div className="flies-container" >
+       {flies.length > 0 ? (
+         flies.map((flyNumber, index) => (
+          <div>
+          key={index}
+          className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+           onClick={(event) => handleFlyClick(flyNumber, event)}
+          <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
+           <p>{flyNumber}</p>
+           </div>
+         ))
+       ) : (
+         <p>No flies available</p>
+       )}
+      </div>
       {/* banner */}
 <div className="banner">
       <div data-svg-wrapper style={{
