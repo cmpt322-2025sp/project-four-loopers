@@ -43,7 +43,29 @@ function Register() {
             className="input-field"
           />
         </div>
+        <div className="input-container">
+          <i className="fas fa-first"></i>
+          <input
+            type="firstname"
+            name="first_name"
+            placeholder="First name"
+            value={formData.first_name}
+            onChange={handleChange}
+            className="input-field"
+          />
+        </div>
 
+        <div className="input-container">
+          <i className="fas fa-last"></i>
+          <input
+            type="lastname"
+            name="last_name"
+            placeholder="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+            className="input-field"
+          />
+        </div>
         <div className="input-container">
           <i className="fas fa-envelope"></i>
           <input
@@ -52,6 +74,7 @@ function Register() {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
+          
             className="input-field"
           />
         </div>

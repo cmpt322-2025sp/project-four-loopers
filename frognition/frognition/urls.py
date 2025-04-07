@@ -40,4 +40,5 @@ urlpatterns = [
     path('auth/login/', FrognitionLoginView.as_view(), name='login'),
     path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),
     path('auth/register/', register_user, name='register'),
+    path('auth/csrf-cookie/', get_csrf_token, name='get-csrf-cookie')
 ]
