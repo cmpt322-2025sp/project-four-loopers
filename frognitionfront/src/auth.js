@@ -13,19 +13,20 @@ const getCSRFToken = async () => {
   try {
     const response = await api.get('/auth/csrf-cookie/'); // Sends a request to a specific endpoint to get a cookie
     csrfToken = response.headers['x-csrftoken'] || ''; // Extract CSRF token from response headers or cookies
+    console.log('CSRF token fetched:', csrfToken); // Debugging log
   } catch (error) {
     console.error('Error getting CSRF token:', error);
+    throw new Error('Failed to fetch CSRF token');
   }
 };
 
 const login = async (username, password) => {
   await getCSRFToken(); // Ensure the CSRF token is fetched before login
   try {
-    const response = await axios.post(
-      'http://127.0.0.1:8000/auth/login/',
+    const response = await api.post(
+      '/auth/login/',
       { username, password },
       {
-        withCredentials: true,
         headers: {
           'X-CSRFToken': csrfToken, // Include the CSRF token in the header
         },
@@ -41,10 +42,14 @@ const login = async (username, password) => {
 
 const logout = async () => {
   try {
-    const response = await axios.post(
-      'http://127.0.0.1:8000/auth/logout/',
+    const response = await api.post(
+      '/auth/logout/',
       {},
-      { withCredentials: true }
+      {
+        headers: {
+          'X-CSRFToken': csrfToken, // Include the CSRF token in the header
+        }
+      }
     );
     console.log('Logout successful:', response.data);
   } catch (error) {
