@@ -16,7 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/addition" element={<AdditionLevel />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="" element={<LoginPage />} />
       </Routes>
     </Router>
     

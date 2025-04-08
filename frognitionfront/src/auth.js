@@ -1,60 +1,40 @@
-// auth.js
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000', // Base URL for all requests
-  withCredentials: true, // Send cookies with requests
-});
-
-let csrfToken = ''; // Variable to store the CSRF token
-
-// Function to fetch CSRF token from the server
 const getCSRFToken = async () => {
   try {
-    const response = await api.get('/auth/csrf-cookie/'); // Sends a request to a specific endpoint to get a cookie
-    csrfToken = response.data['csrfToken'] || ''; // Extract CSRF token from response headers or cookies
-    console.log('CSRF token fetched:', csrfToken); // Debugging log
+    // Request CSRF token from Django
+    const response = await axios.get('http://127.0.0.1:8000/auth/csrf-token/');
+    const csrfToken = response.data.csrf_token;
+    console.log('CSRF Token fetched:', csrfToken);  // Log token to confirm it's correct
+    return csrfToken;
   } catch (error) {
-    console.error('Error getting CSRF token:', error);
+    console.error('Error fetching CSRF token:', error);
     throw new Error('Failed to fetch CSRF token');
   }
 };
 
 const login = async (username, password) => {
-  await getCSRFToken(); // Ensure the CSRF token is fetched before login
   try {
-    const response = await api.post(
-      '/auth/login/',
+    // Get CSRF token before making login request
+    const csrfToken = await getCSRFToken();
+    console.log('Sending CSRF token in login request:', csrfToken);  // Log token to confirm
+
+    // Make the login request with CSRF token in header
+    const response = await axios.post(
+      'http://127.0.0.1:8000/auth/login/',  // Replace with your login endpoint
       { username, password },
       {
         headers: {
-          'X-CSRFToken': csrfToken, // Include the CSRF token in the header
-        },
-      }
-    );
-    console.log('Login successful:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Login failed:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-const logout = async () => {
-  try {
-    const response = await api.post(
-      '/auth/logout/',
-      {},
-      {
-        headers: {
-          'X-CSRFToken': csrfToken, // Include the CSRF token in the header
+          'X-CSRFToken': csrfToken,  // CSRF token header
         }
       }
     );
-    console.log('Logout successful:', response.data);
+
+    return response.data;
   } catch (error) {
-    console.error('Logout failed:', error.response?.data || error.message);
+    console.error('Login failed:', error.response || error);  // Log error details
+    throw new Error('Login failed');
   }
 };
 
-export { login, logout };
+export{ login, getCSRFToken };

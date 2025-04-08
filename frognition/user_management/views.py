@@ -8,6 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse as JsonResponse
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -53,6 +54,6 @@ def register_user(request):
     return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 
 
-def get_csrf_token(request):
-    csrf_token = get_token(request) # This line will automatically set the csrftoken cookie
-    return JsonResponse({'csrfToken': csrf_token}, status=200)
+def csrf_token(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrf_token': csrf_token})

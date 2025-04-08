@@ -22,10 +22,10 @@ const LoginPage = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await logout();
-    setMessage('Logged out.');
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   setMessage('Logged out.');
+  // };
 
   return (
     <div className="register-container">
@@ -62,9 +62,9 @@ const LoginPage = () => {
           <button type="submit" className="submit-button">Login</button>
         </form>
 
-        <button onClick={handleLogout} className="submit-button" style={{ marginTop: '10px', backgroundColor: '#f56565' }}>
+        {/* <button onClick={handleLogout} className="submit-button" style={{ marginTop: '10px', backgroundColor: '#f56565' }}>
           Logout
-        </button>
+        </button> */}
 
         <p className="message">{message}</p>
       </div>

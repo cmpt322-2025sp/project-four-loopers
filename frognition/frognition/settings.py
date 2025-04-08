@@ -41,21 +41,21 @@ INSTALLED_APPS = [
     "stats",
     "user_management",
     "rest_framework",
-    "corsheaders",
+    'corsheaders',
+
 
 ]
 
 MIDDLEWARE = [
+    # 'corsheaders.middleware.CorsMiddleware',  #needs to be first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Require authentication by default
@@ -64,13 +64,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',  # Enable session authentication
     ],
 }
+# DEV SETUP: Use this for localhost (not HTTPS)
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React app
-]
+CSRF_COOKIE_HTTPONLY = False  # Allows the CSRF cookie to be accessed via JavaScript
+CSRF_HEADER_NAME = 'X-CSRFToken'  # Header name for CSRF token
+CSRF_COOKIE_SAMESITE = 'None'  # Allow cross-site cookies (ensure this is set if working cross-origin)
+CSRF_COOKIE_SECURE = False 
+
+# CORS
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 ROOT_URLCONF = 'frognition.urls'
 
