@@ -38,12 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "playScene",
+    "stats",
+    "user_management",
     "rest_framework",
-    "corsheaders",
+    'corsheaders',
+
 
 ]
 
 MIDDLEWARE = [
+    # 'corsheaders.middleware.CorsMiddleware',  #needs to be first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,14 +55,31 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
 ]
-REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny']}
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  # React app
-# ]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Require authentication by default
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',  # Enable session authentication
+    ],
+}
+# DEV SETUP: Use this for localhost (not HTTPS)
 
+CSRF_COOKIE_HTTPONLY = False  # Allows the CSRF cookie to be accessed via JavaScript
+CSRF_HEADER_NAME = 'X-CSRFToken'  # Header name for CSRF token
+CSRF_COOKIE_SAMESITE = 'None'  # Allow cross-site cookies (ensure this is set if working cross-origin)
+CSRF_COOKIE_SECURE = False 
+
+# CORS
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 ROOT_URLCONF = 'frognition.urls'
 
@@ -94,6 +115,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'user_management.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

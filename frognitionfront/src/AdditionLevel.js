@@ -4,6 +4,8 @@ import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import backgroundImage from './additionLevel.svg';
 import additionMusic from './addition_level.mp3';
+import CountdownTimer from "./CountdownTimer";
+
 import './addlevel.css'
 
 
@@ -20,39 +22,45 @@ function AdditionLevel() {
   const [tongueEnd, setTongueEnd] = useState(null);
   const [showTongue, setShowTongue] = useState(false);
   const [backgroundAudio] = useState(new Audio(additionMusic));
-  const starRefs = useRef([]);
-  const flyRefs = useRef([]);
-  const [timeLeft, setTimeLeft] = useState(15);
-  const [gameOver, setGameOver] = useState(false);
-  const popupRef = useRef(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [showStartScreen, setShowStartScreen] = useState(true);
+  
+  
 
+    const handlePause = () => {
+    setIsPaused(true);
+  };
+
+  const handleUnpause = () => {
+    setIsPaused(false);
+  };
+
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key.toLowerCase() === 'p') {
+                setIsPaused(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+  
   useEffect(() => {
-    // Fetch initial problem
-    fetchProblem();
-    
     // Setup and play background music immediately
     backgroundAudio.loop = true;
     backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
     
-    // Remove the user interaction handler since we want immediate playback
-    // Setup fly animations
-    flyRefs.current.forEach((fly) => {
-      gsap.to(fly, {
-        scaleY: 0.9,
-        duration: 0.1,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
-    });
-
     // Cleanup function
     return () => {
       backgroundAudio.pause();
       backgroundAudio.currentTime = 0;
     };
-  }, []);
-
+    
   useEffect(() => {
     if (timeLeft > 0) {
       const timer = setInterval(() => {
@@ -65,19 +73,27 @@ function AdditionLevel() {
       showGameOverAnimation();
     }
   }, [timeLeft]);
+        
+    useEffect(() => {
+    fetchProblem(); // Fetch the first problem when the page loads
+
+  }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/') // Fetch from Django backend
+    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+      method: 'GET',
+      credentials: 'include', // Ensures cookies are sent with the request
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched new problem:', data);
 
         // Update state with the fetched problem data
-        setProblem({ num1: data.num1, num2: data.num2 });  // Store problem
-        setFlies(data.flies);  // Store flies
-        setCorrectAnswer(data.correct_answer);  // Store correct answer
-        setSelectedAnswer(null);  // Reset selection
-        setFeedback('');  // Reset feedback message
+        setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
+        setFlies(data.flies); // Store flies
+        setCorrectAnswer(data.correct_answer); // Store correct answer
+        setSelectedAnswer(null); // Reset selection
+        setFeedback(''); // Reset feedback message
       })
       .catch((error) => console.error('Error fetching new problem:', error));
   };
@@ -85,11 +101,11 @@ function AdditionLevel() {
   const handleFlyClick = (flyNumber, event) => {
     const flyRect = event.target.getBoundingClientRect();
     const frogRect = document.getElementById("frog").getBoundingClientRect();
-  
+
     setTongueStart({ x: frogRect.left + frogRect.width / 2, y: frogRect.top + frogRect.height / 3 });
     setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
     setShowTongue(true);
-  
+
     setTimeout(() => {
       setShowTongue(false);
       setSelectedAnswer(flyNumber);
@@ -106,34 +122,85 @@ function AdditionLevel() {
     }, 500); // Tongue disappears after 0.5s
   };
 
-  const showGameOverAnimation = () => {
-    gsap.fromTo(popupRef.current, 
-      {
-        scale: 0,
-        opacity: 0,
-        y: -100
-      },
-      {
-        scale: 1,
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "back.out(1.7)"
-      }
-    );
-  };
 
   if (!problem) {
     return <div>Loading...</div>;
   }
-  
-  return (
-    <div className="background-container">
+    if (showStartScreen) {
+        return (
+            <div style={{
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: '#111',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+                fontFamily: 'Arial, sans-serif',
+            }}>
+                <h1 style={{
+                    fontSize: '64px',
+                    marginBottom: '40px',
+                    textShadow: '2px 2px 10px black',
+                }}>🐸 Frognition</h1>
+                <button
+                    onClick={() => setShowStartScreen(false)}
+                    style={{
+                        fontSize: '32px',
+                        padding: '20px 60px',
+                        backgroundColor: '#00b894',
+                        border: 'none',
+                        borderRadius: '12px',
+                        color: '#fff',
+                        cursor: 'pointer',
+                        boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                        transition: 'all 0.2s ease-in-out',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.backgroundColor = '#019875'}
+                    onMouseOut={e => e.currentTarget.style.backgroundColor = '#00b894'}
+                >
+                    ▶️ Play
+                </button>
+            </div>
+        );
+    }
+
+    return (
+      <div className="background-container" style={{
+          // backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          width: '100%',
+          height: '100vh'
+      }}>
+          <button
+              onClick={handlePause}
+              style={{
+                  position: 'absolute',
+                  top: '20px',
+                  left: '20px',
+                  zIndex: 10,
+                  fontSize: '24px',
+                  padding: '10px 20px',
+                  backgroundColor: '#333',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+              }}
+          >
+              ⏸ Pause
+          </button>
+
+          <CountdownTimer startTime={11} problemsSolved={10} isPaused={isPaused}/>
+          {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
-    <img 
+    <img
   id="frog"
-  src={frogImage} 
+  src={frogImage}
   alt="Frog"
   style={{
     width: '10vw',
@@ -142,46 +209,40 @@ function AdditionLevel() {
     left: '50%',
     bottom: '0vh',
     transform: 'translateX(-50%)'
-  }} 
+  }}
 />
    {/* Display the flies */}
-   <div className="flies-container" >
-        {flies.length > 0 ? (
-          flies.map((flyNumber, index) => (
-            <div 
-            key={index} 
-            className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-            onClick={(event) => handleFlyClick(flyNumber, event)}
-            >
-            <img
-              ref={(el) => (flyRefs.current[index] = el)}
-              src={flyImage}
-              alt={`Fly ${flyNumber}`}
-              style={{ width: 150, height: 150 }}
-            />
 
-            <p>{flyNumber}</p>
-            </div>
-          ))
-        ) : (
-          <p>No flies available</p>
-        )}
+   <div className="flies-container" >
+       {flies.length > 0 ? (
+         flies.map((flyNumber, index) => (
+          <div>
+          key={index}
+          className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+           onClick={(event) => handleFlyClick(flyNumber, event)}
+          <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
+           <p>{flyNumber}</p>
+           </div>
+         ))
+       ) : (
+         <p>No flies available</p>
+       )}
       </div>
       {/* banner */}
 <div className="banner">
-      <div data-svg-wrapper style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    width: '100%', 
-    height: '20vh', 
-    padding: '20px' 
+      <div data-svg-wrapper style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '20vh',
+    padding: '20px'
 }}>
-  <svg 
+  <svg
     width="80%"  // Adjust width percentage as needed
-    height="auto" 
-    viewBox="0 0 1008 200" 
-    fill="none" 
+    height="auto"
+    viewBox="0 0 1008 200"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ maxWidth: '900px' }}  // Prevents it from getting too large on big screens
   >
@@ -197,68 +258,58 @@ function AdditionLevel() {
   </svg>
   </div>
   <div><h1>Addition Problems</h1></div>
-  <div><p>{problem.num1} + {problem.num2} = ?</p></div>
+  <div><p>4 + 5 = ?</p></div>
 </div>
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
   {showTongue && tongueEnd && (
-    <line 
-      x1={tongueStart.x} 
-      y1={tongueStart.y} 
-      x2={tongueEnd.x} 
-      y2={tongueEnd.y} 
-      stroke="pink" 
-      strokeWidth="7" 
+    <line
+      x1={tongueStart.x}
+      y1={tongueStart.y}
+      x2={tongueEnd.x}
+      y2={tongueEnd.y}
+      stroke="pink"
+      strokeWidth="7"
     />
   )}
 </svg>
-    <div style={{ 
-      position: 'absolute', 
-      top: '20px', 
-      right: '20px', 
-      fontSize: '24px', 
-      fontWeight: 'bold',
-      color: timeLeft <= 5 ? 'red' : 'black'
-    }}>
-      Time: {timeLeft}s
-    </div>
-    {gameOver && (
-      <div 
-        ref={popupRef}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#C4A484',
-          padding: '2rem',
-          borderRadius: '15px',
-          boxShadow: '0 0 20px rgba(0,0,0,0.3)',
-          textAlign: 'center',
-          zIndex: 1000
-        }}
-      >
-        <h2 style={{ color: 'white', marginBottom: '1rem' }}>Good Job!</h2>
-        <button 
-          onClick={() => {
-            setGameOver(false);
-            setTimeLeft(15);
-            fetchProblem();
-          }}
-          style={{
-            padding: '0.5rem 1rem',
-            fontSize: '1.1rem',
-            borderRadius: '5px',
-            border: 'none',
-            backgroundColor: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          Play Again
-        </button>
+          {/* Pause Overlay */}
+          {isPaused && (
+              <div style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  backgroundColor: 'rgba(0,0,0,0.8)',
+                  zIndex: 9999,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  color: '#fff',
+                  fontFamily: 'Arial, sans-serif',
+              }}>
+                  <h1 style={{ fontSize: '80px', marginBottom: '40px' }}>⏸ Paused</h1>
+                  <button
+                      onClick={handleUnpause}
+                      style={{
+                          fontSize: '28px',
+                          padding: '16px 40px',
+                          backgroundColor: '#6c5ce7',
+                          border: 'none',
+                          borderRadius: '10px',
+                          color: '#fff',
+                          cursor: 'pointer',
+                          boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+                      }}
+                  >
+                      🔄 Resume
+                  </button>
+              </div>
+          )}
+
       </div>
-    )}
-  </div>
 
   );
 }

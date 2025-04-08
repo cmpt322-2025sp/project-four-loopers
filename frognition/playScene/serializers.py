@@ -14,11 +14,11 @@ class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
         fields = ['id', 'num1', 'num2', 'correct_answer', 'flies']
-    # def create(self, validated_data):
-    #     flies_data = validated_data.pop('flies')  
-    #     problem = Problem.objects.create(**validated_data)  
-    #     problem.flies.set(flies_data) 
-    #     return problem
+    def create(self, validated_data):
+        flies_data = validated_data.pop('flies')
+        problem = Problem.objects.create(**validated_data)
+        problem.flies.set(flies_data)
+        return problem
 
 # class PlayerSerializer(serializers.ModelSerializer):
 #     class Meta:
