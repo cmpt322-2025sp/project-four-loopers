@@ -9,10 +9,11 @@ from django.http import JsonResponse as JsonResponse
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
-
 class FrognitionLoginView(LoginView):
+    permission_classes = [AllowAny]
     def form_valid(self, form):
         self.request.session.set_expiry(0)  # Set session to expire when the user closes the browser
         return JsonResponse({'message': 'Login successful'}, status=200)
@@ -53,7 +54,6 @@ def register_user(request):
     user.save()
     return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 
-
-def csrf_token(request):
-    csrf_token = get_token(request)
-    return JsonResponse({'csrf_token': csrf_token})
+@ensure_csrf_cookie
+def get_csrf(request):
+    return JsonResponse({'detail': 'CSRF cookie set'})

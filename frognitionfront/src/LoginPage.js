@@ -1,12 +1,13 @@
-// LoginPage.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 🔹 Import useNavigate
 import { login, logout } from './auth';
-import './Register.css'; // reuse the same CSS
-import teacher from './teacher.png'; // reuse the same image
+import './Register.css';
+import teacher from './teacher.png';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // 🔹 Initialize navigate
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,15 +18,11 @@ const LoginPage = () => {
     try {
       await login(formData.username, formData.password);
       setMessage('Login successful!');
+      navigate('/addition'); //redirect to additionlevel 
     } catch (err) {
       setMessage('Login failed. Check your credentials.');
     }
   };
-
-  // const handleLogout = async () => {
-  //   await logout();
-  //   setMessage('Logged out.');
-  // };
 
   return (
     <div className="register-container">
@@ -61,10 +58,6 @@ const LoginPage = () => {
 
           <button type="submit" className="submit-button">Login</button>
         </form>
-
-        {/* <button onClick={handleLogout} className="submit-button" style={{ marginTop: '10px', backgroundColor: '#f56565' }}>
-          Logout
-        </button> */}
 
         <p className="message">{message}</p>
       </div>

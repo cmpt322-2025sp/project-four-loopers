@@ -21,7 +21,7 @@ from stats.views import *
 from user_management.views import *
 from rest_framework.routers import DefaultRouter
 from django.contrib.auth import views as auth_views
-from user_management.views import csrf_token
+from user_management.views import get_csrf
 
 router = DefaultRouter()
 router.register(r'addition_problems', AddProblemViewSet)
@@ -41,5 +41,5 @@ urlpatterns = [
     path('auth/login/', FrognitionLoginView.as_view(), name='login'),
     path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),
     path('auth/register/', register_user, name='register'),
-    path('auth/csrf-token/',csrf_token, name = 'csrf_token')
+    path('auth/csrf/',get_csrf, name = 'get_csrf')
 ]

@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'corsheaders.middleware.CorsMiddleware',  #needs to be first
+    'corsheaders.middleware.CorsMiddleware',  #needs to be first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,7 +68,7 @@ REST_FRAMEWORK = {
 
 CSRF_COOKIE_HTTPONLY = False  # Allows the CSRF cookie to be accessed via JavaScript
 CSRF_HEADER_NAME = 'X-CSRFToken'  # Header name for CSRF token
-CSRF_COOKIE_SAMESITE = 'None'  # Allow cross-site cookies (ensure this is set if working cross-origin)
+CSRF_COOKIE_SAMESITE = 'lax'  # Allow cross-site cookies (ensure this is set if working cross-origin)
 CSRF_COOKIE_SECURE = False 
 
 # CORS
