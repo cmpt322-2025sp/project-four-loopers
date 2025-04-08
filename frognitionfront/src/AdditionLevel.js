@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import flyImage from './Moth.png';
+import React, { useState, useRef, useEffect } from 'react';
+import {gsap} from 'gsap';
+import flyImage from './Moth.png'; 
 import frogImage from './Euler.png';
+import backgroundImage from './additionLevel.svg';
+import additionMusic from './addition_level.mp3';
 import CountdownTimer from "./CountdownTimer";
+
 import './addlevel.css'
 
 
@@ -9,14 +13,19 @@ import './addlevel.css'
 function AdditionLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
   const [flies, setFlies] = useState([]);  // Stores flies
+  const [audio] = useState(new Audio("/addition_level.mp3"));
+  const [isPlaying, setIsPlaying] = useState(false)
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
   const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
   const [feedback, setFeedback] = useState('');  // Stores feedback message
   const [tongueStart, setTongueStart] = useState({ x: 0, y: 0 });
   const [tongueEnd, setTongueEnd] = useState(null);
   const [showTongue, setShowTongue] = useState(false);
+  const [backgroundAudio] = useState(new Audio(additionMusic));
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
+  
+  
 
     const handlePause = () => {
     setIsPaused(true);
@@ -40,9 +49,34 @@ function AdditionLevel() {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
+  
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+    
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
 
+      return () => clearInterval(timer);
+    } else if (timeLeft === 0) {
+      setGameOver(true);
+      showGameOverAnimation();
+    }
+  }, [timeLeft]);
+        
     useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
+
   }, []);
 
   const fetchProblem = () => {
