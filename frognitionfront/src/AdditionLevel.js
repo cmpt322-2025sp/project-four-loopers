@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
-import './addlevel.css'
-
+import './addlevel.css';
+import additionMusic from './addition_level.mp3';
 
 
 
@@ -19,6 +19,7 @@ function AdditionLevel() {
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);  
+  const [backgroundAudio] = useState(new Audio(additionMusic));
 
     const handlePause = () => {
     setIsPaused(true);
@@ -27,7 +28,17 @@ function AdditionLevel() {
   const handleUnpause = () => {
     setIsPaused(false);
   };
-
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+  }, []);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
