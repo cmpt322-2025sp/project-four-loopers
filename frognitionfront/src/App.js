@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
 import SubtractionLevel from './SubtractionLevel';
 import StarScreenPage from './StarScreenPage';
+import PlaceValueLevel from './PlacevalueLevel';
 
 function App() {
   return (  
@@ -19,6 +20,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/subtraction" element={<SubtractionLevel />} />
         <Route path="" element={<LoginPage />} />
+        <Route path="/placevalue" element={<PlaceValueLevel />} />
       </Routes>
     </Router>
     

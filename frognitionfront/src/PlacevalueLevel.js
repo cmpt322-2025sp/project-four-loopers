@@ -6,9 +6,9 @@ import './addlevel.css'
 
 
 
-function AdditionLevel() {
+function PlaceValueLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
-  const [flies, setFlies] = useState([]);  // Stores flies
+  const [flies, setFlies] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
   const [selectedAnswer, setSelectedAnswer] = useState(null);  // Stores player's choice
   const [feedback, setFeedback] = useState('');  // Stores feedback message
@@ -47,7 +47,7 @@ function AdditionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+    fetch('http://127.0.0.1:8000/get_random_problem/place_value/', {
       method: 'GET',
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
@@ -60,7 +60,7 @@ function AdditionLevel() {
         console.log('Fetched new problem:', data);
 
         // Update state with the fetched problem data
-        setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
+        setProblem({ num: data.num, place_to_check: data.place_to_check });
         setFlies(data.flies); // Store flies
         setCorrectAnswer(data.correct_answer); // Store correct answer
         setSelectedAnswer(null); // Reset selection
@@ -230,8 +230,8 @@ function AdditionLevel() {
     </g>
   </svg>
   </div>
-  <div><h1>Subtraction Problems</h1></div>
-  <div><p>{problem.num1} + {problem.num2} = ?</p></div>
+  <div><h1>Place Value Problems</h1></div>
+  <div><p>What is in the {problem.place_to_check} place of {problem.num}?</p></div>
 </div>
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
@@ -286,4 +286,4 @@ function AdditionLevel() {
 
   );
 }
-export default AdditionLevel;
+export default PlaceValueLevel;

@@ -86,15 +86,15 @@ function StarScreenPage() {
                     fontWeight: 'bold',
                     marginBottom: '10px',
                 }}>
-                    Score: {score}
+                    Problems Solved: {problemsSolved}
                 </div>
                 <div style={{
                     fontSize: '48px',
                     fontWeight: 'bold',
                 }}>
-                    {problemsSolved >= 30
+                    {problemsSolved >= 25
                         ? '⭐ Perfect Score! You solved them all!'
-                        : problemsSolved >= 20
+                        : problemsSolved >= 15
                             ? '✨ Great job! You earned 2 stars!'
                             : problemsSolved >= 10
                                 ? '👍 Nice! You got a star!'
@@ -107,7 +107,7 @@ function StarScreenPage() {
                 onClick={handleReplay}
                 style={{
                     position: 'absolute',
-                    top: '78%', // ⬅️ NOW EVEN LOWER — clean and comfy
+                    top: '78%', 
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     padding: '16px 40px',
