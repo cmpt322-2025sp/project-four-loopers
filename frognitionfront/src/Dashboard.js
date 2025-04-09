@@ -8,7 +8,7 @@ const TeacherDashboard = () => {
 
   useEffect(() => {
     // Fetch student data from your backend
-    axios.get('http://localhost:8000/api/students/')
+    axios.get('https://django.stargazer-vega.ts.net/api/students/')
       .then(res => setStudents(res.data))
       .catch(err => console.error(err));
   }, []);

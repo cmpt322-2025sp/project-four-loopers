@@ -47,7 +47,7 @@ function PlaceValueLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/place_value/', {
+    fetch('https://django.stargazer-vega.ts.net/get_random_problem/place_value/', {
       method: 'GET',
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{

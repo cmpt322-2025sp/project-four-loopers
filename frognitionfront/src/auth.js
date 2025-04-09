@@ -7,7 +7,7 @@ function wait(ms) {
 export const login = async (username, password) => {
   try {
     // Step 1: Get CSRF token
-    await axios.get('http://localhost:8000/auth/csrf/', {
+    await axios.get('https://django.stargazer-vega.ts.net/auth/csrf/', {
       withCredentials: true, // ensures cookies are handled
     });
 
@@ -18,7 +18,7 @@ export const login = async (username, password) => {
     console.log('Password:', password); // Log the password for debugging
 
     const response = await axios.post(
-      'http://localhost:8000/auth/login/',
+      'https://django.stargazer-vega.ts.net/auth/login/',
       { username, password },
       {
         headers: {

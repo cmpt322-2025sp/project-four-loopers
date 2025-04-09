@@ -18,7 +18,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/auth/register/', formData);
+      const response = await axios.post('https://django.stargazer-vega.ts.net/auth/register/', formData);
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.error || 'An error occurred');

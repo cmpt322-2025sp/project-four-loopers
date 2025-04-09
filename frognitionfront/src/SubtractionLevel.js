@@ -47,7 +47,7 @@ function SubtractionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/subtraction/', {
+    fetch('https://django.stargazer-vega.ts.net/get_random_problem/subtraction/', {
       method: 'GET',
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{

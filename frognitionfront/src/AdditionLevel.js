@@ -48,7 +48,7 @@ function AdditionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+    fetch('https://django.stargazer-vega.ts.net/get_random_problem/addition/', {
       method: 'GET',
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
