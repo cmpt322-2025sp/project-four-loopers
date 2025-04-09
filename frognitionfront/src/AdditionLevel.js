@@ -17,6 +17,7 @@ function AdditionLevel() {
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
+  const [correctCount, setCorrectCount] = useState(0);  
 
     const handlePause = () => {
     setIsPaused(true);
@@ -46,7 +47,7 @@ function AdditionLevel() {
   }, []);
 
   const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+    fetch('http://127.0.0.1:8000/get_random_problem/subtraction/', {
       method: 'GET',
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
@@ -81,6 +82,7 @@ function AdditionLevel() {
       setSelectedAnswer(flyNumber);
       if (flyNumber === correctAnswer) {
         setFeedback('✅ Correct!');
+        setCorrectCount(prev => prev + 1); 
         setTimeout(() => {
           setFeedback('');
           setSelectedAnswer(null);
@@ -163,8 +165,8 @@ function AdditionLevel() {
           >
               ⏸ Pause
           </button>
-
-          <CountdownTimer startTime={11} problemsSolved={10} isPaused={isPaused}/>
+              {/* change problems solved to number of correct anwsers */}
+          <CountdownTimer startTime={60} problemsSolved={correctCount} isPaused={isPaused}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
@@ -186,10 +188,11 @@ function AdditionLevel() {
    <div className="flies-container" >
        {flies.length > 0 ? (
          flies.map((flyNumber, index) => (
-          <div>
+          <div
           key={index}
           className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
            onClick={(event) => handleFlyClick(flyNumber, event)}
+           >
           <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
            <p>{flyNumber}</p>
            </div>
@@ -227,7 +230,7 @@ function AdditionLevel() {
     </g>
   </svg>
   </div>
-  <div><h1>Addition Problems</h1></div>
+  <div><h1>Subtraction Problems</h1></div>
   <div><p>{problem.num1} + {problem.num2} = ?</p></div>
 </div>
     <h3>{feedback}</h3>
