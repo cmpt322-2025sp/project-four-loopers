@@ -1,0 +1,79 @@
+
+.background-container {
+    position: relative; /* Allow normal document flow */
+    width: 100vw;
+    min-height: 100vh; /* Ensure content can grow beyond viewport */
+    background-image: url('./subtrania.png');
+    background-size: cover;
+    background-position: center;
+    overflow: auto;
+  }
+  
+  .flies-container {
+    position: absolute;
+    top: 25vh; /* 40% down from the top of the screen */
+    left: 50%; /* Centering the container */
+    transform: translateX(-50%); /* Ensures perfect centering */
+    
+    display: flex; /* Align flies in a row */
+    justify-content: center; /* Center them horizontally */
+    gap: 2vw; /* Spacing between flies based on screen width */
+    
+    flex-wrap: wrap; /* Allows wrapping if screen is small */
+    width: 80vw; /* Ensures it adapts to screen size */
+    max-width: 1000px; /* Prevents flies from spreading too much on large screens */
+  }
+    
+  .fly {
+    cursor: pointer;
+    text-align: center;
+    
+    width: 12vw; /* Makes flies responsive */
+    max-width: 150px; /* Prevents them from being too large */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .fly img {
+    width: 100%; /* Makes sure image scales within container */
+    height: auto;
+  }
+  
+  .fly p {
+    max-height: -50px;
+    margin-top: -15vh; /* Moves number slightly up */
+    font-size: 2vw; /* Makes text size scale */
+    font-weight: bold;
+    color: black;
+  }
+  
+  h3{
+   text-align: center;
+   margin-top: 1vh;
+    font-size: 2vw;
+  
+  }
+  .banner p {
+    font-size: 2.5vw;
+    color: black;
+    margin-top: 0; /* Reset margin to avoid overlap */
+    text-align: center;
+    font-family: Inika;
+  }
+  
+  
+  .banner h1 {
+    font-size: 3vw;
+    color: black;
+    margin-top: -24vh;
+    margin-bottom: 0; /* Space between h1 and p */
+    text-align: center;
+    font-family: Inika;
+  }
+  .tongue-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+  }
