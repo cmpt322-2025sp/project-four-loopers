@@ -3,7 +3,7 @@
     position: relative; /* Allow normal document flow */
     width: 100vw;
     min-height: 100vh; /* Ensure content can grow beyond viewport */
-    background-image: url('./subtrania.png');
+    background-image: url('./subtrania.svg');
     background-size: cover;
     background-position: center;
     overflow: auto;
