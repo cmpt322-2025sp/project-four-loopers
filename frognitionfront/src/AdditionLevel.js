@@ -53,7 +53,7 @@ function AdditionLevel() {
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
         'Content-Type': 'application/json',
-        'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
+        // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
       }
     })
       .then((response) => response.json())
