@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
-import './sublevel.css'
+import './sublevel.css';
+import subtractionMusic from './subtrania.mp3';
 
 
 
@@ -18,6 +19,7 @@ function SubtractionLevel() {
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);  
+  const[backgroundAudio] = useState(new Audio(subtractionMusic));
 
     const handlePause = () => {
     setIsPaused(true);
@@ -27,6 +29,17 @@ function SubtractionLevel() {
     setIsPaused(false);
   };
 
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+  }, [backgroundAudio]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -52,7 +65,7 @@ function SubtractionLevel() {
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
         'Content-Type': 'application/json',
-        'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
+        // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
       }
     })
       .then((response) => response.json())
@@ -139,7 +152,7 @@ function SubtractionLevel() {
     }
 
     return (
-      <div className="background-container" style={{
+      <div className="subtraction-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

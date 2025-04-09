@@ -3,6 +3,7 @@ import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './placelevel.css'
+import digitropolisMusic from './digitropolis.mp3';
 
 
 
@@ -18,6 +19,7 @@ function PlaceValueLevel() {
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);  
+  const [backgroundAudio] = useState(new Audio(digitropolisMusic)); // Create a new audio object
 
     const handlePause = () => {
     setIsPaused(true);
@@ -27,6 +29,17 @@ function PlaceValueLevel() {
     setIsPaused(false);
   };
 
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+  }, [backgroundAudio]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -52,7 +65,7 @@ function PlaceValueLevel() {
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
         'Content-Type': 'application/json',
-        'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
+        // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
       }
     })
       .then((response) => response.json())
@@ -139,7 +152,7 @@ function PlaceValueLevel() {
     }
 
     return (
-      <div className="background-container" style={{
+      <div className="digit-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

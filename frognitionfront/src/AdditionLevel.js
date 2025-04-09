@@ -3,6 +3,7 @@ import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
+import additionMusic from './addition_level.mp3';
 
 
 
@@ -19,6 +20,7 @@ function AdditionLevel() {
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);  
+  const [backgroundAudio] = useState(new Audio(additionMusic));
 
     const handlePause = () => {
     setIsPaused(true);
@@ -28,6 +30,17 @@ function AdditionLevel() {
     setIsPaused(false);
   };
 
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+  }, [backgroundAudio]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -53,7 +66,7 @@ function AdditionLevel() {
       credentials: 'include', // Ensures cookies are sent with the request
       headers:{
         'Content-Type': 'application/json',
-        'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
+        // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
       }
     })
       .then((response) => response.json())
@@ -140,7 +153,7 @@ function AdditionLevel() {
     }
 
     return (
-      <div className="background-container" style={{
+      <div className="addition-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -231,7 +244,7 @@ function AdditionLevel() {
     </g>
   </svg>
   </div>
-  <div><h1>Subtraction Problems</h1></div>
+  <div><h1>Addition Problems</h1></div>
   <div><p>{problem.num1} + {problem.num2} = ?</p></div>
 </div>
     <h3>{feedback}</h3>
