@@ -139,7 +139,7 @@ function PlaceValueLevel() {
     }
 
     return (
-      <div className="background-container" style={{
+      <div className="digit-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

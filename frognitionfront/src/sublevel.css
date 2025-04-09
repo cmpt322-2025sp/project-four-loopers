@@ -1,5 +1,5 @@
 
-.background-container {
+.subtraction-background-container {
     position: relative; /* Allow normal document flow */
     width: 100vw;
     min-height: 100vh; /* Ensure content can grow beyond viewport */

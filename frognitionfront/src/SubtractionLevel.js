@@ -139,7 +139,7 @@ function SubtractionLevel() {
     }
 
     return (
-      <div className="background-container" style={{
+      <div className="subtraction-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
