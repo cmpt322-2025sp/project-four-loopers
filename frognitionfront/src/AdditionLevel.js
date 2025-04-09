@@ -231,7 +231,7 @@ function AdditionLevel() {
     </g>
   </svg>
   </div>
-  <div><h1>Subtraction Problems</h1></div>
+  <div><h1>Addition Problems</h1></div>
   <div><p>{problem.num1} + {problem.num2} = ?</p></div>
 </div>
     <h3>{feedback}</h3>
