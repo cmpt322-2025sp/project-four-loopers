@@ -20,6 +20,19 @@ class ProblemSerializer(serializers.ModelSerializer):
         problem.flies.set(flies_data)
         return problem
 
+class PlaceValueSerializer(serializers.ModelSerializer):
+    correct_answer = FlySerializer()
+    flies = FlySerializer(many=True)
+
+    class Meta:
+        model = PlaceValueProblem
+        fields = ['id', 'num', 'place_to_check', 'correct_answer', 'flies']
+    def create(self, validated_data):
+        flies_data = validated_data.pop('flies')
+        problem = PlaceValueProblem.objects.create(**validated_data)
+        problem.flies.set(flies_data)
+        return problem
+
 # class PlayerSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Player
