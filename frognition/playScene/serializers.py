@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Problem, Fly
+from .models import Problem, Fly, PlaceValueProblem
 
 
 class FlySerializer(serializers.ModelSerializer):
