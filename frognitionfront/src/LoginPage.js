@@ -4,6 +4,10 @@ import { login, logout } from './auth';
 import './Register.css';
 import teacher from './teacher.png';
 
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const LoginPage = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
@@ -18,6 +22,7 @@ const LoginPage = () => {
     try {
       await login(formData.username, formData.password);
       setMessage('Login successful!');
+      await wait(10000); 
       navigate('/addition'); //redirect to additionlevel 
     } catch (err) {
       setMessage('Login failed. Check your credentials.');

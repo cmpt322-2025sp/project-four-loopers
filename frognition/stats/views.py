@@ -8,8 +8,8 @@ from user_management.models import User
 
 # Create your views here.
 
-@login_required
-@permission_required('user_management.student', raise_exception=True)
+# @login_required
+# @permission_required('user_management.student', raise_exception=True)
 @api_view(['POST'])
 def record_results(request):
     permission_classes = [IsAuthenticated]
@@ -29,8 +29,8 @@ def record_results(request):
     )
     return JsonResponse({'message': 'Results recorded successfully'}, status=201)
     
-@login_required
-@permission_required('user_management.teacher', raise_exception=True)
+# @login_required
+# @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_user_stats(request, user_id):
     permission_classes = [IsAuthenticated]
@@ -58,8 +58,8 @@ def get_user_stats(request, user_id):
     return JsonResponse(stats, status=200)
 
 # Function to get all students' stats for teacher
-@login_required
-@permission_required('user_management.teacher', raise_exception=True)
+# @login_required
+# @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_all_students_stats(request):
     permission_classes = [IsAuthenticated]

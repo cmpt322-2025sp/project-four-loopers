@@ -10,16 +10,30 @@ from django.http import HttpResponse
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth import login 
 
 # Create your views here.
+
 class FrognitionLoginView(LoginView):
     permission_classes = [AllowAny]
+    def loginview(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return JsonResponse({'message': 'Login successful'}, status=200)
+            else:
+                return JsonResponse({'error': 'Invalid credentials'}, status=400)
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
     def form_valid(self, form):
         self.request.session.set_expiry(0)  # Set session to expire when the user closes the browser
         return JsonResponse({'message': 'Login successful'}, status=200)
     
     def form_invalid(self, form):
         return JsonResponse({'error': 'Invalid credentials'}, status=400)
+    
 
 
 class FrognitionLogoutView(LogoutView):

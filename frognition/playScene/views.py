@@ -30,7 +30,7 @@ class FlyViewSet(viewsets.ModelViewSet):
     queryset = Fly.objects.all()
     serializer_class = FlySerializer
 
-@login_required
+# @login_required
 def get_random_addition_problem(request):
     problem = AdditionProblem.objects.order_by('?').first()  # Get a random problem
 
@@ -46,7 +46,7 @@ def get_random_addition_problem(request):
     
     return JsonResponse(data)
 
-@login_required
+# @login_required
 def get_random_subtraction_problem(request):
     problem = SubtractionProblem.objects.order_by('?').first()  # Get a random problem
 
@@ -62,7 +62,7 @@ def get_random_subtraction_problem(request):
     
     return JsonResponse(data)
 
-@login_required
+# @login_required
 def get_random_place_value_problem(request):
     problem = PlaceValueProblem.objects.order_by('?').first()  # Get a random problem
 

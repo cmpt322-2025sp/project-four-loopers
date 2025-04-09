@@ -6,6 +6,7 @@ import AdditionLevel from './AdditionLevel';
 import Register from './RegisterUser';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
+import SubtractionLevel from './SubtractionLevel';
 import StarScreenPage from './StarScreenPage';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/addition" element={<AdditionLevel />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/subtraction" element={<SubtractionLevel />} />
         <Route path="" element={<LoginPage />} />
       </Routes>
     </Router>

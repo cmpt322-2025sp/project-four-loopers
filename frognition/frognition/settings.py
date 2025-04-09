@@ -70,15 +70,16 @@ CSRF_COOKIE_HTTPONLY = False  # Allows the CSRF cookie to be accessed via JavaSc
 CSRF_HEADER_NAME = 'X-CSRFToken'  # Header name for CSRF token
 CSRF_COOKIE_SAMESITE = 'lax'  # Allow cross-site cookies (ensure this is set if working cross-origin)
 CSRF_COOKIE_SECURE = False 
+CSRF_COOKIE_NAME = 'csrftoken'  
 
 # CORS
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://127.0.0.1:3000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://127.0.0.1:3000",
 ]
 
 ROOT_URLCONF = 'frognition.urls'
