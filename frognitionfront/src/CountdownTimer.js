@@ -17,7 +17,7 @@ function CountdownTimer({ startTime, problemsSolved, isPaused }) {
         if (!isPaused && !isFinished) {
             endTimestampRef.current = Date.now() + remainingTime;
         }
-    }, [isPaused]);
+    }, [isPaused, isFinished, remainingTime]);
     useEffect(() => {
         const initialRemaining = startTime * 1000;
         setRemainingTime(initialRemaining);

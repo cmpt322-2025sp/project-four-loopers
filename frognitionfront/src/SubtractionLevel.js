@@ -3,6 +3,7 @@ import flyImage from './Moth.png';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './sublevel.css';
+import subtractionMusic from './subtrania.mp3';
 
 
 
@@ -17,7 +18,8 @@ function SubtractionLevel() {
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const [correctCount, setCorrectCount] = useState(0);  
+  const [correctCount, setCorrectCount] = useState(0);
+  const [backgroundAudio] = useState(new Audio(subtractionMusic));  
 
     const handlePause = () => {
     setIsPaused(true);
@@ -27,6 +29,17 @@ function SubtractionLevel() {
     setIsPaused(false);
   };
 
+  useEffect(() => {
+    // Setup and play background music immediately
+    backgroundAudio.loop = true;
+    backgroundAudio.play().catch(err => console.log("Audio play blocked;", err));
+    
+    // Cleanup function
+    return () => {
+      backgroundAudio.pause();
+      backgroundAudio.currentTime = 0;
+    };
+  }, [backgroundAudio]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
