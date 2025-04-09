@@ -28,6 +28,7 @@ function AdditionLevel() {
   const handleUnpause = () => {
     setIsPaused(false);
   };
+
   useEffect(() => {
     // Setup and play background music immediately
     backgroundAudio.loop = true;
@@ -38,7 +39,7 @@ function AdditionLevel() {
       backgroundAudio.pause();
       backgroundAudio.currentTime = 0;
     };
-  }, []);
+  }, [backgroundAudio]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
