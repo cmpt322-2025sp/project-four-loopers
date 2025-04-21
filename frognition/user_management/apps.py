@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
-class PlaysceneConfig(AppConfig):
+
+class UserManagementConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'playScene'
+    name = 'user_management'
