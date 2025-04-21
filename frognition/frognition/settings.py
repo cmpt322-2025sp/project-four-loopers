@@ -61,8 +61,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',  # Require authentication by default
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',  # Enable session authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Enable session authentication
     ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+    
 }
 # DEV SETUP: Use this for localhost (not HTTPS)
 
@@ -74,6 +78,7 @@ CSRF_COOKIE_NAME = 'csrftoken'
 
 # CORS
 CORS_ALLOW_CREDENTIALS = True
+ACCESS_CONTROL_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", "http://127.0.0.1:3000",
 ]

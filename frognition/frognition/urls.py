@@ -38,8 +38,5 @@ urlpatterns = [
     path('get_user_stats/', get_user_stats),  # For teacher to get all students' stats
     path('get_student_stats/<int:user_id>/', get_user_stats),  # For teacher to get specific student's stats
     path('api/', include(router.urls)),
-    path('auth/login/', FrognitionLoginView.loginview, name='login'),
-    path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),
-    path('auth/register/', register_user, name='register'),
-    path('auth/csrf/',get_csrf, name = 'get_csrf')
+    path('auth/', include('user_management.routers'), namespace='user_management'),
 ]
