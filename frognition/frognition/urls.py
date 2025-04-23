@@ -18,10 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from playScene.views import *
 from stats.views import *
-from user_management.views import *
 from rest_framework.routers import DefaultRouter
 from django.contrib.auth import views as auth_views
-from user_management.views import get_csrf
 
 router = DefaultRouter()
 router.register(r'addition_problems', AddProblemViewSet)
@@ -38,5 +36,5 @@ urlpatterns = [
     path('get_user_stats/', get_user_stats),  # For teacher to get all students' stats
     path('get_student_stats/<int:user_id>/', get_user_stats),  # For teacher to get specific student's stats
     path('api/', include(router.urls)),
-    path('auth/', include('user_management.routers'), namespace='user_management'),
+    path('auth/', include('user_management.routers','user_management'), namespace='user_management'),
 ]
