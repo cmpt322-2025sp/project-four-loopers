@@ -9,7 +9,6 @@ import LoginPage from './LoginPage';
 import SubtractionLevel from './SubtractionLevel';
 import StarScreenPage from './StarScreenPage';
 import PlaceValueLevel from './PlacevalueLevel';
-import login from './login';
 
 function App() {
   return (  
@@ -17,10 +16,10 @@ function App() {
       <Routes>
         <Route path="/star-screen" element={<StarScreenPage />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/addition" element={<AdditionLevel />} />
+        {/* <Route path="/addition" element={<AdditionLevel />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/subtraction" element={<SubtractionLevel />} />
-        <Route path="" element={<login />} />
+        <Route path="" element={<LoginPage />} />
         <Route path="/placevalue" element={<PlaceValueLevel />} />
       </Routes>
     </Router>

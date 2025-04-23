@@ -71,7 +71,7 @@ function Register() {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="ELLIE IS"
             value={formData.email}
             onChange={handleChange}
           

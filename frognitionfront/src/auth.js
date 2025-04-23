@@ -6,8 +6,7 @@ function wait(ms) {
 
 export const login = async (username, password) => {
   try {
-    // Step 1: Get CSRF token
-    await axios.get('http://localhost:8000/auth/csrf/', {
+    await axios.get('http://localhost:8000/auth/login/', {
       withCredentials: true, // ensures cookies are handled
     });
 

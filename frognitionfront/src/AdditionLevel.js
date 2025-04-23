@@ -194,7 +194,7 @@ function AdditionLevel() {
     position: 'absolute',
     left: '50%',
     bottom: '0vh',
-    transform: 'translateX(-50%)'
+    transform: 'translateX(-50%)',
   }}
 />
    {/* Display the flies */}
@@ -223,7 +223,7 @@ function AdditionLevel() {
     alignItems: 'center',
     width: '100%',
     height: '20vh',
-    padding: '20px'
+    padding: '20px',
 }}>
   <svg
     width="80%"  // Adjust width percentage as needed
@@ -301,4 +301,5 @@ function AdditionLevel() {
   );
   
 }
+
 export default AdditionLevel;
