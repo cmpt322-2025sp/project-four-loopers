@@ -30,7 +30,8 @@ class LoginSerializer(TokenObtainPairSerializer):
 class RegisterSerializer(UserSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
     email = serializers.EmailField(required=True, write_only=True, max_length=128)
-
+    first_name = serializers.CharField(max_length=30, required=True, write_only=True)
+    last_name = serializers.CharField(max_length=30, required=True, write_only=True)
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_active']
