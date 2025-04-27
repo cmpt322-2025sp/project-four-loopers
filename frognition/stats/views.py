@@ -106,3 +106,22 @@ def get_all_students_stats(request):
         all_students_stats.append(student_stats)
 
     return JsonResponse(all_students_stats, safe=False, status=200)
+
+# Function to reset a student's stats
+# @login_required
+# @permission_required('user_management.teacher', raise_exception=True)
+@api_view(['POST'])
+def reset_student_stats(request, user_id):
+    permission_classes = [IsAuthenticated]
+    # Check for teacher being in correct group should happen here (TODO for iteration 3)
+    user = User.objects.get(id=user_id)
+    attempts = Attempt.objects.filter(user=user)
+
+    if not attempts:
+        return JsonResponse({'error': 'No attempts found for this user'}, status=404)
+
+    attempts.delete()
+    user.latest_unlocked_level = 0
+    user.save()
+
+    return JsonResponse({'message': 'Student stats reset successfully'}, status=200)

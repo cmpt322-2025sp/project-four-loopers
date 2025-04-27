@@ -35,6 +35,7 @@ urlpatterns = [
     path('submit_results/', record_results),
     path('get_user_stats/', get_all_students_stats),  # For teacher to get all students' stats
     path('get_student_stats/<int:user_id>/', get_user_stats),  # For teacher to get specific student's stats
+    path('reset_stats/<int:user_id>/', reset_student_stats), 
     path('api/', include(router.urls)),
     path('auth/', include('user_management.routers')),
 ]
