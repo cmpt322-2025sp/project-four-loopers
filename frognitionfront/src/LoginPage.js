@@ -1,71 +1,97 @@
-// src/LoginPage.js
-
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import './Register.css'; // Reuse your nice CSS
-import teacher from './teacher.png'; // Reuse the teacher image
-
-const loginAction = (user) => ({
-  type: 'LOGIN_SUCCESS',
-  payload: user,
-});
+import { useFormik } from "formik";
+import * as Yup from 'yup'; 
 
 function LoginPage() {
-  const dispatch = useDispatch();
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [message, setMessage] = useState('');
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); 
+  
+  const handleLogin = async (username, password) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/auth/login/', formData);
-      dispatch(loginAction(response.data.user)); // Dispatch the user info to Redux
-      setMessage('Login successful!');
+      const response = await axios.post("/auth/login/", {
+        username,
+        password,
+      });
+
+      const { token, user } = response.data;
+
+      // Save token and user info to localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));  // Store user info
+
+      setMessage("");
+      // Redirect to addition level or dashboard
+      navigate("/addition");  // Replace with your target route, e.g. "/dashboard"
     } catch (error) {
-      setMessage(error.response?.data?.error || 'Login failed. Please check your credentials.');
+      setMessage("Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      setLoading(true);
+      handleLogin(values.email, values.password);
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().trim().required("Username is required"),
+      password: Yup.string().trim().required("Password is required"),
+    }),
+  });
+
   return (
-    <div className="register-container">
-      <div className="form-container">
-        <img src={teacher} alt="Teacher Icon" style={{ width: 150, height: 150 }} />
-        <h2 className="form-title">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <i className="fas fa-user"></i>
+    <div className="h-screen flex bg-gray-bg1">
+      <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+        <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
+          Log in to your account 🔐
+        </h1>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="space-y-4">
             <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-              className="input-field"
+              className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+              id="email"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-          </div>
-
-          <div className="input-container">
-            <i className="fas fa-lock"></i>
+            {formik.errors.email && <div>{formik.errors.email}</div>}
             <input
+              className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+              id="password"
               type="password"
-              name="password"
               placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="input-field"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.errors.password && <div>{formik.errors.password}</div>}
+          </div>
+          <div className="text-danger text-center my-2" hidden={false}>
+            {message}
           </div>
 
-          <button type="submit" className="submit-button">Login</button>
+          <div className="flex justify-center items-center mt-6">
+            <button
+              type="submit"
+              disabled={loading}
+              className="rounded border-gray-300 p-2 w-32 bg-blue-700 text-white"
+            >
+              {loading ? "Loading..." : "Login"}
+            </button>
+          </div>
         </form>
-        <p className="message">{message}</p>
       </div>
     </div>
   );
