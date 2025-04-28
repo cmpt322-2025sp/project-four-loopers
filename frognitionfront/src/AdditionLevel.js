@@ -4,8 +4,7 @@ import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
 import additionMusic from './addition_level.mp3';
-
-
+import sickImage from './sick.png';
 
 
 function AdditionLevel() {
@@ -21,6 +20,8 @@ function AdditionLevel() {
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);  
   const [backgroundAudio] = useState(new Audio(additionMusic));
+  const [isSick, setIsSick] = useState(false);
+  const [isFacingLeft, setIsFacingLeft] = useState(false);
 
     const handlePause = () => {
     setIsPaused(true);
@@ -59,57 +60,122 @@ function AdditionLevel() {
     useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
   }, []);
+    useEffect(() => {
+        const handleMouseMove = (event) => {
+            const screenMiddle = window.innerWidth / 2;
+            const newFacingLeft = event.clientX < screenMiddle;
 
-  const fetchProblem = () => {
-    fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
-      method: 'GET',
-      credentials: 'include', // Ensures cookies are sent with the request
-      headers:{
-        'Content-Type': 'application/json',
-        // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Fetched new problem:', data);
+            setIsFacingLeft(prev => {
+                if (prev !== newFacingLeft) {
+                    // ⬇️ Facing direction changed? Update tongue start point if tongue is out
+                    if (showTongue) {
+                        const frogRect = document.getElementById("frog").getBoundingClientRect();
+                        const offset = 85;
+                        const directionMultiplier = newFacingLeft ? -1 : 1;
 
-        // Update state with the fetched problem data
-        setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
-        setFlies(data.flies); // Store flies
-        setCorrectAnswer(data.correct_answer); // Store correct answer
-        setSelectedAnswer(null); // Reset selection
-        setFeedback(''); // Reset feedback message
-      })
-      .catch((error) => console.error('Error fetching new problem:', error));
-  };
+                        setTongueStart({
+                            x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
+                            y: frogRect.top + frogRect.height / 3
+                        });
+                    }
+                }
+                return newFacingLeft;
+            });
+        };
 
-  const handleFlyClick = (flyNumber, event) => {
-    const flyRect = event.target.getBoundingClientRect();
-    const frogRect = document.getElementById("frog").getBoundingClientRect();
+        window.addEventListener('mousemove', handleMouseMove);
 
-    setTongueStart({ x: frogRect.left + frogRect.width / 2, y: frogRect.top + frogRect.height / 3 });
-    setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
-    setShowTongue(true);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [showTongue]);
 
-    setTimeout(() => {
-      setShowTongue(false);
-      setSelectedAnswer(flyNumber);
-      if (flyNumber === correctAnswer) {
-        setFeedback('✅ Correct!');
-        setCorrectCount(prev => prev + 1); 
+
+    // const fetchProblem = () => {
+  //   fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+  //     method: 'GET',
+  //     credentials: 'include', // Ensures cookies are sent with the request
+  //     headers:{
+  //       'Content-Type': 'application/json',
+  //       // 'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1] // Get CSRF token from cookies
+  //     }
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log('Fetched new problem:', data);
+  //
+  //       // Update state with the fetched problem data
+  //       setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
+  //       setFlies(data.flies); // Store flies
+  //       setCorrectAnswer(data.correct_answer); // Store correct answer
+  //       setSelectedAnswer(null); // Reset selection
+  //       setFeedback(''); // Reset feedback message
+  //     })
+  //     .catch((error) => console.error('Error fetching new problem:', error));
+  // };
+    const fetchProblem = () => {
+        // placeholder mock instead of backend call
+        const randomNum1 = Math.floor(Math.random() * 10);
+        const randomNum2 = Math.floor(Math.random() * 10);
+        const correctAnswer = randomNum1 + randomNum2;
+
+        // Generate some dummy flies (correct answer + random wrong answers)
+        let flies = [correctAnswer];
+        while (flies.length < 4) {
+            let randomFly = Math.floor(Math.random() * 20);
+            if (!flies.includes(randomFly)) {
+                flies.push(randomFly);
+            }
+        }
+
+        flies = flies.sort(() => Math.random() - 0.5); // Shuffle flies like a deranged monkey
+
+        setProblem({ num1: randomNum1, num2: randomNum2 });
+        setFlies(flies);
+        setCorrectAnswer(correctAnswer);
+        setSelectedAnswer(null);
+        setFeedback('');
+        setIsSick(false);
+    };
+
+
+    const handleFlyClick = (flyNumber, event) => {
+        const flyRect = event.target.getBoundingClientRect();
+        const frogRect = document.getElementById("frog").getBoundingClientRect();
+
+        const offset = 85;
+        const directionMultiplier = isFacingLeft ? -1 : 1;
+
+        setTongueStart({
+            x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
+            y: frogRect.top + frogRect.height / 3
+        });
+
+        setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
+        setShowTongue(true);
+
         setTimeout(() => {
-          setFeedback('');
-          setSelectedAnswer(null);
-          fetchProblem();
-        }, 1000);
-      } else {
-        setFeedback('❌ Try again!');
-      }
-    }, 500); // Tongue disappears after 0.5s
-  };
+            setShowTongue(false);
+            setSelectedAnswer(flyNumber);
+
+            if (flyNumber === correctAnswer) {
+                setFeedback('✅ Correct!');
+            } else {
+                setFeedback('❌ Try again!');
+                setIsSick(true); // Euler becomes sick if wrong
+            }
+            setCorrectCount(prev => prev + 1);
+            setTimeout(() => {
+                setFeedback('');
+                setSelectedAnswer(null);
+                fetchProblem(); // 💀 MOVE ON TO NEW PROBLEM NO MATTER WHAT
+            }, 1000);
+        }, 500);
+    };
 
 
-  if (!problem) {
+
+    if (!problem) {
     return <div>Loading...</div>;
   }
     if (showStartScreen) {
@@ -184,20 +250,21 @@ function AdditionLevel() {
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
-    <img
-  id="frog"
-  src={frogImage}
-  alt="Frog"
-  style={{
-    width: '10vw',
-    height: 'auto',
-    position: 'absolute',
-    left: '50%',
-    bottom: '0vh',
-    transform: 'translateX(-50%)'
-  }}
-/>
-   {/* Display the flies */}
+          <img
+              id="frog"
+              src={isSick ? sickImage : frogImage}
+              alt="Frog"
+              style={{
+                  width: '10vw',
+                  height: 'auto',
+                  position: 'absolute',
+                  left: '50%',
+                  bottom: '0vh',
+                  transform: `translateX(-50%) ${isFacingLeft ? 'scaleX(-1)' : ''}`, // 🧠 FLIP IF NEEDED
+                  transition: 'transform 0.2s ease', // 🍑 Smooth flipping
+              }}
+          />
+          {/* Display the flies */}
 
    <div className="flies-container" >
        {flies.length > 0 ? (

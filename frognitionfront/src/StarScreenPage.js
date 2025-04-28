@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import starScreen from './starscreen.png';
 import leftLocked from './left_locked_star.png';
@@ -7,6 +7,7 @@ import middleLocked from './middle_locked_star.png';
 import middleUnlocked from './middle_unlocked_star.png';
 import rightLocked from './right_locked_star.png';
 import rightUnlocked from './right_unlocked_star.png';
+import './StarScreenPage.css';
 
 function StarScreenPage() {
     const location = useLocation();
@@ -14,11 +15,26 @@ function StarScreenPage() {
     const searchParams = new URLSearchParams(location.search);
     const problemsSolved = parseInt(searchParams.get("problemsSolved")) || 0;
     const score = 2934;
+    const [showLeftStar, setShowLeftStar] = useState(false);
+    const [showMiddleStar, setShowMiddleStar] = useState(false);
+    const [showRightStar, setShowRightStar] = useState(false);
+
+    useEffect(() => {
+        if (problemsSolved >= 10) {
+            setTimeout(() => setShowLeftStar(true), 300);
+        }
+        if (problemsSolved >= 15) {
+            setTimeout(() => setShowMiddleStar(true), 600);
+        }
+        if (problemsSolved >= 20) {
+            setTimeout(() => setShowRightStar(true), 900);
+        }
+    }, [problemsSolved]);
 
     const stars = {
         left: problemsSolved >= 10 ? leftUnlocked : leftLocked,
-        middle: problemsSolved >= 20 ? middleUnlocked : middleLocked,
-        right: problemsSolved >= 30 ? rightUnlocked : rightLocked,
+        middle: problemsSolved >= 15 ? middleUnlocked : middleLocked,
+        right: problemsSolved >= 25 ? rightUnlocked : rightLocked,
     };
 
     const handleReplay = () => {
@@ -51,22 +67,98 @@ function StarScreenPage() {
                 }}
             />
 
-            {/* Stars */}
+            {/* LOCKED STARS — Always rendered */}
             <img
-                src={stars.left}
-                alt="Left Star"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
+                src={leftLocked}
+                alt="Left Star Locked"
+                style={{
+                    position: 'absolute',
+                    top: '0%',
+                    left: '0%',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none'
+                }}
             />
             <img
-                src={stars.middle}
-                alt="Middle Star"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
+                src={middleLocked}
+                alt="Middle Star Locked"
+                style={{
+                    position: 'absolute',
+                    top: '0%',
+                    left: '0%',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none'
+                }}
             />
             <img
-                src={stars.right}
-                alt="Right Star"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}
+                src={rightLocked}
+                alt="Right Star Locked"
+                style={{
+                    position: 'absolute',
+                    top: '0%',
+                    left: '0%',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none'
+                }}
             />
+
+            {/* UNLOCKED STARS — Pop in delayed, replace locked visually */}
+            {showLeftStar && (
+                <img
+                    src={leftUnlocked}
+                    alt="Left Star Unlocked"
+                    className="star-pop"
+                    style={{
+                        position: 'absolute',
+                        top: '0%',
+                        left: '0%',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        pointerEvents: 'none'
+                    }}
+                />
+            )}
+            {showMiddleStar && (
+                <img
+                    src={middleUnlocked}
+                    alt="Middle Star Unlocked"
+                    className="star-pop"
+                    style={{
+                        position: 'absolute',
+                        top: '0%',
+                        left: '0%',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        pointerEvents: 'none'
+                    }}
+                />
+            )}
+            {showRightStar && (
+                <img
+                    src={rightUnlocked}
+                    alt="Right Star Unlocked"
+                    className="star-pop"
+                    style={{
+                        position: 'absolute',
+                        top: '0%',
+                        left: '0%',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        pointerEvents: 'none'
+                    }}
+                />
+            )}
+
+
 
             {/* TEXT BLOCK */}
             <div style={{
