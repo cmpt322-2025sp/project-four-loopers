@@ -67,21 +67,61 @@ def get_all_students_stats(request):
     all_students_stats = []
 
     for student in students:
-        attempts = Attempt.objects.filter(user=student)
+        addition_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.ADDITION)
+        subtraction_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.SUBTRACTION)
+        place_value_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.PLACE_VALUE)
+        random_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.RANDOM)
+        # Calculate averages for each problem type
+        if addition_attempts.exists():
+            addition_average = sum(attempt.correct for attempt in addition_attempts) / sum(attempt.total for attempt in addition_attempts)
+        else:
+            addition_average = 0
+        
+        if subtraction_attempts.exists():
+            subtraction_average = sum(attempt.correct for attempt in subtraction_attempts) / sum(attempt.total for attempt in subtraction_attempts)
+        else:
+            subtraction_average = 0
+
+        if place_value_attempts.exists():
+            place_value_average = sum(attempt.correct for attempt in place_value_attempts) / sum(attempt.total for attempt in place_value_attempts)
+        else:
+            place_value_average = 0
+
+        if random_attempts.exists():
+            random_average = sum(attempt.correct for attempt in random_attempts) / sum(attempt.total for attempt in random_attempts)
+        else:
+            random_average = 0
+
         student_stats = {
             'first_name': student.first_name,
             'last_name': student.last_name,
-            'attempts': [],
+            'addition_average': addition_average,
+            'subtraction_average': subtraction_average,
+            'place_value_average': place_value_average,
+            'random_average': random_average,
+            'level_progress': student.latest_unlocked_level,
         }
 
-        for attempt in attempts:
-            student_stats['attempts'].append({
-                'correct': attempt.correct,
-                'total': attempt.total,
-                'problem_type': attempt.problem_type,
-                'timestamp': attempt.timestamp,
-            })
 
         all_students_stats.append(student_stats)
 
     return JsonResponse(all_students_stats, safe=False, status=200)
+
+# Function to reset a student's stats
+# @login_required
+# @permission_required('user_management.teacher', raise_exception=True)
+@api_view(['POST'])
+def reset_student_stats(request, user_id):
+    permission_classes = [IsAuthenticated]
+    # Check for teacher being in correct group should happen here (TODO for iteration 3)
+    user = User.objects.get(id=user_id)
+    attempts = Attempt.objects.filter(user=user)
+
+    if not attempts:
+        return JsonResponse({'error': 'No attempts found for this user'}, status=404)
+
+    attempts.delete()
+    user.latest_unlocked_level = 0
+    user.save()
+
+    return JsonResponse({'message': 'Student stats reset successfully'}, status=200)
