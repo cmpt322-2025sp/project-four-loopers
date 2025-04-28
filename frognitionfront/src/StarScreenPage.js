@@ -8,6 +8,9 @@ import middleUnlocked from './middle_unlocked_star.png';
 import rightLocked from './right_locked_star.png';
 import rightUnlocked from './right_unlocked_star.png';
 import './StarScreenPage.css';
+import starOneSound from './star_one.mp3';
+import starTwoSound from './star_two.mp3';
+import starThreeSound from './star_three.mp3';
 
 function StarScreenPage() {
     const location = useLocation();
@@ -21,15 +24,25 @@ function StarScreenPage() {
 
     useEffect(() => {
         if (problemsSolved >= 10) {
-            setTimeout(() => setShowLeftStar(true), 300);
+            setTimeout(() => {
+                setShowLeftStar(true);
+                new Audio(starOneSound).play();
+            }, 300);
         }
         if (problemsSolved >= 15) {
-            setTimeout(() => setShowMiddleStar(true), 600);
+            setTimeout(() => {
+                setShowMiddleStar(true);
+                new Audio(starTwoSound).play();
+            }, 600);
         }
-        if (problemsSolved >= 20) {
-            setTimeout(() => setShowRightStar(true), 900);
+        if (problemsSolved >= 25) {
+            setTimeout(() => {
+                setShowRightStar(true);
+                new Audio(starThreeSound).play();
+            }, 900);
         }
     }, [problemsSolved]);
+
 
     const stars = {
         left: problemsSolved >= 10 ? leftUnlocked : leftLocked,

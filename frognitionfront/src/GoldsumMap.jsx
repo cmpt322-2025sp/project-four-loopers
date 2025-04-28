@@ -1,8 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LEVEL_POSITIONS = [183, 468, 739, 1016, 1347, 1697];
-const LEVEL_CROP_OFFSET = 60;
+const LEVEL_POSITIONS = [
+    { x: 183,  y: 775 },
+    { x: 468,  y: 650 },
+    { x: 739,  y: 487 },
+    { x: 1016, y: 591 },
+    { x: 1347, y: 478 },
+    { x: 1697, y: 610 },
+];
+const CIRCLE_RADIUS = 30;
+
 const levelStatus = [true, true, true, false, false, false];
 const finalLevelBeaten = false;
 
@@ -19,6 +27,7 @@ function GoldsumMap() {
     const canvasRef = useRef(null);
     const [images, setImages] = useState({});
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [isHoveringCircle, setIsHoveringCircle] = useState(false);
     const navigate = useNavigate();
 
     const WINDOW_WIDTH = 1920;
@@ -65,21 +74,21 @@ function GoldsumMap() {
 
             let furthestUnlocked = levelStatus.filter(Boolean).length;
             let furthestX = furthestUnlocked > 0
-                ? LEVEL_POSITIONS[furthestUnlocked - 1] + LEVEL_CROP_OFFSET
+                ? LEVEL_POSITIONS[furthestUnlocked - 1].x + 60
                 : 0;
 
             if (furthestUnlocked > 0) {
                 ctx.drawImage(
                     images.pathUnlocked,
-                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1], WINDOW_HEIGHT,
-                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1], WINDOW_HEIGHT
+                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1].x, WINDOW_HEIGHT,
+                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1].x, WINDOW_HEIGHT
                 );
             }
 
             if (furthestUnlocked < LEVEL_POSITIONS.length || (furthestUnlocked === LEVEL_POSITIONS.length && !finalLevelBeaten)) {
                 const startX = furthestUnlocked < LEVEL_POSITIONS.length
-                    ? LEVEL_POSITIONS[furthestUnlocked - 1]
-                    : LEVEL_POSITIONS[LEVEL_POSITIONS.length - 1];
+                    ? LEVEL_POSITIONS[furthestUnlocked - 1].x
+                    : LEVEL_POSITIONS[LEVEL_POSITIONS.length - 1].x;
 
                 ctx.drawImage(
                     images.pathLocked,
@@ -108,7 +117,7 @@ function GoldsumMap() {
         }
 
         renderMap();
-        const interval = setInterval(renderMap, 1000 / 30); // optional re-render every 30 FPS
+        const interval = setInterval(renderMap, 1000 / 30);
 
         return () => clearInterval(interval);
     }, [imagesLoaded, images]);
@@ -117,21 +126,55 @@ function GoldsumMap() {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
         const clickX = event.clientX - rect.left;
+        const clickY = event.clientY - rect.top;
 
         for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
-            const levelX = LEVEL_POSITIONS[i];
-            if (Math.abs(clickX - levelX) <= 60 && levelStatus[i]) {
+            const { x, y } = LEVEL_POSITIONS[i];
+
+            const distance = Math.sqrt(
+                Math.pow(clickX - x, 2) + Math.pow(clickY - y, 2)
+            );
+
+            if (distance <= CIRCLE_RADIUS && levelStatus[i]) {
+                console.log(`Clicked inside circle ${i + 1}, navigating...`);
                 navigate('/addition');
                 return;
             }
         }
     };
 
+    const handleMouseMove = (event) => {
+        const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
+        const moveX = event.clientX - rect.left;
+        const moveY = event.clientY - rect.top;
+
+        let hovering = false;
+        for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
+            const { x, y } = LEVEL_POSITIONS[i];
+            const distance = Math.sqrt(
+                Math.pow(moveX - x, 2) + Math.pow(moveY - y, 2)
+            );
+            if (distance <= CIRCLE_RADIUS && levelStatus[i]) {
+                hovering = true;
+                break;
+            }
+        }
+        setIsHoveringCircle(hovering);
+    };
+
     return (
         <canvas
             ref={canvasRef}
             onClick={handleCanvasClick}
-            style={{ width: '100vw', height: '100vh', display: 'block', backgroundColor: '#000' }}
+            onMouseMove={handleMouseMove}
+            style={{
+                width: '100vw',
+                height: '100vh',
+                display: 'block',
+                backgroundColor: '#000',
+                cursor: isHoveringCircle ? 'pointer' : 'default',
+            }}
         />
     );
 }

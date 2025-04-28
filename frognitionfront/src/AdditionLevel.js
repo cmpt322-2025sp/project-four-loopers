@@ -160,15 +160,16 @@ function AdditionLevel() {
 
             if (flyNumber === correctAnswer) {
                 setFeedback('✅ Correct!');
+                setCorrectCount(prev => prev + 1); // ✅ Only count correct answers
             } else {
                 setFeedback('❌ Try again!');
-                setIsSick(true); // Euler becomes sick if wrong
+                setIsSick(true);
             }
-            setCorrectCount(prev => prev + 1);
+
             setTimeout(() => {
                 setFeedback('');
                 setSelectedAnswer(null);
-                fetchProblem(); // 💀 MOVE ON TO NEW PROBLEM NO MATTER WHAT
+                fetchProblem();
             }, 1000);
         }, 500);
     };
@@ -246,7 +247,7 @@ function AdditionLevel() {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={60} problemsSolved={correctCount} isPaused={isPaused}/>
+          <CountdownTimer startTime={10} problemsSolved={correctCount} isPaused={isPaused}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
