@@ -67,10 +67,10 @@ def get_all_students_stats(request):
     all_students_stats = []
 
     for student in students:
-        addition_attempts = Attempt.objects.filter(user=student & problem_type='AD')
-        subtraction_attempts = Attempt.objects.filter(user=student & problem_type='SU')
-        place_value_attempts = Attempt.objects.filter(user=student & problem_type='PV')
-        random_attempts = Attempt.objects.filter(user=student & problem_type='RA')
+        addition_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.ADDITION)
+        subtraction_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.SUBTRACTION)
+        place_value_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.PLACE_VALUE)
+        random_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.RANDOM)
         # Calculate averages for each problem type
         if addition_attempts.exists():
             addition_average = sum(attempt.correct for attempt in addition_attempts) / sum(attempt.total for attempt in addition_attempts)
