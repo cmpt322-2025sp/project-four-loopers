@@ -11,7 +11,7 @@ function LoginPage() {
   
   const handleLogin = async (username, password) => {
     try {
-      const response = await axios.post("/auth/login/", {
+      const response = await axios.post("http://127.0.0.1:8000/auth/login/", {
         username,
         password,
       });
@@ -23,8 +23,8 @@ function LoginPage() {
       localStorage.setItem("user", JSON.stringify(user));  // Store user info
 
       setMessage("");
-      // Redirect to addition level or dashboard
-      navigate("/addition");  // Replace with your target route, e.g. "/dashboard"
+
+      navigate("/additionLevel"); 
     } catch (error) {
       setMessage("Login failed. Please check your credentials.");
     } finally {
@@ -34,15 +34,15 @@ function LoginPage() {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
     onSubmit: (values) => {
       setLoading(true);
-      handleLogin(values.email, values.password);
+      handleLogin(values.username, values.password);
     },
     validationSchema: Yup.object({
-      email: Yup.string().trim().required("Username is required"),
+      username: Yup.string().trim().required("Username is required"),
       password: Yup.string().trim().required("Password is required"),
     }),
   });
@@ -57,15 +57,15 @@ function LoginPage() {
           <div className="space-y-4">
             <input
               className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
-              id="email"
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={formik.values.email}
+              id="username"
+              type="username"
+              placeholder="Username"
+              name="username"
+              value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.errors.email && <div>{formik.errors.email}</div>}
+            {formik.errors.username && <div>{formik.errors.username}</div>}
             <input
               className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
               id="password"
