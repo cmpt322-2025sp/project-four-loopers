@@ -73,32 +73,44 @@ def get_all_students_stats(request):
         random_attempts = Attempt.objects.filter(user=student, problem_type=Attempt.ProblemTypes.RANDOM)
         # Calculate averages for each problem type
         if addition_attempts.exists():
-            addition_average = sum(attempt.correct for attempt in addition_attempts) / sum(attempt.total for attempt in addition_attempts)
+            addition_average = float('%.2f' % float(sum(attempt.correct for attempt in addition_attempts) / sum(attempt.total for attempt in addition_attempts)))
+            addition_avg_correct = float('%.2f' % float(sum(attempt.correct for attempt in addition_attempts) / len(addition_attempts)))
         else:
             addition_average = 0
+            addition_avg_correct = 0
         
         if subtraction_attempts.exists():
-            subtraction_average = sum(attempt.correct for attempt in subtraction_attempts) / sum(attempt.total for attempt in subtraction_attempts)
+            subtraction_average = float('%.2f' % float(sum(attempt.correct for attempt in subtraction_attempts) / sum(attempt.total for attempt in subtraction_attempts)))
+            subtraction_avg_correct = float('%.2f' % float(sum(attempt.correct for attempt in subtraction_attempts) / len(subtraction_attempts)))
         else:
             subtraction_average = 0
+            subtraction_avg_correct = 0
 
         if place_value_attempts.exists():
-            place_value_average = sum(attempt.correct for attempt in place_value_attempts) / sum(attempt.total for attempt in place_value_attempts)
+            place_value_average = float('%.2f' % float(sum(attempt.correct for attempt in place_value_attempts) / sum(attempt.total for attempt in place_value_attempts)))
+            place_value_avg_correct = float('%.2f' % float(sum(attempt.correct for attempt in place_value_attempts) / len(place_value_attempts)))
         else:
             place_value_average = 0
+            place_value_avg_correct = 0
 
         if random_attempts.exists():
-            random_average = sum(attempt.correct for attempt in random_attempts) / sum(attempt.total for attempt in random_attempts)
+            random_average = float('%.2f' % float(sum(attempt.correct for attempt in random_attempts) / sum(attempt.total for attempt in random_attempts)))
+            random_avg_correct = float('%.2f' % float(sum(attempt.correct for attempt in random_attempts) / len(random_attempts)))
         else:
             random_average = 0
+            random_avg_correct = 0
 
         student_stats = {
             'first_name': student.first_name,
             'last_name': student.last_name,
-            'addition_average': addition_average,
-            'subtraction_average': subtraction_average,
-            'place_value_average': place_value_average,
-            'random_average': random_average,
+            'addition_avg_accuracy': addition_average,
+            'addition_avg_correct': addition_avg_correct,
+            'subtraction_avg_accuracy': subtraction_average,
+            'subtraction_avg_correct': subtraction_avg_correct,
+            'place_value_avg_accuracy': place_value_average,
+            'place_value_avg_correct': place_value_avg_correct,
+            'random_avg_accuracy': random_average,
+            'random_avg_correct': random_avg_correct,
             'level_progress': student.latest_unlocked_level,
         }
 
