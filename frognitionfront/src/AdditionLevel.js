@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import flyImage from './fly_moth.gif';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
 import additionMusic from './addition_level.mp3';
 import sickImage from './sick.png';
+import frongueSound from './frongue.mp3';
 
 
 function AdditionLevel() {
@@ -22,6 +23,11 @@ function AdditionLevel() {
   const [backgroundAudio] = useState(new Audio(additionMusic));
   const [isSick, setIsSick] = useState(false);
   const [isFacingLeft, setIsFacingLeft] = useState(false);
+  const [konamiActivated, setKonamiActivated] = useState(false);
+  const tongueRef = useRef(null);
+  const [squishedFly, setSquishedFly] = useState(null);
+  const [fallingFly, setFallingFly] = useState(null);
+  const [canClick, setCanClick] = useState(true);
 
     const handlePause = () => {
     setIsPaused(true);
@@ -56,6 +62,44 @@ function AdditionLevel() {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
+    useEffect(() => {
+        const konamiCode = [
+            'ArrowUp', 'ArrowUp',
+            'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight',
+            'ArrowLeft', 'ArrowRight',
+            'b', 'a'
+        ];
+        let konamiIndex = 0;
+
+        const handleKeyDown = (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    setKonamiActivated(true);
+                    console.log('💥 KONAMI CODE ACTIVATED. PREPARE TO ASCEND.');
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+    useEffect(() => {
+        if (!konamiActivated) return;
+
+        const interval = setInterval(() => {
+            const correctFlyElement = document.querySelector(`.fly[data-fly-number="${correctAnswer}"]`);
+            if (correctFlyElement) {
+                correctFlyElement.click();
+            }
+        }, 100); // 🔥 Every 100ms
+
+        return () => clearInterval(interval);
+    }, [konamiActivated, flies, correctAnswer]);
 
     useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
@@ -114,6 +158,7 @@ function AdditionLevel() {
   //     .catch((error) => console.error('Error fetching new problem:', error));
   // };
     const fetchProblem = () => {
+        setFallingFly(null)
         // placeholder mock instead of backend call
         const randomNum1 = Math.floor(Math.random() * 10);
         const randomNum2 = Math.floor(Math.random() * 10);
@@ -136,12 +181,26 @@ function AdditionLevel() {
         setSelectedAnswer(null);
         setFeedback('');
         setIsSick(false);
+        setCanClick(true);
     };
 
 
-    const handleFlyClick = (flyNumber, event) => {
-        const flyRect = event.target.getBoundingClientRect();
+    const handleFlyClick = (flyNumber, event = null) => {
+        if (!canClick) return;
         const frogRect = document.getElementById("frog").getBoundingClientRect();
+        let flyRect;
+
+        if (event) {
+            flyRect = event.currentTarget.getBoundingClientRect();
+        } else {
+            // Auto-clicked mode (no real event): find the fly manually
+            const flyElement = document.querySelector(`.fly[data-fly-number="${flyNumber}"]`);
+            if (flyElement) {
+                flyRect = flyElement.getBoundingClientRect();
+            }
+        }
+
+        if (!flyRect) return; // Safety fallback if fly not found
 
         const offset = 85;
         const directionMultiplier = isFacingLeft ? -1 : 1;
@@ -155,15 +214,92 @@ function AdditionLevel() {
             x: flyRect.left + flyRect.width / 2,
             y: flyRect.top + flyRect.height / 2
         });
+
+        new Audio(frongueSound).play();
         setShowTongue(true);
+        setCanClick(false);
+        setTongueEnd({
+            x: flyRect.left + flyRect.width / 2,
+            y: flyRect.top + flyRect.height / 2
+        });
+
+        setShowTongue(true);
+
+// Let the tongue line be drawn outward then retract back in
+        setTimeout(() => {
+            const line = tongueRef.current;
+            if (!line) return;
+
+            const x1 = line.x1.baseVal.value;
+            const y1 = line.y1.baseVal.value;
+            const x2 = line.x2.baseVal.value;
+            const y2 = line.y2.baseVal.value;
+
+            // Calculate length of tongue
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const length = Math.sqrt(dx * dx + dy * dy);
+
+            line.style.strokeDasharray = length;
+            line.style.strokeDashoffset = length;
+            line.style.transition = 'stroke-dashoffset 0.2s ease-out';
+
+            // Animate draw (stretch out)
+            requestAnimationFrame(() => {
+                line.style.strokeDashoffset = '0';
+            });
+
+            // Retract after short delay
+            setTimeout(() => {
+                line.style.transition = 'stroke-dashoffset 0.2s ease-in';
+                line.style.strokeDashoffset = length;
+            }, 250);
+
+            // Remove the line after full cycle
+            setTimeout(() => {
+                setShowTongue(false);
+            }, 500);
+
+        }, 10);
+
+
+// BEGIN THE WOBBLE RIGHT HERE
+        setTimeout(() => {
+            const line = tongueRef.current;
+            if (!line) return;
+
+            const originalX2 = line.x2.baseVal.value;
+            const originalY2 = line.y2.baseVal.value;
+
+            // Slight overshoot
+            const overshootX = originalX2 + (Math.random() * 10 - 5); // wiggle a little
+            const overshootY = originalY2 + 20;
+
+            // Step 1: overshoot
+            line.x2.baseVal.value = overshootX;
+            line.y2.baseVal.value = overshootY;
+
+            // Step 2: snap back
+            setTimeout(() => {
+                line.x2.baseVal.value = originalX2;
+                line.y2.baseVal.value = originalY2;
+            }, 100); // snapback time
+        }, 50); // delay slightly after tongue shows
+
 
         setTimeout(() => {
             setShowTongue(false);
             setSelectedAnswer(flyNumber);
+            setFallingFly(flyNumber);
+            // setTimeout(() => {
+            //     setFallingFly(null);
+            // }, 500);
+            setSquishedFly(flyNumber);
+            setTimeout(() => setSquishedFly(null), 300); // Reset after animation
 
             if (flyNumber === correctAnswer) {
                 setFeedback('✅ Correct!');
-                setCorrectCount(prev => prev + 1); // ✅ Only count correct answers
+                setCorrectCount(prev => prev + 1);
             } else {
                 setFeedback('❌ Try again!');
                 setIsSick(true);
@@ -176,6 +312,7 @@ function AdditionLevel() {
             }, 1000);
         }, 500);
     };
+
 
 
 
@@ -275,7 +412,8 @@ function AdditionLevel() {
          flies.map((flyNumber, index) => (
              <div
                  key={index}
-                 className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+                 className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''} ${squishedFly === flyNumber ? 'squished' : ''} ${fallingFly === flyNumber ? 'falling' : ''}`}
+                 data-fly-number={flyNumber}
                  onClick={(event) => handleFlyClick(flyNumber, event)}
                  style={{
                      position: 'relative',
@@ -353,14 +491,16 @@ function AdditionLevel() {
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
   {showTongue && tongueEnd && (
-    <line
-      x1={tongueStart.x}
-      y1={tongueStart.y}
-      x2={tongueEnd.x}
-      y2={tongueEnd.y}
-      stroke="pink"
-      strokeWidth="7"
-    />
+      <line
+          ref={tongueRef}
+          x1={tongueStart.x}
+          y1={tongueStart.y}
+          x2={tongueEnd?.x ?? tongueStart.x}
+          y2={tongueEnd?.y ?? tongueStart.y}
+          stroke="pink"
+          strokeWidth="7"
+          className="tongue-line"
+      />
   )}
 </svg>
           {/* Pause Overlay */}

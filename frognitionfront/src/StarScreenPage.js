@@ -25,23 +25,24 @@ function StarScreenPage() {
     useEffect(() => {
         if (problemsSolved >= 10) {
             setTimeout(() => {
-                setShowLeftStar(true);
-                new Audio(starOneSound).play();
+                new Audio(starOneSound).play(); // play FIRST
+                setShowLeftStar(true); // THEN show the star
             }, 300);
         }
         if (problemsSolved >= 15) {
             setTimeout(() => {
-                setShowMiddleStar(true);
                 new Audio(starTwoSound).play();
+                setShowMiddleStar(true);
             }, 600);
         }
         if (problemsSolved >= 25) {
             setTimeout(() => {
-                setShowRightStar(true);
                 new Audio(starThreeSound).play();
+                setShowRightStar(true);
             }, 900);
         }
     }, [problemsSolved]);
+
 
 
     const stars = {
