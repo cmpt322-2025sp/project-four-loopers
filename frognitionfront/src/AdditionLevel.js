@@ -247,7 +247,7 @@ function AdditionLevel() {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={10} problemsSolved={correctCount} isPaused={isPaused}/>
+          <CountdownTimer startTime={60} problemsSolved={correctCount} isPaused={isPaused}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
