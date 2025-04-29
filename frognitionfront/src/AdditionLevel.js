@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import flyImage from './Moth.png';
+import flyImage from './fly_moth.gif';
 import frogImage from './Euler.png';
 import CountdownTimer from "./CountdownTimer";
 import './addlevel.css'
@@ -151,7 +151,10 @@ function AdditionLevel() {
             y: frogRect.top + frogRect.height / 3
         });
 
-        setTongueEnd({ x: flyRect.left + flyRect.width / 2, y: flyRect.top });
+        setTongueEnd({
+            x: flyRect.left + flyRect.width / 2,
+            y: flyRect.top + flyRect.height / 2
+        });
         setShowTongue(true);
 
         setTimeout(() => {
@@ -270,14 +273,46 @@ function AdditionLevel() {
    <div className="flies-container" >
        {flies.length > 0 ? (
          flies.map((flyNumber, index) => (
-          <div
-          key={index}
-          className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
-           onClick={(event) => handleFlyClick(flyNumber, event)}
-           >
-          <img src={flyImage} alt={`Fly ${flyNumber}`} style={{ width: 150, height: 150 }} />
-           <p>{flyNumber}</p>
-           </div>
+             <div
+                 key={index}
+                 className={`fly ${selectedAnswer === flyNumber ? 'selected' : ''}`}
+                 onClick={(event) => handleFlyClick(flyNumber, event)}
+                 style={{
+                     position: 'relative',
+                     width: '150px',
+                     height: '150px',
+                     display: 'flex',
+                     justifyContent: 'center',
+                     alignItems: 'center'
+                 }}
+             >
+                 <img
+                     src={flyImage}
+                     alt={`Fly ${flyNumber}`}
+                     style={{
+                         width: '100%',
+                         height: '100%',
+                         objectFit: 'contain',
+                         position: 'absolute',
+                         top: 0,
+                         left: 0
+                     }}
+                 />
+                 <p style={{
+                     position: 'relative',
+                     zIndex: 1,
+                     color: 'white',
+                     fontSize: '32px',
+                     fontWeight: 'bold',
+                     textShadow: '2px 2px 5px black',
+                     margin: 0,
+                     userSelect: 'none',
+                     pointerEvents: 'none'
+                 }}>
+                     {flyNumber}
+                 </p>
+             </div>
+
          ))
        ) : (
          <p>No flies available</p>
@@ -363,6 +398,24 @@ function AdditionLevel() {
                   </button>
               </div>
           )}
+          {/* PROBLEMS SOLVED DISPLAY */}
+          <div style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '30px',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              color: 'white',
+              padding: '10px 20px',
+              borderRadius: '12px',
+              fontSize: '24px',
+              fontFamily: 'Arial, sans-serif',
+              zIndex: 9999,
+              boxShadow: '0 0 10px rgba(0, 0, 0, 0.8)',
+              userSelect: 'none',
+              pointerEvents: 'none'
+          }}>
+              Problems Solved: {correctCount}
+          </div>
 
       </div>
 
