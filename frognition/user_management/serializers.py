@@ -40,6 +40,6 @@ class RegisterSerializer(UserSerializer):
         try:
             user = User.objects.get(email=validated_data['email'])
         except ObjectDoesNotExist:
-            user = User.objects.create_user(**validated_data)
+            user = User.objects.create_student_user(**validated_data)
         return user
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CountdownTimer({ startTime, problemsSolved, isPaused }) {
+function CountdownTimer({ startTime, problemsSolved, isPaused, totalProblems, problemType}) {
     const [remainingTime, setRemainingTime] = useState(startTime * 1000);
     const [isFinished, setIsFinished] = useState(false);
     const navigate = useNavigate();
@@ -9,9 +9,9 @@ function CountdownTimer({ startTime, problemsSolved, isPaused }) {
     const intervalRef = useRef(null);
     useEffect(() => {
         if (isFinished) {
-            navigate(`/star-screen?problemsSolved=${problemsSolved}`);
+            navigate(`/star-screen?problemsSolved=${problemsSolved}&totalProblems=${totalProblems}&problemType=${problemType}`);
         }
-    }, [isFinished, navigate, problemsSolved]);
+    }, [isFinished, navigate, problemsSolved, totalProblems, problemType]);
 
     useEffect(() => {
         if (!isPaused && !isFinished) {

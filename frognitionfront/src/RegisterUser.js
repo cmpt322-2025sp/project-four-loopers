@@ -8,7 +8,7 @@ import './Register.css';
 import teacher from './teacher.png';
 
 function Register() {
-  const [formData, setFormData] = useState({ username: '', password: '', email: '' });
+  const [formData, setFormData] = useState({ username: '', password: '', email: '', class_name: 'class_1'});
   const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
