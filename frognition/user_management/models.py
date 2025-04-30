@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.utils.translation import gettext_lazy as _
 
 
@@ -13,6 +13,40 @@ class UserManager(BaseUserManager):
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.save(using=self._db)
+        return user
+    
+    def create_student_user(self, username, email, class_name, password=None, **kwargs):
+        if username is None:
+            raise TypeError('Users must have a username')
+        if email is None:
+            raise TypeError('Users must have an email address')
+        
+        user = self.create_user(username, email, password)
+        typeGroup = Group.objects.get_or_create(name='student')
+        classGroup = Group.objects.get_or_create(name=class_name)
+        typeGroup.permissions.add('user_management.student')
+        typeGroup.user_set.add(user)
+        classGroup.user_set.add(user)
+        user.save(using=self._db)
+        typeGroup.save(using=self._db)
+        classGroup.save(using=self._db)
+        return user
+    
+    def create_teacher_user(self, username, email, class_name, password=None, **kwargs):
+        if username is None:
+            raise TypeError('Users must have a username')
+        if email is None:
+            raise TypeError('Users must have an email address')
+        
+        user = self.create_user(username, email, password)
+        typeGroup = Group.objects.get_or_create(name='teacher')
+        typeGroup.permissions.add('user_management.teacher')
+        classGroup = Group.objects.get_or_create(name=class_name)
+        typeGroup.user_set.add(user)
+        classGroup.user_set.add(user)
+        user.save(using=self._db)
+        typeGroup.save(using=self._db)
+        classGroup.save(using=self._db)
         return user
     
     def create_superuser(self, username, email, password):
@@ -46,3 +80,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.username}"
+    
+    class Meta:
+        permissions = (
+            ('student', 'Student'),
+            ('teacher', 'Teacher'),
+        )
+

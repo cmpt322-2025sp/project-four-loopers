@@ -5,11 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from .models import *
 from user_management.models import User
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
 @login_required
-# @permission_required('user_management.student', raise_exception=True)
+@permission_required('user_management.student', raise_exception=True)
 @api_view(['POST'])
 def record_results(request):
     permission_classes = [IsAuthenticated]
@@ -30,11 +31,14 @@ def record_results(request):
     return JsonResponse({'message': 'Results recorded successfully'}, status=201)
     
 @login_required
-# @permission_required('user_management.teacher', raise_exception=True)
+@permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_user_stats(request, user_id):
     permission_classes = [IsAuthenticated]
-    # Check for teacher being in correct group should happen here (TODO for iteration 3)
+    classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
+    if not classGroup.user_set.filter(id=user_id).exists():
+        return JsonResponse({'error': 'User not in your class'}, status=403)
+    
     user = User.objects.get(id=user_id)
     attempts = Attempt.objects.filter(user=user)
 
@@ -59,11 +63,12 @@ def get_user_stats(request, user_id):
 
 # Function to get all students' stats for teacher
 @login_required
-# @permission_required('user_management.teacher', raise_exception=True)
+@permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_all_students_stats(request):
     permission_classes = [IsAuthenticated]
-    students = User.objects.filter(is_student=True) # Filter correct group should happen in here (TODO for iteration 3)
+    classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
+    students = User.objects.filter(groups__in=classGroup, groups__name__in=['student'])
     all_students_stats = []
 
     for student in students:
@@ -121,11 +126,14 @@ def get_all_students_stats(request):
 
 # Function to reset a student's stats
 @login_required
-# @permission_required('user_management.teacher', raise_exception=True)
+@permission_required('user_management.teacher', raise_exception=True)
 @api_view(['POST'])
 def reset_student_stats(request, user_id):
     permission_classes = [IsAuthenticated]
-    # Check for teacher being in correct group should happen here (TODO for iteration 3)
+    classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
+    if not classGroup.user_set.filter(id=user_id).exists():
+        return JsonResponse({'error': 'User not in your class'}, status=403)
+    
     user = User.objects.get(id=user_id)
     attempts = Attempt.objects.filter(user=user)
 
