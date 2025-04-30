@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import flyImage from './fly_moth.gif';
 import frogImage from './Euler.png';
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "../CountdownTimer";
 import './addlevel.css'
 import additionMusic from './addition_level.mp3';
 import sickImage from './sick.png';

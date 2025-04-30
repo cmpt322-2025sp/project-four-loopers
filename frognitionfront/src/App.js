@@ -7,10 +7,10 @@ import AdditionLevel from './AdditionLevel';
 import Register from './RegisterUser';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
-import SubtractionLevel from './SubtractionLevel';
-import StarScreenPage from './StarScreenPage';
-import PlaceValueLevel from './PlacevalueLevel';
-import GoldsumMap from "./GoldsumMap";
+import SubtractionLevel from './subtraction/SubtractionLevel';
+import StarScreenPage from './star/StarScreenPage';
+import PlaceValueLevel from './placevalue/PlacevalueLevel';
+import GoldsumMap from "./map/GoldsumMap";
 
 function App() {
 
