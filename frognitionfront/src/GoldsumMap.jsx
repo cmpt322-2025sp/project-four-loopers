@@ -11,7 +11,7 @@ const LEVEL_POSITIONS = [
 ];
 const CIRCLE_RADIUS = 30;
 
-const levelStatus = [true, true, true, false, false, false];
+const levelStatus = [true, true, true, true, true, true];
 const finalLevelBeaten = false;
 
 const imagePaths = {

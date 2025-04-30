@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01aaaafd-1371-4af0-b7a2-d289264cbfc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frognitionfront/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum map.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_border.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_levels_locked.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_levels_unlocked.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_path_locked.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/goldsum_path_unlocked.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frognitionfront/src/GoldsumMap.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/GoldsumMap.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +50,8 @@
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.App.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.GoldsumMap.jsx.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.goldsum map.js.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.goldsum_map.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -103,6 +96,10 @@
       <workItem from="1745254119508" duration="33000" />
       <workItem from="1745254237332" duration="3269000" />
       <workItem from="1745385424034" duration="2245000" />
+      <workItem from="1745856774922" duration="15324000" />
+      <workItem from="1745974620727" duration="1242000" />
+      <workItem from="1745991062455" duration="1236000" />
+      <workItem from="1746028897147" duration="1047000" />
     </task>
     <servers />
   </component>

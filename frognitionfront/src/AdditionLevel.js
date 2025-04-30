@@ -159,12 +159,10 @@ function AdditionLevel() {
   // };
     const fetchProblem = () => {
         setFallingFly(null)
-        // placeholder mock instead of backend call
         const randomNum1 = Math.floor(Math.random() * 10);
         const randomNum2 = Math.floor(Math.random() * 10);
         const correctAnswer = randomNum1 + randomNum2;
 
-        // Generate some dummy flies (correct answer + random wrong answers)
         let flies = [correctAnswer];
         while (flies.length < 4) {
             let randomFly = Math.floor(Math.random() * 20);
@@ -173,7 +171,7 @@ function AdditionLevel() {
             }
         }
 
-        flies = flies.sort(() => Math.random() - 0.5); // Shuffle flies like a deranged monkey
+        flies = flies.sort(() => Math.random() - 0.5);
 
         setProblem({ num1: randomNum1, num2: randomNum2 });
         setFlies(flies);
