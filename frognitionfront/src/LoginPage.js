@@ -24,7 +24,7 @@ function LoginPage() {
 
       setMessage("");
 
-      navigate("/additionLevel"); 
+      navigate("/map"); 
     } catch (error) {
       setMessage("Login failed. Please check your credentials.");
     } finally {

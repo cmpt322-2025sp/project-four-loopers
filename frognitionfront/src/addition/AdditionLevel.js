@@ -19,7 +19,8 @@ function AdditionLevel() {
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const [correctCount, setCorrectCount] = useState(0);  
+  const [correctCount, setCorrectCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);  
   const [backgroundAudio] = useState(new Audio(additionMusic));
   const [isSick, setIsSick] = useState(false);
   const [isFacingLeft, setIsFacingLeft] = useState(false);
@@ -298,8 +299,10 @@ function AdditionLevel() {
             if (flyNumber === correctAnswer) {
                 setFeedback('✅ Correct!');
                 setCorrectCount(prev => prev + 1);
+                setTotalCount(prev => prev + 1);
             } else {
                 setFeedback('❌ Try again!');
+                setTotalCount(prev => prev + 1);
                 setIsSick(true);
             }
 
@@ -385,7 +388,7 @@ function AdditionLevel() {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={60} problemsSolved={correctCount} isPaused={isPaused}/>
+          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalCount} isPaused={isPaused} problemType={'AD'}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}

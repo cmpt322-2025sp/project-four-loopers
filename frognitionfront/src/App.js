@@ -23,9 +23,9 @@ function App() {
           <Route path="/addition" element={<AdditionLevel />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subtraction" element={<SubtractionLevel />} />
-          <Route path="/map" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/placevalue" element={<PlaceValueLevel />} />
-          <Route path="" element={<GoldsumMap />} />
+          <Route path="/map" element={<GoldsumMap />} />
         </Routes>
       </Router>
   );
