@@ -1,11 +1,11 @@
-import './addlevel.css';
+import './addition/addlevel.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';  // Import Provider
 import store from './store';  // Import your store file
-import AdditionLevel from './AdditionLevel';
+import AdditionLevel from './addition/AdditionLevel';
 import Register from './RegisterUser';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import LoginPage from './LoginPage';
 import SubtractionLevel from './subtraction/SubtractionLevel';
 import StarScreenPage from './star/StarScreenPage';
