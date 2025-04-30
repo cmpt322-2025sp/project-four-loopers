@@ -18,6 +18,7 @@ def record_results(request):
     correct = request.data.get('correct')
     total = request.data.get('total')
     problem_type = request.data.get('problem_type')
+    level = request.data.get('level')
 
     if not all([correct, total, problem_type]):
         return JsonResponse({'error': 'Missing data'}, status=400)
@@ -28,6 +29,10 @@ def record_results(request):
         total=total,
         problem_type=problem_type
     )
+
+    if level >= user.latest_unlocked_level:
+        user.latest_unlocked_level += 1
+        user.save()
     return JsonResponse({'message': 'Results recorded successfully'}, status=201)
     
 @login_required
