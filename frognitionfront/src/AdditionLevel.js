@@ -462,7 +462,7 @@ function AdditionLevel() {
     alignItems: 'center',
     width: '100%',
     height: '20vh',
-    padding: '20px'
+    padding: '20px',
 }}>
   <svg
     width="80%"  // Adjust width percentage as needed
@@ -558,5 +558,7 @@ function AdditionLevel() {
       </div>
 
   );
+  
 }
+
 export default AdditionLevel;

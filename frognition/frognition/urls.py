@@ -18,10 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from playScene.views import *
 from stats.views import *
-from user_management.views import *
 from rest_framework.routers import DefaultRouter
 from django.contrib.auth import views as auth_views
-from user_management.views import get_csrf
 
 router = DefaultRouter()
 router.register(r'addition_problems', AddProblemViewSet)
@@ -35,11 +33,9 @@ urlpatterns = [
     path('get_random_problem/subtraction/', get_random_subtraction_problem),
     path('get_random_problem/place_value/', get_random_place_value_problem),
     path('submit_results/', record_results),
-    path('get_user_stats/', get_user_stats),  # For teacher to get all students' stats
+    path('get_user_stats/', get_all_students_stats),  # For teacher to get all students' stats
     path('get_student_stats/<int:user_id>/', get_user_stats),  # For teacher to get specific student's stats
+    path('reset_stats/<int:user_id>/', reset_student_stats), 
     path('api/', include(router.urls)),
-    path('auth/login/', FrognitionLoginView.loginview, name='login'),
-    path('auth/logout/', FrognitionLogoutView.as_view(), name='logout'),
-    path('auth/register/', register_user, name='register'),
-    path('auth/csrf/',get_csrf, name = 'get_csrf')
+    path('auth/', include('user_management.routers')),
 ]

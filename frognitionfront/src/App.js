@@ -1,7 +1,8 @@
-// App.js
 import './addlevel.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Provider } from 'react-redux';  // Import Provider
+import store from './store';  // Import your store file
 import AdditionLevel from './AdditionLevel';
 import Register from './RegisterUser';
 import Dashboard from './Dashboard';
@@ -12,6 +13,7 @@ import PlaceValueLevel from './PlacevalueLevel';
 import GoldsumMap from "./GoldsumMap";
 
 function App() {
+
   return (
       <Router>
         <NavListener />
