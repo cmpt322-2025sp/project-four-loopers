@@ -77,3 +77,66 @@ h3{
   height: 100vh;
   pointer-events: none;
 }
+@keyframes tongue-wobble {
+  0% {
+    stroke-width: 7;
+    stroke: pink;
+    transform: scaleY(1);
+  }
+  25% {
+    stroke-width: 10;
+    transform: scaleY(1.2);
+  }
+  50% {
+    stroke-width: 7;
+    transform: scaleY(0.95);
+  }
+  75% {
+    stroke-width: 9;
+    transform: scaleY(1.05);
+  }
+  100% {
+    stroke-width: 7;
+    transform: scaleY(1);
+  }
+}
+@keyframes squish {
+  0% {
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(0.6);
+  }
+  60% {
+    transform: scaleY(1.15);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.fly.squished {
+  animation: squish 0.3s ease-in-out;
+}
+.tongue-line {
+  stroke-linecap: round;
+  transition: none;
+}
+@keyframes flyFall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(300px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px);
+    opacity: 0;
+  }
+}
+
+.fly.falling {
+  animation: flyFall 0.5s ease-in forwards;
+}
