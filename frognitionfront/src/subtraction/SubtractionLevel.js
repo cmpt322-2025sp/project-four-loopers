@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import flyImage from '../Moth.png';
 import frogImage from '../Euler.png';
 import CountdownTimer from "../CountdownTimer";
