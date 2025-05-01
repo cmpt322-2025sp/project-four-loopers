@@ -191,7 +191,6 @@ function PlaceValueLevel() {
 
     flies = flies.sort(() => Math.random() - 0.5);
 
-    setProblem({ num1: randomNum1, num2: randomNum2 });
     setFlies(flies);
     setCorrectAnswer(correctAnswer);
     setSelectedAnswer(null);
@@ -402,7 +401,7 @@ const handleFlyClick = (flyNumber, event = null) => {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalProblems} isPaused={isPaused} problemType={'PV'}/>
+          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalCount} isPaused={isPaused} problemType={'PV'}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
