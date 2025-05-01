@@ -40,13 +40,13 @@ class UserManager(BaseUserManager):
         
         user = self.create_user(username, email, password)
         typeGroup = Group.objects.get_or_create(name='teacher')
-        typeGroup.permissions.add('user_management.teacher')
-        classGroup = Group.objects.get_or_create(name=class_name)
-        typeGroup.user_set.add(user)
-        classGroup.user_set.add(user)
+        classGroup = Group.objects.get_or_create(name='class_1')
+        typeGroup[0].permissions.add(Permission.objects.get_or_create(codename='teacher')[0])
+        typeGroup[0].user_set.add(user)
+        classGroup[0].user_set.add(user)
         user.save(using=self._db)
-        typeGroup.save(using=self._db)
-        classGroup.save(using=self._db)
+        typeGroup[0].save(using=self._db)
+        classGroup[0].save(using=self._db)
         return user
     
     def create_superuser(self, username, email, password):
