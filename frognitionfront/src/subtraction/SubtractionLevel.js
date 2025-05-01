@@ -167,7 +167,7 @@ function SubtractionLevel() {
   const fetchProblem = () => {
     setFallingFly(null)
     const randomNum1 = Math.floor(Math.random() * 15 + 1);
-    const randomNum2 = Math.floor(Math.random() * 14 + 1);
+    const randomNum2 = Math.floor(Math.random() * randomNum1 + 1);
     const correctAnswer = randomNum1 - randomNum2;
 
     let flies = [correctAnswer];
