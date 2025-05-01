@@ -20,8 +20,9 @@ function SubtractionLevel() {
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const [correctCount, setCorrectCount] = useState(0);  
-  const[backgroundAudio] = useState(new Audio(subtractionMusic));
+  const [correctCount, setCorrectCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);   
+  const [backgroundAudio] = useState(new Audio(subtractionMusic));
   const [isSick, setIsSick] = useState(false);
   const [isFacingLeft, setIsFacingLeft] = useState(false);
   const [konamiActivated, setKonamiActivated] = useState(false);
