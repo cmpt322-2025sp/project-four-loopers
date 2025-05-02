@@ -8,10 +8,11 @@ from user_management.models import User
 from django.contrib.auth.models import Group, Permission
 
 # Create your views here.
+def is_student(user):
+    return user.is_authenticated and user.groups.filter(name='student').exists()
 
-# @login_required
-@permission_required('student', raise_exception=True)
 @api_view(['POST'])
+@user_passes_test(is_student)
 def record_results(request):
     permission_classes = [IsAuthenticated]
     user = request.user
