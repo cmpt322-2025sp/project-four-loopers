@@ -166,7 +166,7 @@ function AdditionLevel() {
                 const randomNum1 = Math.floor(Math.random() * 10);
                 const randomNum2 = Math.floor(Math.random() * 10);
                 const correctAnswer = randomNum1 + randomNum2;
-                const addProblemLabel = ''+{randomNum1}+' + '+{randomNum2}+' = ?';
+                const addProblemLabel = ''+randomNum1+' + '+randomNum2+' = ?';
                 setProblem({ label: addProblemLabel});
                 let flies = [correctAnswer];
                 while (flies.length < 4) {
@@ -187,7 +187,7 @@ function AdditionLevel() {
                 const randomNum3 = Math.floor(Math.random() * 15) + 1; // Ensure non-negative result
                 const randomNum4 = Math.floor(Math.random() * randomNum3);
                 const correctAnswerSub = randomNum3 - randomNum4;
-                const subProblemLabel = ''+{randomNum3}+' - '+{randomNum4}+' = ?';
+                const subProblemLabel = ''+randomNum3+' - '+randomNum4+' = ?';
                 setProblem({ label: subProblemLabel});
                 let fliesSub = [correctAnswerSub];
                 while (fliesSub.length < 4) {
@@ -209,17 +209,16 @@ function AdditionLevel() {
                 const placeToCheck = Math.floor(Math.random() * 3); // Random place to check (0, 1, or 2)
                 const num = randomNum.toString().padStart(3, '0'); // Ensure it's a 3-digit number
                 const PVCorrectAnswer = num[placeToCheck]; // Get the digit at the specified place
-                const PVProblemLabel = '';
                 if (placeToCheck === 0) {
-                    PVProblemLabel = 'What is in the hundreds place of '+{num}+'?';
+                    const PVProblemLabel = 'What is in the hundreds place of '+num+'?';
                     setProblem({ label: PVProblemLabel });
                 }
                 else if (placeToCheck === 1) { 
-                    PVProblemLabel = 'What is in the tens place of '+{num}+'?';
+                    const PVProblemLabel = 'What is in the tens place of '+num+'?';
                     setProblem({ label: PVProblemLabel });
                 }
                 else if (placeToCheck === 2) {
-                    PVProblemLabel = 'What is in the ones place of '+{num}+'?';
+                    const PVProblemLabel = 'What is in the ones place of '+num+'?';
                     setProblem({ label: PVProblemLabel });
                 }
 
