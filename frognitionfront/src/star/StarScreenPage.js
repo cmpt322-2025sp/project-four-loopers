@@ -42,7 +42,7 @@ function StarScreenPage() {
                 setShowRightStar(true);
             }, 900);
         }
-        axios.post("http://127.0.0.1:8000/submit_results/", {
+        axios.post("https://django.stargazer-vega.ts.net/submit_results/", {
             correct: problemsSolved,
             total: totalProblems,
             problem_type: searchParams.get("problemType"),

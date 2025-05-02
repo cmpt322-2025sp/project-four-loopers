@@ -13,7 +13,7 @@ function LoginPage() {
   
   const handleLogin = async (username, password) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/auth/login/", {
+      const response = await axios.post("https://django.stargazer-vega.ts.net/auth/login/", {
         username,
         password,
       });
