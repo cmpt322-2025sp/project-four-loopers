@@ -42,11 +42,11 @@ function StarScreenPage() {
                 setShowRightStar(true);
             }, 900);
         }
-        axios.post("https://django.stargazer-vega.ts.net/submit_results/", {
-            correct: problemsSolved,
-            total: totalProblems,
-            problem_type: searchParams.get("problemType"),
-        })
+        //axios.post("https://django.stargazer-vega.ts.net/submit_results/", {
+        //    correct: problemsSolved,
+        //    total: totalProblems,
+        //   problem_type: searchParams.get("problemType"),
+        //})
     }, [problemsSolved, totalProblems, searchParams]);
 
 
