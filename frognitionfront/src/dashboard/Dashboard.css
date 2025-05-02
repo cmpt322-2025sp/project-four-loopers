@@ -1,3 +1,8 @@
+/* Add this to your global CSS file */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
 .dashboard-container {
     padding: 2rem;
     max-width: 1000px;

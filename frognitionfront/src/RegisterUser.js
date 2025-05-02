@@ -20,7 +20,7 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/auth/register/', formData);
-      dispatch(loginAction(response.data.user)); // Dispatch the user info to Redux
+      // dispatch(loginAction(response.data.user)); // Dispatch the user info to Redux
       setMessage('Account Created');
     } catch (error) {
       setMessage(error.response?.data?.error || 'Login failed. Please check your credentials.');
@@ -73,7 +73,7 @@ function Register() {
           <input
             type="email"
             name="email"
-            placeholder="ELLIE IS"
+            placeholder="email"
             value={formData.email}
             onChange={handleChange}
           
