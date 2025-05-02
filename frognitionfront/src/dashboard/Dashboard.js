@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
+import teacher from '../teacher.png';
+import student0 from './student.png';
+import student1 from '.student(1).png';
+import student2 from '.student(2).png';
+import student3 from './student(3).png';
+import student4 from './student(4).png';
+import student5 from './student(5).png';
 
-const StudentCard = ({ name, imgSrc, style }) => (
-  <div style={{ position: 'absolute', ...style }}>
-    <div style={{
-      width: 256,
-      height: 317,
-      background: '#A2DD21',
-      borderRadius: 23,
-      position: 'absolute',
-    }} />
+const studentImages = [student0, student1, student2, student3, student4, student5];
+
+
+const StudentCard = ({ name, imgSrc }) => (
+  <div style={{
+    width: '256px',
+    height: '317px',
+    background: '#A2DD21',
+    borderRadius: '23px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '10px',
+    margin: '10px',
+    boxSizing: 'border-box'
+  }}>
     <img
       src={imgSrc}
       alt={name}
       style={{
-        width: 253,
-        height: 252,
-        position: 'absolute',
-        top: 5,
-        left: 2,
+        width: '100%',
+        height: 'auto',
+        borderRadius: '10px'
       }}
     />
     <div style={{
-      position: 'absolute',
-      bottom: 10,
-      left: 30,
-      fontSize: 30,
+      marginTop: '10px',
+      fontSize: '20px',
       fontFamily: 'Krona One',
-      fontWeight: 400,
       color: 'black',
+      textAlign: 'center'
     }}>
       {name}
     </div>
@@ -45,84 +56,91 @@ const TeacherDashboard = () => {
       .catch(err => console.error(err));
   }, []);
 
-  // Example fallback data if API isn’t ready:
   const fallbackStudents = [
-    { name: 'Emily', left: 134, top: 559 },
-    { name: 'Carson', left: 1107, top: 557 },
-    { name: 'Jacob', left: 461, top: 913 },
-    { name: 'Caleb', left: 794, top: 911 },
-    { name: 'Bella', left: 143, top: 913 },
-    { name: 'Susan', left: 1101, top: 913 },
-    { name: 'Jake', left: 471, top: 560 },
-    { name: 'Ryan', left: 790, top: 558 },
+    { name: 'Emily' }, { name: 'Carson' }, { name: 'Jacob' },
+    { name: 'Caleb' }, { name: 'Bella' }, { name: 'Susan' },
+    { name: 'Jake' }, { name: 'Ryan' },
   ];
 
-  const studentData = students.length ? students : fallbackStudents;
+  const randomizeStudents = (studentsArray) =>
+    studentsArray.map(student => ({
+      ...student,
+      imgSrc: studentImages[Math.floor(Math.random() * studentImages.length)]
+    }));
+
+  const studentData = randomizeStudents(students.length ? students : fallbackStudents);
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', overflow: 'hidden' }}>
-      <div style={{ width: '100%', height: 121, background: '#A2DD21', position: 'absolute', top: 0 }} />
-      <div style={{ position: 'absolute', left: 21, top: 38, fontSize: 45, fontFamily: 'Krona One' }}>
-        WELCOME BACK MORGAN
-      </div>
-
-      {/* Class Average Banner */}
+    <div style={{
+      width: '100vw',
+      height: '100vh',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      {/* Header */}
       <div style={{
-        width: 655,
-        height: 134,
-        left: 9,
-        top: 133,
-        position: 'absolute',
-        background: '#FDE36C',
-        borderRadius: 23,
-        zIndex: 1
-      }} />
-      <div style={{
-        width: 655,
-        height: 134,
-        left: 21,
-        top: 142,
-        position: 'absolute',
-        background: '#FCC459',
-        borderRadius: 23,
-        zIndex: 2
-      }} />
-      <div style={{
-        left: 40,
-        top: 160,
-        position: 'absolute',
-        color: 'black',
-        fontSize: 40,
-        fontFamily: 'Krona One',
-        fontWeight: 400,
-        zIndex: 3
+        height: '120px',
+        background: '#A2DD21',
+        padding: '20px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
       }}>
-        CLASS AVERAGE:
+        <div style={{
+          fontSize: '30px',
+          fontFamily: 'Krona One',
+        }}>
+          WELCOME BACK MORGAN
+        </div>
+        <img
+          src={teacher}
+          alt="Teacher"
+          style={{
+            width: '105px',
+            height: '100px',
+            borderRadius: '50%',
+            boxShadow: '0px 4px 30px rgba(0, 0, 0, 0.25)'
+          }}
+        />
       </div>
 
-      {/* Student Cards */}
-      {studentData.map((student, index) => (
-        <StudentCard
-          key={index}
-          name={student.name}
-          imgSrc="https://placehold.co/253x252"
-          style={{ left: student.left, top: student.top }}
-        />
-      ))}
+      {/* Scrollable Content Area */}
+      <div style={{
+        flex: 1,
+        overflowY: 'auto',
+        padding: '20px',
+        background: 'white',
+      }}>
+        {/* Class Average Banner */}
+        <div style={{
+          background: '#FCC459',
+          borderRadius: '23px',
+          padding: '20px',
+          marginBottom: '20px',
+          fontSize: '24px',
+          fontFamily: 'Krona One',
+          color: 'black'
+        }}>
+          CLASS AVERAGE:
+        </div>
 
-      {/* Teacher Profile Pic */}
-      <img
-        src="https://placehold.co/199x199"
-        alt="Teacher"
-        style={{
-          width: 199,
-          height: 199,
-          left: 1229,
-          top: 10,
-          position: 'absolute',
-          boxShadow: '0px 4px 100px rgba(0, 0, 0, 0.25)'
-        }}
-      />
+        {/* Student Cards in Responsive Grid */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        }}>
+          {studentData.map((student, index) => (
+            <StudentCard
+              key={index}
+              name={student.name}
+              imgSrc={student.imgSrc}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
