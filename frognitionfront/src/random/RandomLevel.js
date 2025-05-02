@@ -240,6 +240,9 @@ function AdditionLevel() {
                 setIsSick(false);
                 setCanClick(true);
                 break;
+            default:
+                console.error('Invalid problem type');
+                break;
         }
         
     };
