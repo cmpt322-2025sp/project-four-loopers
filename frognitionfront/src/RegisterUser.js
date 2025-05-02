@@ -6,10 +6,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 import teacher from './teacher.png';
+import { useDispatch } from 'react-redux';
 
 function Register() {
   const [formData, setFormData] = useState({ username: '', password: '', email: '', class_name: 'class_1'});
   const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

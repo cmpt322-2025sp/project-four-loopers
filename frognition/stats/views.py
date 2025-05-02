@@ -11,10 +11,16 @@ from django.contrib.auth.models import Group, Permission
 def is_student(user):
     return user.is_authenticated and user.groups.filter(name='student').exists()
 
+# @login_required
+# @permission_required('student', raise_exception=True)
 @api_view(['POST'])
 @user_passes_test(is_student)
 def record_results(request):
     permission_classes = [IsAuthenticated]
+    # Check if the user is a student
+    if not request.user.groups.filter(name='student').exists():
+        return JsonResponse({'error': 'Permission denied'}, status=403)
+
     user = request.user
     correct = request.data.get('correct')
     total = request.data.get('total')
@@ -32,10 +38,13 @@ def record_results(request):
     return JsonResponse({'message': 'Results recorded successfully'}, status=201)
     
 # @login_required
-@permission_required('user_management.teacher', raise_exception=True)
+# @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_user_stats(request, user_id):
     permission_classes = [IsAuthenticated]
+    # Check if the user is a teacher and belongs to the same class as the student
+    if not request.user.groups.filter(name='teacher').exists():
+        return JsonResponse({'error': 'Permission denied'}, status=403)
     classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
     if not classGroup.user_set.filter(id=user_id).exists():
         return JsonResponse({'error': 'User not in your class'}, status=403)
@@ -64,10 +73,13 @@ def get_user_stats(request, user_id):
 
 # Function to get all students' stats for teacher
 # @login_required
-@permission_required('user_management.teacher', raise_exception=True)
+# @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_all_students_stats(request):
     permission_classes = [IsAuthenticated]
+    # Check if the user is a teacher
+    if not request.user.groups.filter(name='teacher').exists():
+        return JsonResponse({'error': 'Permission denied'}, status=403)
     classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
     students = User.objects.filter(groups__in=classGroup, groups__name__in=['student'])
     all_students_stats = []
@@ -127,10 +139,13 @@ def get_all_students_stats(request):
 
 # Function to reset a student's stats
 # @login_required
-@permission_required('user_management.teacher', raise_exception=True)
+# @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['POST'])
 def reset_student_stats(request, user_id):
     permission_classes = [IsAuthenticated]
+    # Check if the user is a teacher and belongs to the same class as the student
+    if not request.user.groups.filter(name='teacher').exists():
+        return JsonResponse({'error': 'Permission denied'}, status=403)
     classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
     if not classGroup.user_set.filter(id=user_id).exists():
         return JsonResponse({'error': 'User not in your class'}, status=403)

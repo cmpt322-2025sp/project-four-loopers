@@ -47,7 +47,7 @@ function StarScreenPage() {
             total: totalProblems,
             problem_type: searchParams.get("problemType"),
         })
-    }, [problemsSolved]);
+    }, [problemsSolved, totalProblems, searchParams]);
 
 
 

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import flyImage from '../Moth.png';
+import flyImage from '../fly_moth.gif';
 import frogImage from '../Euler.png';
 import CountdownTimer from "../CountdownTimer";
-import './sublevel.css';
-import subtractionMusic from './subtrania.mp3';
+import './randlevel.css'
+import randomMusic from './Track_4.mp3';
 import sickImage from '../sick.png';
 import frongueSound from '../frongue.mp3';
 
 
-
-function SubtractionLevel() {
+function AdditionLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
   const [flies, setFlies] = useState([]);  // Stores flies
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
@@ -21,8 +20,8 @@ function SubtractionLevel() {
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);   
-  const [backgroundAudio] = useState(new Audio(subtractionMusic));
+  const [totalCount, setTotalCount] = useState(0);  
+  const [backgroundAudio] = useState(new Audio(randomMusic));
   const [isSick, setIsSick] = useState(false);
   const [isFacingLeft, setIsFacingLeft] = useState(false);
   const [konamiActivated, setKonamiActivated] = useState(false);
@@ -64,85 +63,81 @@ function SubtractionLevel() {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
+    useEffect(() => {
+        const konamiCode = [
+            'ArrowUp', 'ArrowUp',
+            'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight',
+            'ArrowLeft', 'ArrowRight',
+            'b', 'a'
+        ];
+        let konamiIndex = 0;
+
+        const handleKeyDown = (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    setKonamiActivated(true);
+                    console.log('💥 KONAMI CODE ACTIVATED. PREPARE TO ASCEND.');
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+    useEffect(() => {
+        if (!konamiActivated) return;
+
+        const interval = setInterval(() => {
+            const correctFlyElement = document.querySelector(`.fly[data-fly-number="${correctAnswer}"]`);
+            if (correctFlyElement) {
+                correctFlyElement.click();
+            }
+        }, 100); // 🔥 Every 100ms
+
+        return () => clearInterval(interval);
+    }, [konamiActivated, flies, correctAnswer]);
 
     useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
   }, []);
-
-  useEffect(() => {
-          const konamiCode = [
-              'ArrowUp', 'ArrowUp',
-              'ArrowDown', 'ArrowDown',
-              'ArrowLeft', 'ArrowRight',
-              'ArrowLeft', 'ArrowRight',
-              'b', 'a'
-          ];
-          let konamiIndex = 0;
-  
-          const handleKeyDown = (e) => {
-              if (e.key === konamiCode[konamiIndex]) {
-                  konamiIndex++;
-                  if (konamiIndex === konamiCode.length) {
-                      setKonamiActivated(true);
-                      console.log('💥 KONAMI CODE ACTIVATED. PREPARE TO ASCEND.');
-                      konamiIndex = 0;
-                  }
-              } else {
-                  konamiIndex = 0;
-              }
-          };
-  
-          window.addEventListener('keydown', handleKeyDown);
-          return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
-  useEffect(() => {
-      if (!konamiActivated) return;
-  
-          const interval = setInterval(() => {
-              const correctFlyElement = document.querySelector(`.fly[data-fly-number="${correctAnswer}"]`);
-              if (correctFlyElement) {
-                  correctFlyElement.click();
-              }
-          }, 100); // 🔥 Every 100ms
-  
-      return () => clearInterval(interval);
-    }, [konamiActivated, flies, correctAnswer]);
-  
     useEffect(() => {
-        fetchProblem(); // Fetch the first problem when the page loads
-      }, []);
-        useEffect(() => {
-            const handleMouseMove = (event) => {
-                const screenMiddle = window.innerWidth / 2;
-                const newFacingLeft = event.clientX < screenMiddle;
-    
-                setIsFacingLeft(prev => {
-                    if (prev !== newFacingLeft) {
-                        // ⬇️ Facing direction changed? Update tongue start point if tongue is out
-                        if (showTongue) {
-                            const frogRect = document.getElementById("frog").getBoundingClientRect();
-                            const offset = 85;
-                            const directionMultiplier = newFacingLeft ? -1 : 1;
-    
-                            setTongueStart({
-                                x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
-                                y: frogRect.top + frogRect.height / 3
-                            });
-                        }
-                    }
-                    return newFacingLeft;
-                });
-            };
-    
-            window.addEventListener('mousemove', handleMouseMove);
-    
-            return () => {
-                window.removeEventListener('mousemove', handleMouseMove);
-            };
-        }, [showTongue]);
+        const handleMouseMove = (event) => {
+            const screenMiddle = window.innerWidth / 2;
+            const newFacingLeft = event.clientX < screenMiddle;
 
-  // const fetchProblem = () => {
-  //   fetch('http://127.0.0.1:8000/get_random_problem/subtraction/', {
+            setIsFacingLeft(prev => {
+                if (prev !== newFacingLeft) {
+                    // ⬇️ Facing direction changed? Update tongue start point if tongue is out
+                    if (showTongue) {
+                        const frogRect = document.getElementById("frog").getBoundingClientRect();
+                        const offset = 85;
+                        const directionMultiplier = newFacingLeft ? -1 : 1;
+
+                        setTongueStart({
+                            x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
+                            y: frogRect.top + frogRect.height / 3
+                        });
+                    }
+                }
+                return newFacingLeft;
+            });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [showTongue]);
+
+
+    // const fetchProblem = () => {
+  //   fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
   //     method: 'GET',
   //     credentials: 'include', // Ensures cookies are sent with the request
   //     headers:{
@@ -153,7 +148,7 @@ function SubtractionLevel() {
   //     .then((response) => response.json())
   //     .then((data) => {
   //       console.log('Fetched new problem:', data);
-
+  //
   //       // Update state with the fetched problem data
   //       setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
   //       setFlies(data.flies); // Store flies
@@ -163,33 +158,97 @@ function SubtractionLevel() {
   //     })
   //     .catch((error) => console.error('Error fetching new problem:', error));
   // };
+    const fetchProblem = () => {
+        setFallingFly(null);
+        const randomProblemType = Math.floor(Math.random() * 3);
+        switch (randomProblemType) {
+            case 0: // Addition
+                const randomNum1 = Math.floor(Math.random() * 10);
+                const randomNum2 = Math.floor(Math.random() * 10);
+                const correctAnswer = randomNum1 + randomNum2;
+                const addProblemLabel = ''+randomNum1+' + '+randomNum2+' = ?';
+                setProblem({ label: addProblemLabel});
+                let flies = [correctAnswer];
+                while (flies.length < 4) {
+                    let randomFly = Math.floor(Math.random() * 20);
+                    if (!flies.includes(randomFly)) {
+                      flies.push(randomFly);
+                    }
+                }
+                flies = flies.sort(() => Math.random() - 0.5);
+                setFlies(flies);
+                setCorrectAnswer(correctAnswer);
+                setSelectedAnswer(null);
+                setFeedback('');
+                setIsSick(false);
+                setCanClick(true);
+                break;
+            case 1: // Subtraction
+                const randomNum3 = Math.floor(Math.random() * 15) + 1; // Ensure non-negative result
+                const randomNum4 = Math.floor(Math.random() * randomNum3);
+                const correctAnswerSub = randomNum3 - randomNum4;
+                const subProblemLabel = ''+randomNum3+' - '+randomNum4+' = ?';
+                setProblem({ label: subProblemLabel});
+                let fliesSub = [correctAnswerSub];
+                while (fliesSub.length < 4) {
+                    let randomFly = Math.floor(Math.random() * 20);
+                    if (!fliesSub.includes(randomFly)) {
+                      fliesSub.push(randomFly);
+                    }
+                }
+                fliesSub = fliesSub.sort(() => Math.random() - 0.5);
+                setFlies(fliesSub);
+                setCorrectAnswer(correctAnswerSub);
+                setSelectedAnswer(null);
+                setFeedback('');
+                setIsSick(false);
+                setCanClick(true);
+                break;
+            case 2: // Place Value
+                const randomNum = Math.floor(Math.random() * 1000); // Random number between 0 and 999
+                const placeToCheck = Math.floor(Math.random() * 3); // Random place to check (0, 1, or 2)
+                const num = randomNum.toString().padStart(3, '0'); // Ensure it's a 3-digit number
+                const PVCorrectAnswer = num[placeToCheck]; // Get the digit at the specified place
+                if (placeToCheck === 0) {
+                    const PVProblemLabel = 'What is in the hundreds place of '+num+'?';
+                    setProblem({ label: PVProblemLabel });
+                }
+                else if (placeToCheck === 1) { 
+                    const PVProblemLabel = 'What is in the tens place of '+num+'?';
+                    setProblem({ label: PVProblemLabel });
+                }
+                else if (placeToCheck === 2) {
+                    const PVProblemLabel = 'What is in the ones place of '+num+'?';
+                    setProblem({ label: PVProblemLabel });
+                }
 
-  const fetchProblem = () => {
-    setFallingFly(null)
-    const randomNum1 = Math.floor(Math.random() * 15 + 1);
-    const randomNum2 = Math.floor(Math.random() * randomNum1 + 1);
-    const correctAnswer = randomNum1 - randomNum2;
 
-    let flies = [correctAnswer];
-    while (flies.length < 4) {
-        let randomFly = Math.floor(Math.random() * 15 + 1);
-        if (!flies.includes(randomFly)) {
-            flies.push(randomFly);
+                let PVFlies = [PVCorrectAnswer];
+                while (PVFlies.length < 4) {
+                    let randomFly = Math.floor(Math.random() * 10);
+                    if (!PVFlies.includes(randomFly)) {
+                        PVFlies.push(randomFly);
+                    }
+                }
+
+                PVFlies = PVFlies.sort(() => Math.random() - 0.5);
+
+                setFlies(PVFlies);
+                setCorrectAnswer(PVCorrectAnswer);
+                setSelectedAnswer(null);
+                setFeedback('');
+                setIsSick(false);
+                setCanClick(true);
+                break;
+            default:
+                console.error('Invalid problem type');
+                break;
         }
-    }
+        
+    };
 
-    flies = flies.sort(() => Math.random() - 0.5);
 
-    setProblem({ num1: randomNum1, num2: randomNum2 });
-    setFlies(flies);
-    setCorrectAnswer(correctAnswer);
-    setSelectedAnswer(null);
-    setFeedback('');
-    setIsSick(false);
-    setCanClick(true);
-};
-
-const handleFlyClick = (flyNumber, event = null) => {
+    const handleFlyClick = (flyNumber, event = null) => {
         if (!canClick) return;
         const frogRect = document.getElementById("frog").getBoundingClientRect();
         let flyRect;
@@ -320,7 +379,9 @@ const handleFlyClick = (flyNumber, event = null) => {
     };
 
 
-  if (!problem) {
+
+
+    if (!problem) {
     return <div>Loading...</div>;
   }
     if (showStartScreen) {
@@ -364,7 +425,7 @@ const handleFlyClick = (flyNumber, event = null) => {
     }
 
     return (
-      <div className="subtraction-background-container" style={{
+      <div className="addition-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -391,27 +452,27 @@ const handleFlyClick = (flyNumber, event = null) => {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalCount} isPaused={isPaused} problemType={'SU'}/>
+          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalCount} isPaused={isPaused} problemType={'RA'}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
-    <img
-                  id="frog"
-                  src={isSick ? sickImage : frogImage}
-                  alt="Frog"
-                  style={{
-                      width: '10vw',
-                      height: 'auto',
-                      position: 'absolute',
-                      left: '50%',
-                      bottom: '0vh',
-                      transform: `translateX(-50%) ${isFacingLeft ? 'scaleX(-1)' : ''}`, // 🧠 FLIP IF NEEDED
-                      transition: 'transform 0.2s ease', // 🍑 Smooth flipping
-                  }}
-              />
-   {/* Display the flies */}
+          <img
+              id="frog"
+              src={isSick ? sickImage : frogImage}
+              alt="Frog"
+              style={{
+                  width: '10vw',
+                  height: 'auto',
+                  position: 'absolute',
+                  left: '50%',
+                  bottom: '0vh',
+                  transform: `translateX(-50%) ${isFacingLeft ? 'scaleX(-1)' : ''}`, // 🧠 FLIP IF NEEDED
+                  transition: 'transform 0.2s ease', // 🍑 Smooth flipping
+              }}
+          />
+          {/* Display the flies */}
 
-<div className="flies-container" >
+   <div className="flies-container" >
        {flies.length > 0 ? (
          flies.map((flyNumber, index) => (
              <div
@@ -468,7 +529,7 @@ const handleFlyClick = (flyNumber, event = null) => {
     alignItems: 'center',
     width: '100%',
     height: '20vh',
-    padding: '20px'
+    padding: '20px',
 }}>
   <svg
     width="80%"  // Adjust width percentage as needed
@@ -489,20 +550,22 @@ const handleFlyClick = (flyNumber, event = null) => {
     </g>
   </svg>
   </div>
-  <div><h1>Subtraction Problems</h1></div>
-  <div><p>{problem.num1} - {problem.num2} = ?</p></div>
+  <div><h1>Random Problems</h1></div>
+  <div><p>{problem.label}</p></div>
 </div>
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
   {showTongue && tongueEnd && (
-    <line
-      x1={tongueStart.x}
-      y1={tongueStart.y}
-      x2={tongueEnd.x}
-      y2={tongueEnd.y}
-      stroke="pink"
-      strokeWidth="7"
-    />
+      <line
+          ref={tongueRef}
+          x1={tongueStart.x}
+          y1={tongueStart.y}
+          x2={tongueEnd?.x ?? tongueStart.x}
+          y2={tongueEnd?.y ?? tongueStart.y}
+          stroke="pink"
+          strokeWidth="7"
+          className="tongue-line"
+      />
   )}
 </svg>
           {/* Pause Overlay */}
@@ -562,5 +625,7 @@ const handleFlyClick = (flyNumber, event = null) => {
       </div>
 
   );
+  
 }
-export default SubtractionLevel;
+
+export default AdditionLevel;

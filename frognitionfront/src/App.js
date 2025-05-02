@@ -10,6 +10,7 @@ import LoginPage from './LoginPage';
 import SubtractionLevel from './subtraction/SubtractionLevel';
 import StarScreenPage from './star/StarScreenPage';
 import PlaceValueLevel from './placevalue/PlacevalueLevel';
+import RandomLevel from './random/RandomLevel';
 import GoldsumMap from "./map/GoldsumMap";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/subtraction" element={<SubtractionLevel />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/placevalue" element={<PlaceValueLevel />} />
+          <Route path="/random" element={<RandomLevel />} />
           <Route path="/map" element={<GoldsumMap />} />
         </Routes>
       </Router>
