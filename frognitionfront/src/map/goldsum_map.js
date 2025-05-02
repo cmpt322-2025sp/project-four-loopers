@@ -8,7 +8,7 @@ canvas.width = WINDOW_WIDTH;
 canvas.height = WINDOW_HEIGHT;
 
 const LEVEL_POSITIONS = [183, 468, 739, 1016, 1347, 1697];
-const LEVEL_CROP_OFFSET = 60;
+const LEVEL_CROP_OFFSET = 120;
 const levelStatus = [true, true, true, false, false, false]; // Example: First 3 levels unlocked
 const finalLevelBeaten = false;
 
@@ -108,7 +108,7 @@ canvas.addEventListener('click', (event) => {
     // Check if click is within 60 pixels of any LEVEL_POSITION
     for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
         const levelX = LEVEL_POSITIONS[i];
-        if (Math.abs(clickX - levelX) <= 60 && levelStatus[i]) {
+        if (Math.abs(clickX - levelX) <= 120 && levelStatus[i]) {
             // Navigate to AdditionLevel (in React, this is a bit hacky)
             window.location.href = "/addition";
             return;

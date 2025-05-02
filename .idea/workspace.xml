@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="01aaaafd-1371-4af0-b7a2-d289264cbfc5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/AdditionLevel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frognitionfront/src/GoldsumMap.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/GoldsumMap.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frognitionfront/src/goldsum_map.js" beforeDir="false" afterPath="$PROJECT_DIR$/frognitionfront/src/goldsum_map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +99,10 @@
       <workItem from="1745856774922" duration="15324000" />
       <workItem from="1745974620727" duration="1242000" />
       <workItem from="1745991062455" duration="1236000" />
-      <workItem from="1746028897147" duration="1047000" />
+      <workItem from="1746028897147" duration="1159000" />
+      <workItem from="1746030124323" duration="109000" />
+      <workItem from="1746031356349" duration="3650000" />
+      <workItem from="1746149552067" duration="1542000" />
     </task>
     <servers />
   </component>
