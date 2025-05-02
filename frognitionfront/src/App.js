@@ -1,16 +1,17 @@
-import './addlevel.css';
+import './addition/addlevel.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';  // Import Provider
 import store from './store';  // Import your store file
-import AdditionLevel from './AdditionLevel';
+import AdditionLevel from './addition/AdditionLevel';
 import Register from './RegisterUser';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import LoginPage from './LoginPage';
-import SubtractionLevel from './SubtractionLevel';
-import StarScreenPage from './StarScreenPage';
-import PlaceValueLevel from './PlacevalueLevel';
-import GoldsumMap from "./GoldsumMap";
+import SubtractionLevel from './subtraction/SubtractionLevel';
+import StarScreenPage from './star/StarScreenPage';
+import PlaceValueLevel from './placevalue/PlacevalueLevel';
+import RandomLevel from './random/RandomLevel';
+import GoldsumMap from "./map/GoldsumMap";
 
 function App() {
 
@@ -23,9 +24,10 @@ function App() {
           <Route path="/addition" element={<AdditionLevel />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subtraction" element={<SubtractionLevel />} />
-          <Route path="/map" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/placevalue" element={<PlaceValueLevel />} />
-          <Route path="" element={<GoldsumMap />} />
+          <Route path="/random" element={<RandomLevel />} />
+          <Route path="/map" element={<GoldsumMap />} />
         </Routes>
       </Router>
   );

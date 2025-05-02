@@ -4,32 +4,32 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self,username, email, password=None,**kwargs):
+    def create_user(self,username, email, first_name, last_name, password=None,**kwargs):
         if username is None:
             raise TypeError('Users must have a username')
         if email is None:
             raise TypeError('Users must have an email address')
         
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(username=username, email=self.normalize_email(email), first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_student_user(self, username, email, class_name, password=None, **kwargs):
+    def create_student_user(self, username, email, first_name, last_name, class_name=None, password=None, **kwargs):
         if username is None:
             raise TypeError('Users must have a username')
         if email is None:
             raise TypeError('Users must have an email address')
         
-        user = self.create_user(username, email, password)
+        user = self.create_user(username, email, first_name, last_name, password)
         typeGroup = Group.objects.get_or_create(name='student')
-        classGroup = Group.objects.get_or_create(name=class_name)
-        typeGroup.permissions.add('user_management.student')
-        typeGroup.user_set.add(user)
-        classGroup.user_set.add(user)
+        classGroup = Group.objects.get_or_create(name='class_1')
+        typeGroup[0].permissions.add(Permission.objects.get_or_create(codename='student')[0])
+        typeGroup[0].user_set.add(user)
+        classGroup[0].user_set.add(user)
         user.save(using=self._db)
-        typeGroup.save(using=self._db)
-        classGroup.save(using=self._db)
+        typeGroup[0].save(using=self._db)
+        classGroup[0].save(using=self._db)
         return user
     
     def create_teacher_user(self, username, email, class_name, password=None, **kwargs):
@@ -40,13 +40,13 @@ class UserManager(BaseUserManager):
         
         user = self.create_user(username, email, password)
         typeGroup = Group.objects.get_or_create(name='teacher')
-        typeGroup.permissions.add('user_management.teacher')
-        classGroup = Group.objects.get_or_create(name=class_name)
-        typeGroup.user_set.add(user)
-        classGroup.user_set.add(user)
+        classGroup = Group.objects.get_or_create(name='class_1')
+        typeGroup[0].permissions.add(Permission.objects.get_or_create(codename='teacher')[0])
+        typeGroup[0].user_set.add(user)
+        classGroup[0].user_set.add(user)
         user.save(using=self._db)
-        typeGroup.save(using=self._db)
-        classGroup.save(using=self._db)
+        typeGroup[0].save(using=self._db)
+        classGroup[0].save(using=self._db)
         return user
     
     def create_superuser(self, username, email, password):

@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import flyImage from './fly_moth.gif';
-import frogImage from './Euler.png';
-import CountdownTimer from "./CountdownTimer";
-import './addlevel.css'
-import additionMusic from './addition_level.mp3';
-import sickImage from './sick.png';
-import frongueSound from './frongue.mp3';
+import flyImage from '../Moth.png';
+import frogImage from '../Euler.png';
+import CountdownTimer from "../CountdownTimer";
+import './sublevel.css';
+import subtractionMusic from './subtrania.mp3';
+import sickImage from '../sick.png';
+import frongueSound from '../frongue.mp3';
 
 
-function AdditionLevel() {
+
+function SubtractionLevel() {
   const [problem, setProblem] = useState(null);  // Stores problem data
   const [flies, setFlies] = useState([]);  // Stores flies
   const [correctAnswer, setCorrectAnswer] = useState(null);  // Stores correct answer
@@ -19,8 +20,9 @@ function AdditionLevel() {
   const [showTongue, setShowTongue] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const [correctCount, setCorrectCount] = useState(0);  
-  const [backgroundAudio] = useState(new Audio(additionMusic));
+  const [correctCount, setCorrectCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);   
+  const [backgroundAudio] = useState(new Audio(subtractionMusic));
   const [isSick, setIsSick] = useState(false);
   const [isFacingLeft, setIsFacingLeft] = useState(false);
   const [konamiActivated, setKonamiActivated] = useState(false);
@@ -62,81 +64,85 @@ function AdditionLevel() {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
-    useEffect(() => {
-        const konamiCode = [
-            'ArrowUp', 'ArrowUp',
-            'ArrowDown', 'ArrowDown',
-            'ArrowLeft', 'ArrowRight',
-            'ArrowLeft', 'ArrowRight',
-            'b', 'a'
-        ];
-        let konamiIndex = 0;
-
-        const handleKeyDown = (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    setKonamiActivated(true);
-                    console.log('💥 KONAMI CODE ACTIVATED. PREPARE TO ASCEND.');
-                    konamiIndex = 0;
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
-    useEffect(() => {
-        if (!konamiActivated) return;
-
-        const interval = setInterval(() => {
-            const correctFlyElement = document.querySelector(`.fly[data-fly-number="${correctAnswer}"]`);
-            if (correctFlyElement) {
-                correctFlyElement.click();
-            }
-        }, 100); // 🔥 Every 100ms
-
-        return () => clearInterval(interval);
-    }, [konamiActivated, flies, correctAnswer]);
 
     useEffect(() => {
     fetchProblem(); // Fetch the first problem when the page loads
   }, []);
+
+  useEffect(() => {
+          const konamiCode = [
+              'ArrowUp', 'ArrowUp',
+              'ArrowDown', 'ArrowDown',
+              'ArrowLeft', 'ArrowRight',
+              'ArrowLeft', 'ArrowRight',
+              'b', 'a'
+          ];
+          let konamiIndex = 0;
+  
+          const handleKeyDown = (e) => {
+              if (e.key === konamiCode[konamiIndex]) {
+                  konamiIndex++;
+                  if (konamiIndex === konamiCode.length) {
+                      setKonamiActivated(true);
+                      console.log('💥 KONAMI CODE ACTIVATED. PREPARE TO ASCEND.');
+                      konamiIndex = 0;
+                  }
+              } else {
+                  konamiIndex = 0;
+              }
+          };
+  
+          window.addEventListener('keydown', handleKeyDown);
+          return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+  useEffect(() => {
+      if (!konamiActivated) return;
+  
+          const interval = setInterval(() => {
+              const correctFlyElement = document.querySelector(`.fly[data-fly-number="${correctAnswer}"]`);
+              if (correctFlyElement) {
+                  correctFlyElement.click();
+              }
+          }, 100); // 🔥 Every 100ms
+  
+      return () => clearInterval(interval);
+    }, [konamiActivated, flies, correctAnswer]);
+  
     useEffect(() => {
-        const handleMouseMove = (event) => {
-            const screenMiddle = window.innerWidth / 2;
-            const newFacingLeft = event.clientX < screenMiddle;
-
-            setIsFacingLeft(prev => {
-                if (prev !== newFacingLeft) {
-                    // ⬇️ Facing direction changed? Update tongue start point if tongue is out
-                    if (showTongue) {
-                        const frogRect = document.getElementById("frog").getBoundingClientRect();
-                        const offset = 85;
-                        const directionMultiplier = newFacingLeft ? -1 : 1;
-
-                        setTongueStart({
-                            x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
-                            y: frogRect.top + frogRect.height / 3
-                        });
+        fetchProblem(); // Fetch the first problem when the page loads
+      }, []);
+        useEffect(() => {
+            const handleMouseMove = (event) => {
+                const screenMiddle = window.innerWidth / 2;
+                const newFacingLeft = event.clientX < screenMiddle;
+    
+                setIsFacingLeft(prev => {
+                    if (prev !== newFacingLeft) {
+                        // ⬇️ Facing direction changed? Update tongue start point if tongue is out
+                        if (showTongue) {
+                            const frogRect = document.getElementById("frog").getBoundingClientRect();
+                            const offset = 85;
+                            const directionMultiplier = newFacingLeft ? -1 : 1;
+    
+                            setTongueStart({
+                                x: (frogRect.left + frogRect.width / 2) + (offset * directionMultiplier),
+                                y: frogRect.top + frogRect.height / 3
+                            });
+                        }
                     }
-                }
-                return newFacingLeft;
-            });
-        };
+                    return newFacingLeft;
+                });
+            };
+    
+            window.addEventListener('mousemove', handleMouseMove);
+    
+            return () => {
+                window.removeEventListener('mousemove', handleMouseMove);
+            };
+        }, [showTongue]);
 
-        window.addEventListener('mousemove', handleMouseMove);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, [showTongue]);
-
-
-    // const fetchProblem = () => {
-  //   fetch('http://127.0.0.1:8000/get_random_problem/addition/', {
+  // const fetchProblem = () => {
+  //   fetch('http://127.0.0.1:8000/get_random_problem/subtraction/', {
   //     method: 'GET',
   //     credentials: 'include', // Ensures cookies are sent with the request
   //     headers:{
@@ -147,7 +153,7 @@ function AdditionLevel() {
   //     .then((response) => response.json())
   //     .then((data) => {
   //       console.log('Fetched new problem:', data);
-  //
+
   //       // Update state with the fetched problem data
   //       setProblem({ num1: data.num1, num2: data.num2 }); // Store problem
   //       setFlies(data.flies); // Store flies
@@ -157,33 +163,33 @@ function AdditionLevel() {
   //     })
   //     .catch((error) => console.error('Error fetching new problem:', error));
   // };
-    const fetchProblem = () => {
-        setFallingFly(null)
-        const randomNum1 = Math.floor(Math.random() * 10);
-        const randomNum2 = Math.floor(Math.random() * 10);
-        const correctAnswer = randomNum1 + randomNum2;
 
-        let flies = [correctAnswer];
-        while (flies.length < 4) {
-            let randomFly = Math.floor(Math.random() * 20);
-            if (!flies.includes(randomFly)) {
-                flies.push(randomFly);
-            }
+  const fetchProblem = () => {
+    setFallingFly(null)
+    const randomNum1 = Math.floor(Math.random() * 15 + 1);
+    const randomNum2 = Math.floor(Math.random() * randomNum1 + 1);
+    const correctAnswer = randomNum1 - randomNum2;
+
+    let flies = [correctAnswer];
+    while (flies.length < 4) {
+        let randomFly = Math.floor(Math.random() * 15 + 1);
+        if (!flies.includes(randomFly)) {
+            flies.push(randomFly);
         }
+    }
 
-        flies = flies.sort(() => Math.random() - 0.5);
+    flies = flies.sort(() => Math.random() - 0.5);
 
-        setProblem({ num1: randomNum1, num2: randomNum2 });
-        setFlies(flies);
-        setCorrectAnswer(correctAnswer);
-        setSelectedAnswer(null);
-        setFeedback('');
-        setIsSick(false);
-        setCanClick(true);
-    };
+    setProblem({ num1: randomNum1, num2: randomNum2 });
+    setFlies(flies);
+    setCorrectAnswer(correctAnswer);
+    setSelectedAnswer(null);
+    setFeedback('');
+    setIsSick(false);
+    setCanClick(true);
+};
 
-
-    const handleFlyClick = (flyNumber, event = null) => {
+const handleFlyClick = (flyNumber, event = null) => {
         if (!canClick) return;
         const frogRect = document.getElementById("frog").getBoundingClientRect();
         let flyRect;
@@ -298,8 +304,10 @@ function AdditionLevel() {
             if (flyNumber === correctAnswer) {
                 setFeedback('✅ Correct!');
                 setCorrectCount(prev => prev + 1);
+                setTotalCount(prev => prev + 1);
             } else {
                 setFeedback('❌ Try again!');
+                setTotalCount(prev => prev + 1);
                 setIsSick(true);
             }
 
@@ -312,9 +320,7 @@ function AdditionLevel() {
     };
 
 
-
-
-    if (!problem) {
+  if (!problem) {
     return <div>Loading...</div>;
   }
     if (showStartScreen) {
@@ -358,7 +364,7 @@ function AdditionLevel() {
     }
 
     return (
-      <div className="addition-background-container" style={{
+      <div className="subtraction-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -385,27 +391,27 @@ function AdditionLevel() {
               ⏸ Pause
           </button>
               {/* change problems solved to number of correct anwsers */}
-          <CountdownTimer startTime={60} problemsSolved={correctCount} isPaused={isPaused}/>
+          <CountdownTimer startTime={60} problemsSolved={correctCount} totalProblems={totalCount} isPaused={isPaused} problemType={'SU'}/>
           {/* change problemsSolved to test different numbers of stars appearing*/}
     {/* add in svg of background it will be better for purposes of storage and will make the server run faster is my prediction */}
     {/* frog first line below */}
-          <img
-              id="frog"
-              src={isSick ? sickImage : frogImage}
-              alt="Frog"
-              style={{
-                  width: '10vw',
-                  height: 'auto',
-                  position: 'absolute',
-                  left: '50%',
-                  bottom: '0vh',
-                  transform: `translateX(-50%) ${isFacingLeft ? 'scaleX(-1)' : ''}`, // 🧠 FLIP IF NEEDED
-                  transition: 'transform 0.2s ease', // 🍑 Smooth flipping
-              }}
-          />
-          {/* Display the flies */}
+    <img
+                  id="frog"
+                  src={isSick ? sickImage : frogImage}
+                  alt="Frog"
+                  style={{
+                      width: '10vw',
+                      height: 'auto',
+                      position: 'absolute',
+                      left: '50%',
+                      bottom: '0vh',
+                      transform: `translateX(-50%) ${isFacingLeft ? 'scaleX(-1)' : ''}`, // 🧠 FLIP IF NEEDED
+                      transition: 'transform 0.2s ease', // 🍑 Smooth flipping
+                  }}
+              />
+   {/* Display the flies */}
 
-   <div className="flies-container" >
+<div className="flies-container" >
        {flies.length > 0 ? (
          flies.map((flyNumber, index) => (
              <div
@@ -462,7 +468,7 @@ function AdditionLevel() {
     alignItems: 'center',
     width: '100%',
     height: '20vh',
-    padding: '20px',
+    padding: '20px'
 }}>
   <svg
     width="80%"  // Adjust width percentage as needed
@@ -483,22 +489,20 @@ function AdditionLevel() {
     </g>
   </svg>
   </div>
-  <div><h1>Addition Problems</h1></div>
-  <div><p>{problem.num1} + {problem.num2} = ?</p></div>
+  <div><h1>Subtraction Problems</h1></div>
+  <div><p>{problem.num1} - {problem.num2} = ?</p></div>
 </div>
     <h3>{feedback}</h3>
     <svg className="tongue-svg">
   {showTongue && tongueEnd && (
-      <line
-          ref={tongueRef}
-          x1={tongueStart.x}
-          y1={tongueStart.y}
-          x2={tongueEnd?.x ?? tongueStart.x}
-          y2={tongueEnd?.y ?? tongueStart.y}
-          stroke="pink"
-          strokeWidth="7"
-          className="tongue-line"
-      />
+    <line
+      x1={tongueStart.x}
+      y1={tongueStart.y}
+      x2={tongueEnd.x}
+      y2={tongueEnd.y}
+      stroke="pink"
+      strokeWidth="7"
+    />
   )}
 </svg>
           {/* Pause Overlay */}
@@ -558,7 +562,5 @@ function AdditionLevel() {
       </div>
 
   );
-  
 }
-
-export default AdditionLevel;
+export default SubtractionLevel;

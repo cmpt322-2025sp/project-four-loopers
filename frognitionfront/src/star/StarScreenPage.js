@@ -11,13 +11,14 @@ import './StarScreenPage.css';
 import starOneSound from './star_one.mp3';
 import starTwoSound from './star_two.mp3';
 import starThreeSound from './star_three.mp3';
+import axios from 'axios';
 
 function StarScreenPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const problemsSolved = parseInt(searchParams.get("problemsSolved")) || 0;
-    const score = 2934;
+    const totalProblems = parseInt(searchParams.get("totalProblems")) || 0;
     const [showLeftStar, setShowLeftStar] = useState(false);
     const [showMiddleStar, setShowMiddleStar] = useState(false);
     const [showRightStar, setShowRightStar] = useState(false);
@@ -35,13 +36,18 @@ function StarScreenPage() {
                 setShowMiddleStar(true);
             }, 600);
         }
-        if (problemsSolved >= 25) {
+        if (problemsSolved >= 20) {
             setTimeout(() => {
                 new Audio(starThreeSound).play();
                 setShowRightStar(true);
             }, 900);
         }
-    }, [problemsSolved]);
+        axios.post("http://127.0.0.1:8000/submit_results/", {
+            correct: problemsSolved,
+            total: totalProblems,
+            problem_type: searchParams.get("problemType"),
+        })
+    }, [problemsSolved, totalProblems, searchParams]);
 
 
 

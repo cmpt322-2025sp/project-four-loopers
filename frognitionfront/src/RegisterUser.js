@@ -6,10 +6,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 import teacher from './teacher.png';
+import { useDispatch } from 'react-redux';
 
 function Register() {
-  const [formData, setFormData] = useState({ username: '', password: '', email: '' });
+  const [formData, setFormData] = useState({ username: '', password: '', email: '', class_name: 'class_1'});
   const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +22,7 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/auth/register/', formData);
-      dispatch(loginAction(response.data.user)); // Dispatch the user info to Redux
+      // dispatch(loginAction(response.data.user)); // Dispatch the user info to Redux
       setMessage('Account Created');
     } catch (error) {
       setMessage(error.response?.data?.error || 'Login failed. Please check your credentials.');
@@ -73,7 +75,7 @@ function Register() {
           <input
             type="email"
             name="email"
-            placeholder="ELLIE IS"
+            placeholder="email"
             value={formData.email}
             onChange={handleChange}
           
