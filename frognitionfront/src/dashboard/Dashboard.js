@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
 import teacher from '../teacher.png';
-import student0 from './student.png';
-import student1 from '.student(1).png';
-import student2 from '.student(2).png';
-import student3 from './student(3).png';
-import student4 from './student(4).png';
-import student5 from './student(5).png';
+import student0 from '../student.png';
+import student1 from '../student(1).png';
+import student2 from '../student(2).png';
+import student3 from '../student(3).png';
+import student4 from '../student(4).png';
+import student5 from '../student(5).png';
 
 const studentImages = [student0, student1, student2, student3, student4, student5];
 
@@ -38,7 +38,7 @@ const StudentCard = ({ name, imgSrc }) => (
     <div style={{
       marginTop: '10px',
       fontSize: '20px',
-      fontFamily: 'Krona One',
+      fontFamily: '"Baloo 2", cursive',
       color: 'black',
       textAlign: 'center'
     }}>
@@ -90,7 +90,7 @@ const TeacherDashboard = () => {
       }}>
         <div style={{
           fontSize: '30px',
-          fontFamily: 'Krona One',
+          fontFamily: '"Baloo 2", cursive',
         }}>
           WELCOME BACK MORGAN
         </div>
@@ -120,7 +120,7 @@ const TeacherDashboard = () => {
           padding: '20px',
           marginBottom: '20px',
           fontSize: '24px',
-          fontFamily: 'Krona One',
+          fontFamily: '"Baloo 2", cursive',
           color: 'black'
         }}>
           CLASS AVERAGE:
