@@ -425,7 +425,7 @@ function AdditionLevel() {
     }
 
     return (
-      <div className="addition-background-container" style={{
+      <div className="random-background-container" style={{
           // backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
