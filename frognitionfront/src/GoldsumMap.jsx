@@ -1,15 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Normalized positions relative to 1920x1080 base resolution
 const LEVEL_POSITIONS = [
-    { x: 183,  y: 775 },
-    { x: 468,  y: 650 },
-    { x: 739,  y: 487 },
-    { x: 1016, y: 591 },
-    { x: 1347, y: 478 },
-    { x: 1697, y: 610 },
+    { x: 182 / 1920,  y: 831 / 1080 },
+    { x: 467 / 1920,  y: 672 / 1080 },
+    { x: 740 / 1920,  y: 498 / 1080 },
+    { x: 1015 / 1920, y: 603 / 1080 },
+    { x: 1348 / 1920, y: 488 / 1080 },
+    { x: 1697 / 1920, y: 617 / 1080 },
 ];
-const CIRCLE_RADIUS = 30;
+const RADIUS_PX_AT_1920 = 62; // Half of 124
 
 const levelStatus = [true, true, true, true, true, true];
 const finalLevelBeaten = false;
@@ -73,44 +74,62 @@ function GoldsumMap() {
             ctx.drawImage(images.background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             let furthestUnlocked = levelStatus.filter(Boolean).length;
-            let furthestX = furthestUnlocked > 0
-                ? LEVEL_POSITIONS[furthestUnlocked - 1].x + 60
-                : 0;
+            const lastUnlockedNormX = LEVEL_POSITIONS[furthestUnlocked - 1]?.x || 0;
+            const furthestX = lastUnlockedNormX * canvas.width + ((60 / 1920) * canvas.width);
 
             if (furthestUnlocked > 0) {
+                const lastUnlockedX = (LEVEL_POSITIONS[furthestUnlocked - 1]?.x || 0) * canvas.width;
                 ctx.drawImage(
                     images.pathUnlocked,
-                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1].x, WINDOW_HEIGHT,
-                    0, 0, LEVEL_POSITIONS[furthestUnlocked - 1].x, WINDOW_HEIGHT
+                    0, 0, lastUnlockedX, canvas.height,
+                    0, 0, lastUnlockedX, canvas.height
                 );
             }
 
             if (furthestUnlocked < LEVEL_POSITIONS.length || (furthestUnlocked === LEVEL_POSITIONS.length && !finalLevelBeaten)) {
-                const startX = furthestUnlocked < LEVEL_POSITIONS.length
-                    ? LEVEL_POSITIONS[furthestUnlocked - 1].x
+                const startNormX = furthestUnlocked < LEVEL_POSITIONS.length
+                    ? LEVEL_POSITIONS[furthestUnlocked - 1]?.x || 0
                     : LEVEL_POSITIONS[LEVEL_POSITIONS.length - 1].x;
+                const startX = startNormX * canvas.width;
 
                 ctx.drawImage(
                     images.pathLocked,
-                    startX, 0, WINDOW_WIDTH - startX, WINDOW_HEIGHT,
-                    startX, 0, WINDOW_WIDTH - startX, WINDOW_HEIGHT
+                    startX, 0, canvas.width - startX, canvas.height,
+                    startX, 0, canvas.width - startX, canvas.height
                 );
             }
 
             if (furthestUnlocked > 0) {
+                const furthestX = (LEVEL_POSITIONS[furthestUnlocked - 1]?.x || 0) * canvas.width + ((60 / 1920) * canvas.width);
+
                 ctx.drawImage(
                     images.levelsUnlocked,
-                    0, 0, furthestX, WINDOW_HEIGHT,
-                    0, 0, furthestX, WINDOW_HEIGHT
+                    0, 0, furthestX, canvas.height,
+                    0, 0, furthestX, canvas.height
+                );
+
+                ctx.drawImage(
+                    images.levelsLocked,
+                    furthestX, 0, canvas.width - furthestX, canvas.height,
+                    furthestX, 0, canvas.width - furthestX, canvas.height
                 );
             }
 
             if (furthestUnlocked < LEVEL_POSITIONS.length) {
+                const furthestX = (LEVEL_POSITIONS[furthestUnlocked - 1]?.x || 0) * canvas.width + ((60 / 1920) * canvas.width);
+
+                ctx.drawImage(
+                    images.levelsUnlocked,
+                    0, 0, furthestX, canvas.height,
+                    0, 0, furthestX, canvas.height
+                );
+
                 ctx.drawImage(
                     images.levelsLocked,
-                    furthestX, 0, WINDOW_WIDTH - furthestX, WINDOW_HEIGHT,
-                    furthestX, 0, WINDOW_WIDTH - furthestX, WINDOW_HEIGHT
+                    furthestX, 0, canvas.width - furthestX, canvas.height,
+                    furthestX, 0, canvas.width - furthestX, canvas.height
                 );
+
             }
 
             ctx.drawImage(images.border, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -129,13 +148,15 @@ function GoldsumMap() {
         const clickY = event.clientY - rect.top;
 
         for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
-            const { x, y } = LEVEL_POSITIONS[i];
+            const { x: normX, y: normY } = LEVEL_POSITIONS[i];
+            const actualX = normX * canvas.width;
+            const actualY = normY * canvas.height;
+            const radius = (RADIUS_PX_AT_1920 / 1920) * canvas.width; // Scaled radius
 
             const distance = Math.sqrt(
-                Math.pow(clickX - x, 2) + Math.pow(clickY - y, 2)
+                Math.pow(clickX - actualX, 2) + Math.pow(clickY - actualY, 2)
             );
-
-            if (distance <= CIRCLE_RADIUS && levelStatus[i]) {
+            if (distance <= radius && levelStatus[i]) {
                 console.log(`Clicked inside circle ${i + 1}, navigating...`);
                 navigate('/addition');
                 return;
@@ -151,11 +172,15 @@ function GoldsumMap() {
 
         let hovering = false;
         for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
-            const { x, y } = LEVEL_POSITIONS[i];
+            const { x: normX, y: normY } = LEVEL_POSITIONS[i];
+            const actualX = normX * canvas.width;
+            const actualY = normY * canvas.height;
+            const radius = (RADIUS_PX_AT_1920 / 1920) * canvas.width; // Scaled radius
+
             const distance = Math.sqrt(
-                Math.pow(moveX - x, 2) + Math.pow(moveY - y, 2)
+                Math.pow(moveX - actualX, 2) + Math.pow(moveY - actualY, 2)
             );
-            if (distance <= CIRCLE_RADIUS && levelStatus[i]) {
+            if (distance <= radius && levelStatus[i]) {
                 hovering = true;
                 break;
             }
