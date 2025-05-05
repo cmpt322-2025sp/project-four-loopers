@@ -16,6 +16,7 @@ import GoldsumMap from "./map/GoldsumMap";
 function App() {
 
   return (
+    <Provider store={store}>
       <Router>
         <NavListener />
         <Routes>
@@ -30,6 +31,7 @@ function App() {
           <Route path="/map" element={<GoldsumMap />} />
         </Routes>
       </Router>
+    </Provider>
   );
 }
 
