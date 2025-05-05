@@ -144,8 +144,11 @@ function GoldsumMap() {
     const handleCanvasClick = (event) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
-        const clickX = event.clientX - rect.left;
-        const clickY = event.clientY - rect.top;
+        const scaleX = 1920 / rect.width;
+        const scaleY = 1080 / rect.height;
+
+        const clickX = (event.clientX - rect.left) * scaleX;
+        const clickY = (event.clientY - rect.top) * scaleY;
 
         for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
             const { x: normX, y: normY } = LEVEL_POSITIONS[i];
@@ -167,15 +170,20 @@ function GoldsumMap() {
     const handleMouseMove = (event) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
-        const moveX = event.clientX - rect.left;
-        const moveY = event.clientY - rect.top;
+
+        // Calculate scale ratios to map to 1920x1080
+        const scaleX = 1920 / rect.width;
+        const scaleY = 1080 / rect.height;
+
+        const moveX = (event.clientX - rect.left) * scaleX;
+        const moveY = (event.clientY - rect.top) * scaleY;
 
         let hovering = false;
         for (let i = 0; i < LEVEL_POSITIONS.length; i++) {
             const { x: normX, y: normY } = LEVEL_POSITIONS[i];
-            const actualX = normX * canvas.width;
-            const actualY = normY * canvas.height;
-            const radius = (RADIUS_PX_AT_1920 / 1920) * canvas.width; // Scaled radius
+            const actualX = normX * 1920;
+            const actualY = normY * 1080;
+            const radius = (RADIUS_PX_AT_1920); // Already based on 1920, so no scaling
 
             const distance = Math.sqrt(
                 Math.pow(moveX - actualX, 2) + Math.pow(moveY - actualY, 2)
@@ -194,10 +202,14 @@ function GoldsumMap() {
             onClick={handleCanvasClick}
             onMouseMove={handleMouseMove}
             style={{
-                width: '100vw',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 'auto',
                 height: '100vh',
-                display: 'block',
-                backgroundColor: '#000',
+                aspectRatio: '16 / 9',
+                backgroundColor: 'black',
                 cursor: isHoveringCircle ? 'pointer' : 'default',
             }}
         />
