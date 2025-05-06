@@ -28,7 +28,6 @@ function LoginPage() {
         })
       );
       dispatch(authSlice.actions.setAccount(response.data.user));
-      history.push("/map"); 
 
       navigate("/map"); 
     } catch (error) {

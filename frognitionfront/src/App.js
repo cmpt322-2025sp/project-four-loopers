@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';  // Import Provider
 import { PersistGate } from "redux-persist/integration/react";
+import useStore from "redux-persist/es/persistStore";
 import store from './store';  // Import your store file
 import AdditionLevel from './addition/AdditionLevel';
 import Register from './RegisterUser';
@@ -15,6 +16,7 @@ import RandomLevel from './random/RandomLevel';
 import GoldsumMap from "./map/GoldsumMap";
 
 function App() {
+  const { store, persistor } = useStore();
 
   return (
     <Provider store={store}>
