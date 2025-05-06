@@ -38,7 +38,7 @@ const persistedReducer = persistReducer(
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api],
 })
 
 export const persistor = persistStore(store);
