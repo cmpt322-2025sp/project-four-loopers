@@ -27,18 +27,18 @@ const persistedReducer = persistReducer(
   rootReducer
 );
 
-// const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: (getDefaultMiddleware) => [getDefaultMiddleware({
-//     serializableCheck: {
-//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//     },
-//   }).concat(logger)],
-// });
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => {getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  })},
+});
 
 
-export const store = configureStore({
-  reducer: rootReducer,
-})
+// export const store = configureStore({
+//   reducer: rootReducer,
+// })
 
 export const persistor = persistStore(store);
