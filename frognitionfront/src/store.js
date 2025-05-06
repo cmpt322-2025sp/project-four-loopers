@@ -1,10 +1,41 @@
 // src/store.js
-import { createStore } from 'redux';
-import rootReducer from './reducers';  // Assuming you will create a rootReducer or combine reducers
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import authSlice from "./auth";
 
-const store = createStore(
-  rootReducer, // You will need to combine reducers if you have multiple
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Optional: Redux DevTools extension
+const rootReducer = combineReducers({
+  auth: authSlice.reducer,
+});
+
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    version: 1,
+    storage: storage,
+  },
+  rootReducer
 );
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+});
+
+export const persistor = persistStore(store);
 
 export default store;

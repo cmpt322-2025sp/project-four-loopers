@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'; 
 import './LoginPage.css';
 import subwayLogo from './Subway_2016_logo.png';
+import authSlice from './auth';
 
 function LoginPage() {
   const [message, setMessage] = useState("");
@@ -18,12 +19,14 @@ function LoginPage() {
         password,
       });
 
-      const { token, user } = response.data;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      setMessage("");
+      dispatch(
+        authSlice.actions.setAuthTokens({
+          token: response.data.access,
+          refreshToken: response.data.refresh,
+        })
+      );
+      dispatch(authSlice.actions.setAccount(response.data.user));
+      history.push("/map"); 
 
       navigate("/map"); 
     } catch (error) {
