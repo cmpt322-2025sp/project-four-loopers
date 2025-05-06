@@ -5,12 +5,14 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'; 
 import './LoginPage.css';
 import subwayLogo from './Subway_2016_logo.png';
+import { useDispatch } from "react-redux";
 import authSlice from './auth';
 
 function LoginPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); 
+  const dispatch = useDispatch();
   
   const handleLogin = async (username, password) => {
     try {
