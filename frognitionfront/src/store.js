@@ -37,14 +37,9 @@ const persistedReducer = persistReducer(
 // });
 
 
-export default() => {
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(),],
+})
 
-  let store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(),],
-  })
-  
-  let persistor = persistStore(store);
-  
-  return { store, persistor };
-}
+export const persistor = persistStore(store);
