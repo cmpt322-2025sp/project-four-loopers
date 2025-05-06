@@ -36,11 +36,11 @@ const persistedReducer = persistReducer(
 //   }).concat(logger)],
 // });
 
-const store = configureStore({
+let store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(),],
 })
 
-export const persistor = persistStore(store);
+let persistor = persistStore(store);
 
-export default store;
+export default { store, persistor };
