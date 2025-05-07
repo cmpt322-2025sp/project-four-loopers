@@ -5,11 +5,14 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'; 
 import './LoginPage.css';
 import subwayLogo from './Subway_2016_logo.png';
+import { useDispatch } from "react-redux";
+import authSlice from './auth';
 
 function LoginPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); 
+  const dispatch = useDispatch();
   
   const handleLogin = async (username, password) => {
     try {
@@ -18,12 +21,13 @@ function LoginPage() {
         password,
       });
 
-      const { token, user } = response.data;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      setMessage("");
+      dispatch(
+        authSlice.actions.setAuthTokens({
+          token: response.data.access,
+          refreshToken: response.data.refresh,
+        })
+      );
+      dispatch(authSlice.actions.setAccount(response.data.user));
 
       navigate("/map"); 
     } catch (error) {

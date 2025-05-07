@@ -208,7 +208,7 @@ function AdditionLevel() {
                 const randomNum = Math.floor(Math.random() * 1000); // Random number between 0 and 999
                 const placeToCheck = Math.floor(Math.random() * 3); // Random place to check (0, 1, or 2)
                 const num = randomNum.toString().padStart(3, '0'); // Ensure it's a 3-digit number
-                const PVCorrectAnswer = num[placeToCheck]; // Get the digit at the specified place
+                const PVCorrectAnswer = parseInt(num[placeToCheck], 10); // Get the digit at the specified place
                 if (placeToCheck === 0) {
                     const PVProblemLabel = 'What is in the hundreds place of '+num+'?';
                     setProblem({ label: PVProblemLabel });
