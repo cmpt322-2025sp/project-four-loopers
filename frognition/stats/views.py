@@ -46,11 +46,11 @@ def record_results(request):
 # @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_user_stats(request, user_id):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     # Check if the user is a teacher and belongs to the same class as the student
-    if not request.user.groups.filter(name='teacher').exists():
-        return JsonResponse({'error': 'Permission denied'}, status=403)
-    classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
+    # if not request.user.groups.filter(name='teacher').exists():
+    #     return JsonResponse({'error': 'Permission denied'}, status=403)
+    classGroup = Group.objects.get(name='class_1')
     if not classGroup.user_set.filter(id=user_id).exists():
         return JsonResponse({'error': 'User not in your class'}, status=403)
     
@@ -81,12 +81,12 @@ def get_user_stats(request, user_id):
 # @permission_required('user_management.teacher', raise_exception=True)
 @api_view(['GET'])
 def get_all_students_stats(request):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     # Check if the user is a teacher
-    if not request.user.groups.filter(name='teacher').exists():
-        return JsonResponse({'error': 'Permission denied'}, status=403)
-    classGroup = Group.objects.get(name=request.user.groups.filter(name__startswith='class_').first())
-    students = User.objects.filter(groups__in=classGroup, groups__name__in=['student'])
+    # if not request.user.groups.filter(name='teacher').exists():
+    #     return JsonResponse({'error': 'Permission denied'}, status=403)
+    classGroup = Group.objects.get(name='class_1')
+    students = User.objects.filter(groups__name__in=['student'])
     all_students_stats = []
 
     for student in students:

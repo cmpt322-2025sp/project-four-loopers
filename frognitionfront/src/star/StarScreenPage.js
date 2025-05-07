@@ -42,11 +42,11 @@ function StarScreenPage() {
                 setShowRightStar(true);
             }, 900);
         }
-        axios.post("http://127.0.0.1:8000/submit_results/", {
-            correct: problemsSolved,
-            total: totalProblems,
-            problem_type: searchParams.get("problemType"),
-        })
+        // axios.post("http://127.0.0.1:8000/submit_results/", {
+        //     correct: problemsSolved,
+        //     total: totalProblems,
+        //     problem_type: searchParams.get("problemType"),
+        // })
     }, [problemsSolved, totalProblems, searchParams]);
 
 
