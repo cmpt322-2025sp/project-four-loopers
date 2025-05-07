@@ -72,7 +72,7 @@ const TeacherDashboard = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/get_student_stats/')
+    axios.get('https://django.stargazer-vega.ts.net/get_student_stats/')
       .then(res => setStudents(res.data))
       .catch(err => console.error(err));
   }, []);

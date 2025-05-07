@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ytg8krar(copd7sr$ck1k-6z829s^y)n*!!)hioavj4a!rwu_+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django.stargazer-vega.ts.net']
 
 
 # Application definition
@@ -80,11 +80,11 @@ CSRF_COOKIE_NAME = 'csrftoken'
 CORS_ALLOW_CREDENTIALS = True
 ACCESS_CONTROL_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", "http://127.0.0.1:3000",
+    "http://localhost:3000", "http://127.0.0.1:3000", "https://frognition.stargazer-vega.ts.net",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000", "http://127.0.0.1:3000",
+    "http://localhost:3000", "http://127.0.0.1:3000", "https://frognition.stargazer-vega.ts.net",
 ]
 
 ROOT_URLCONF = 'frognition.urls'
