@@ -18,8 +18,8 @@ import GoldsumMap from "./map/GoldsumMap";
 function App() {
 
   return (
-    // <Provider store={store}>
-    //   <PersistGate persistor={persistor} loading={null}>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
       <Router>
         <NavListener />
         <Routes>
@@ -34,8 +34,8 @@ function App() {
           <Route path="/map" element={<GoldsumMap />} />
         </Routes>
       </Router>
-    //   </PersistGate>
-    // </Provider>
+      </PersistGate>
+    </Provider>
   );
 }
 
